@@ -7,7 +7,7 @@ public class test {
 		System.out.println("githut push test.....1111");
 
 		System.out.println("t.....1111");
-		System.out.println("나입니다.");
+		System.out.println("itsme");
 
 	}
 
