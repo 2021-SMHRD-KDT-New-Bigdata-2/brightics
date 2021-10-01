@@ -1,5 +1,8 @@
 package com.smhrd;
 
 public class Test3 {
-	//파일추가
+	private void syso() {
+		// TODO Auto-generated method stub
+
+	}
 }
