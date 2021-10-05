@@ -10,18 +10,12 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@SequenceGenerator(
-        name = "dailystock_id_generator",
-        sequenceName = "dailystock_id", // 매핑할 데이터베이스 시퀀스 이름
-        initialValue = 1,
-        allocationSize = 1)
+@NamedEntityGraph(name="dailyStockWithStock",attributeNodes = @NamedAttributeNode("stock"))
 public class DailyStock {
     @Id
     @GeneratedValue
     @Column(name="dailystock_id")
     private Long id;
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="stock_code")
     private Stock stock;

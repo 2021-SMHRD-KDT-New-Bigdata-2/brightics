@@ -53,13 +53,13 @@
 
       <div class="clearfix"></div>
 
-      <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+      <div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s" th:each="candidate: ${candidateList}">
         <div class="feature-thumb">
           <div class="feature-icon">
              <span><img class="img-responsive" src="images/todo-icon-01.png" /></span>
           </div>
-          <h3>Visa/Papers</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus.</p>
+          <h3 th:text="${candidate.name}">후보 이름</h3>
+          <p th:text="${candidate.description}">후보 설명.</p>
         </div>
       </div>
 
