@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <div th:replace="/fragments/head :: headFragment"></div>
+
+</head>
+<body>
+<div class="loader loader-bg">
+  <div class="loader-inner ball-pulse-rise">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<!------------Static navbar ------------>
+<div th:replace="/fragments/nav :: navFragment"></div>
+
+
+
+
+
+
+
+
+
+
+
+<!--footer-->
+<div th:replace="/fragments/footer :: footerFragment"></div>
+<!--script-->
+<div th:replace="/fragments/script :: scriptFragment"></div>
+
+</body>
+</html>
