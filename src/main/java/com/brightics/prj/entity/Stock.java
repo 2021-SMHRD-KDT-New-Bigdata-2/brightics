@@ -7,13 +7,11 @@ import javax.persistence.*;
 public class Stock {
 
     @Id
-    @GeneratedValue
-    @Column(name="stock_id")
-    private Long id;
+    @Column(name="stock_code")
     private String code;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="candidate_id")
     private Candidate candidate;
 }

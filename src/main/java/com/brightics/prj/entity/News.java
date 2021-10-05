@@ -13,7 +13,7 @@ public class News {
     private String url;
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="candidate_id")
     private Candidate candidate;
 

@@ -11,9 +11,8 @@ public class DailyStock {
     private Long id;
 
 
-
-    @ManyToOne
-    @JoinColumn(name="stock_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="stock_code")
     private Stock stock;
     private Long tradingVolume;
     private Date date;
