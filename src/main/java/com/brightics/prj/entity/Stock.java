@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 @Entity
 public class Stock {
+
     @Id
     @GeneratedValue
     @Column(name="stock_id")
