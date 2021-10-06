@@ -15,7 +15,8 @@ public class Stock {
     @Column(name="stock_code")
     private String code;
     private String name;
-
+    private String category;
+    private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="candidate_id")
