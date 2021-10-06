@@ -25,6 +25,7 @@ public class DailyStock {
     private double close;
     private double high;
     private double low;
+    private String description;
 
     public DailyStock() {
 
