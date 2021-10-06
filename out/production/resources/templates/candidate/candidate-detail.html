@@ -63,8 +63,8 @@
                     <tbody>
 
                     <tr th:each="stock:${stockList}">
-                        <td th:text="${stock.name}">Item1</td>
-                        <td><a th:href="@{stock/{code}(code=${stock.code})}" th:text="${stock.description}">Ante turpis integer aliquet porttitor.</a></td>
+                        <td><a th:href="@{stock/{code}(code=${stock.code})}" th:text="${stock.name}">item.</a></td>
+                        <td><a th:href="@{stock/{code}(code=${stock.code})}" th:text="${stock.name}">Ante turpis integer aliquet porttitor.</a></td>
                         <td th:text="${stock.category}">카테고리</td>
                     </tr>
 
@@ -82,7 +82,9 @@
     </section>
     <section id="two">
         <div class="inner">
-            <h3>지난 일주일간 후보의 관심도 그래프</h3>
+            <h3>지난 일주일간 후보의 뉴스기사 빈도수</h3>
+
+
 
 
             <!-- Footer -->

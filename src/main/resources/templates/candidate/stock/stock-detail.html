@@ -4,13 +4,13 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>Forty by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="../assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="../../assets/css/main.css" th:href="@{/assets/css/main.css}"/>
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" th:href="@{/assets/css/noscript.cs}"/></noscript>
 	</head>
 	<body class="is-preload">
 
@@ -19,7 +19,7 @@
 
 				<!-- Header -->
 					<header id="header" class="alt">
-						<a href="../index.html" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
+						<a href="../../index.html" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
 						<nav>
 							<a href="#menu">Menu</a>
 						</nav>
@@ -28,7 +28,7 @@
 				<!-- Menu -->
 					<nav id="menu">
 						<ul class="links">
-							<li><a href="../index.html">Home</a></li>
+							<li><a href="../../index.html">Home</a></li>
 							<li><a href="landing.html">Landing</a></li>
 							<li><a href="generic.html">Generic</a></li>
 							<li><a href="elements.html">Elements</a></li>
@@ -42,7 +42,7 @@
                     <section id="one">
                         <div class="inner">
                             <header class="major">
-                                <h1>주식 이름</h1>
+                                <h1 th:text="${stock.name}">주식 이름</h1>
                             </header>
 
                             <h3>지난 일주일간 관련 후보 뉴스 언급량</h3>
@@ -83,13 +83,13 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="../assets/js/jquery.min.js"></script>
-			<script src="../assets/js/jquery.scrolly.min.js"></script>
-			<script src="../assets/js/jquery.scrollex.min.js"></script>
-			<script src="../assets/js/browser.min.js"></script>
-			<script src="../assets/js/breakpoints.min.js"></script>
-			<script src="../assets/js/util.js"></script>
-			<script src="../assets/js/main.js"></script>
+			<script src="../../assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js" th:src="@{/js/jquery.scrolly.min.js}"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js" th:src="@{/jquery.scrollex.min.js}"></script>
+			<script src="../../assets/js/browser.min.js" th:src="@{/assets/js/browser.min.js}"></script>
+			<script src="../../assets/js/breakpoints.min.js" th:src="@{/assets/js/breakpoints.min.js}"></script>
+			<script src="../../assets/js/util.js" th:src="@{/assets/js/util.js}"></script>
+			<script src="../../assets/js/main.js" th:src="@{/assets/js/main.js}"></script>
 
 	</body>
 </html>

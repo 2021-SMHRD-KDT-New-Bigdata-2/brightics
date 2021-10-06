@@ -40,10 +40,13 @@ public class MainController {
 
         return "candidate/candidate-detail";
     }
-//    @GetMapping("/candidate/detail/detail")
-//    public String StockDetail(){
-//        return "stock-detail";
-//    }
+    @GetMapping("/candidate/stock/{code}")
+    public String StockDetail(@PathVariable String code, Model model){
+        Stock stock = stockRepository.findStockByCodeIs(code).get();
+        model.addAttribute("stock", stock);
+
+        return "candidate/stock/stock-detail";
+    }
 }
 
 
