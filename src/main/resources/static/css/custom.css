@@ -173,7 +173,7 @@ section {
       -ms-flex-align: center;
         align-items: center;
   text-align: center;
-  height: 100vh;
+  height: 50vh;
   overflow: hidden;
   position: relative;
 }
@@ -199,11 +199,6 @@ background: linear-gradient(120deg, #7b4397 , #dc2430); /* W3C, IE 10+/ Edge, Fi
 #banner small {
     font-size: 18px;
     font-weight: 300;
-}
-
-#banner .btn{
-    text-transform: uppercase;
-    margin-top: 20px;
 }
 
 
@@ -290,6 +285,9 @@ background: linear-gradient(120deg, #7b4397 , #dc2430); /* W3C, IE 10+/ Edge, Fi
   display: table;
   text-align: center;
   transition: all 0.4s ease-in-out;
+}
+#todo .candidate surch {
+    margin: 0 auto 30px;
 }
 
 #todo h3 {
