@@ -3950,3 +3950,15 @@ input, select, textarea {
 			opacity: 1;
 			visibility: visible;
 		}
+
+
+/* css 추가*/
+
+        div.company.description{
+            position : static;
+        }
+
+        div.company.description{
+         position : relative;
+            top : 50%
+        }
