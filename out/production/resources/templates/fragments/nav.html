@@ -3,30 +3,26 @@
 
 <th:block th:fragment="navFragment">
     <!------------Static navbar ------------>
-    <nav class="navbar navbar-default top-bar affix" data-spy="affix" data-offset-top="250" >
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">대선주자 관련 테마주에 대한 미디어의 영향력</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
+    <!-- Header -->
+    <header id="header" class="alt">
+        <a href="/" class="logo"><strong>BRIGHTICS</strong> <span>프로젝트 이름</span></a>
+        <nav>
+            <a href="#menu">Menu</a>
+        </nav>
+    </header>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#banner">Home</a></li>
-                    <li><a href="#todo">대선주자</a></li>
-                    <li><a href="#video-sec">테마주</a></li>
-                    <li><a href="#location">미디어의영향력</a></li>
-                    <li><a href="#hotels">회원가입</a></li>
-                    <li><a href="#contact-sec">admin</a></li>
-
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div>
+    <!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/candidate">CANDIDATE</a></li>
+            <li><a href="/analysis">ANALYSIS</a></li>
+            <li><a href="/about">ABOUT THIS PROJECT</a></li>
+        </ul>
+<!--        <ul class="actions stacked">-->
+<!--            <li><a href="#" class="button primary fit">Get Started</a></li>-->
+<!--            <li><a href="#" class="button fit">Log In</a></li>-->
+<!--        </ul>-->
     </nav>
 
 </th:block>

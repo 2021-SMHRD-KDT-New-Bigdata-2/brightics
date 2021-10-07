@@ -7,13 +7,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Forty by HTML5 UP</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <link rel="stylesheet" href="../assets/css/main.css"/>
-    <noscript>
-        <link rel="stylesheet" href="/assets/css/noscript.css" th:href="@{/templates/assets/css/noscript.css}"/>
-    </noscript>
+    <div th:replace="/fragments/head :: headFragment"></div>
 </head>
 
 <body class="is-preload">
@@ -21,28 +15,7 @@
 <!-- Wrapper -->
 <div id="wrapper">
 
-    <!-- Header -->
-    <header id="header" class="alt">
-        <a href="../index.html" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
-        <nav>
-            <a href="#menu">Menu</a>
-        </nav>
-    </header>
-
-
-    <!-- Menu -->
-    <nav id="menu">
-        <ul class="links">
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="landing.html">Landing</a></li>
-            <li><a href="generic.html">Generic</a></li>
-            <li><a href="elements.html">Elements</a></li>
-        </ul>
-        <ul class="actions stacked">
-            <li><a href="#" class="button primary fit">Get Started</a></li>
-            <li><a href="#" class="button fit">Log In</a></li>
-        </ul>
-    </nav>
+    <div th:replace="/fragments/nav :: navFragment"></div>
 
     <section id="one">
         <div class="inner">
@@ -65,7 +38,8 @@
 
                     <tr th:each="stock:${stockList}">
                         <td><a th:href="@{stock/{code}(code=${stock.code})}" th:text="${stock.name}">item.</a></td>
-                        <td><a th:href="@{stock/{code}(code=${stock.code})}" th:text="${stock.description}">Ante turpis integer
+                        <td><a th:href="@{stock/{code}(code=${stock.code})}" th:text="${stock.description}">Ante turpis
+                            integer
                             aliquet porttitor.</a></td>
                         <td th:text="${stock.category}">카테고리</td>
                     </tr>
@@ -93,59 +67,25 @@
                 var name = [[${candidate.name}]];
                 /*]]>*/
                 trends.embed.renderExploreWidget("TIMESERIES", {
-                "comparisonItem": [{
-                    "keyword": name,
-                    "geo": "KR",
-                    "time": "now 7-d"
-                }], "category": 0, "property": ""
-            }, {
-                "exploreQuery": "date=now%207-d&geo=KR&q=%EC%9D%B4%EC%9E%AC%EB%AA%85",
-                "guestPath": "https://trends.google.co.kr:443/trends/embed/"
-            }); </script>
+                    "comparisonItem": [{
+                        "keyword": name,
+                        "geo": "KR",
+                        "time": "now 7-d"
+                    }], "category": 0, "property": ""
+                }, {
+                    "exploreQuery": "date=now%207-d&geo=KR&q=%EC%9D%B4%EC%9E%AC%EB%AA%85",
+                    "guestPath": "https://trends.google.co.kr:443/trends/embed/"
+                }); </script>
+
+        </div>
+    </section>
 
 
-            <div>
-
-
-                <!-- Footer -->
-                <footer id="footer">
-                    <div class="inner">
-                        <ul class="icons">
-                            <li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a>
-                            </li>
-                            <li><a href="#" class="icon brands alt fa-facebook-f"><span
-                                    class="label">Facebook</span></a>
-                            </li>
-                            <li><a href="#" class="icon brands alt fa-instagram"><span
-                                    class="label">Instagram</span></a>
-                            </li>
-                            <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-                            <li><a href="#" class="icon brands alt fa-linkedin-in"><span
-                                    class="label">LinkedIn</span></a>
-                            </li>
-                        </ul>
-                        <ul class="copyright">
-                            <li>&copy; Untitled</li>
-                            <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
-                        </ul>
-                    </div>
-                </footer>
-
-            </div>
-
-            <!-- Scripts -->
-            <script src="../assets/js/jquery.min.js" th:src="@{/templates/assets/js/jquery.min.js}"></script>
-            <script src="../assets/js/jquery.scrolly.min.js"
-                    th:src="@{/templates/assets/js/jquery.scrolly.min.js}"></script>
-            <script src="../assets/js/jquery.scrollex.min.js"
-                    th:src="@{/templates/assets/js/jquery.scrollex.min.js}"></script>
-            <script src="../assets/js/browser.min.js" th:src="@{/templates/assets/js/browser.min.js}"></script>
-            <script src="../assets/js/breakpoints.min.js" th:src="@{/templates/assets/js/breakpoints.min.js}"></script>
-            <script src="../assets/js/util.js" th:src="@{/templates/assets/js/util.js}"></script>
-            <script src="../assets/js/main.js" th:src="@{/templates/assets/js/main.js}"></script>
-            <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js}"></script>
-
-
+    <!-- Footer -->
+    <div th:replace="/fragments/footer :: footerFragment"></div>
+</div>
+<!-- Scripts -->
+<div th:replace="/fragments/script :: scriptFragment"></div>
 
 </body>
 </html>
