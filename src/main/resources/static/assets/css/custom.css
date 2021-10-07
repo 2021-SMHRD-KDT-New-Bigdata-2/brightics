@@ -1,0 +1,8 @@
+div.company.description{
+    position : static;
+}
+
+div.company.description{
+    position : relative;
+    top : 50%
+}
