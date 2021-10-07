@@ -19,18 +19,15 @@
 
     <section id="one">
         <div class="inner">
-            <header class="major">
-                <h1 th:text="${stock.name}">주식 이름</h1>
-            </header>
+            <divheader class="major">
+                <span class="strong" th:text="${stock.name}">주식 이름 </span>
+                <span class="middle" th:text="${stock.code}">주식 코드 </span>
+            </divheader>
             <section>
             <div class="row">
                 <div class="col-6 col-12-small">
                     <h3>----제목</h3>
-                    <p>설명.</p>
-                </div>
-                <div class="col-6 col-12-small">
-                    <h3>----제목</h3>
-                    <p>설명.</p>
+                    <p >회사설명.</p>
                 </div>
             </div>
             </section>
