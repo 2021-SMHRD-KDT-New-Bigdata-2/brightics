@@ -170,7 +170,19 @@ input, select, textarea {
 	strong, b {
 		color: #ffffff;
 		font-weight: 600;
+		margin: 0 10%;
 	}
+
+	span.strong {
+        	font-size: 2.5em;
+        	font-weight: 600;
+    }
+
+    span.middle {
+            font-size: 2.0em;
+            font-weight: 600;
+            margin: 0 0 0 0.5em;
+    }
 
 	em, i {
 		font-style: italic;
@@ -215,6 +227,8 @@ input, select, textarea {
 	h6 {
 		font-size: 0.7em;
 	}
+
+
 
 	@media screen and (max-width: 736px) {
 
@@ -1815,6 +1829,39 @@ input, select, textarea {
 
 	}
 
+	divheader.major {
+    		width: -moz-max-content;
+    		width: -webkit-max-content;
+    		width: -ms-max-content;
+    		width: max-content;
+    		margin-bottom: 2em;
+    	}
+
+    		divheader.major > :last-child::after {
+    			margin-bottom: 0;
+    			width: calc(100% + 0.5em);
+    		}
+
+    			divheader.major > :last-child::after {
+    				content: '';
+    				background-color: #ffffff;
+                    display: block;
+    				height: 2px;
+    				margin: 0.325em 0 0.5em 0;
+    				width: 100%;
+    			}
+
+    	    divheader.major > p {
+                			font-size: 0.7em;
+                			font-weight: 600;
+                			letter-spacing: 0.25em;
+                			margin-bottom: 0;
+                			text-transform: uppercase;
+                		}
+
+
+
+
 /* Form */
 
 	form {
@@ -2460,8 +2507,12 @@ input, select, textarea {
 			color: #ffffff;
 			font-size: 0.9em;
 			font-weight: 600;
-			padding: 0 0.75em 0.75em 0.75em;
+			padding: 0 0.5em 0.75em 0.75em;
 			text-align: left;
+		}
+
+		table th.th-2 {
+		    width :75%;
 		}
 
 		table thead {
@@ -3109,6 +3160,28 @@ input, select, textarea {
 		}
 	}
 
+/*	#divheader {
+    		display: -moz-flex;
+    		display: -webkit-flex;
+    		display: -ms-flex;
+    		display: flex;
+    		background-color: #2a2f4a;
+    		box-shadow: 0 0 0.25em 0 rgba(0, 0, 0, 0.15);
+    		cursor: default;
+    		font-weight: 600;
+    		height: 3.25em;
+    		left: 0;
+    		letter-spacing: 0.25em;
+    		line-height: 3.25em;
+    		margin: 0;
+    		position: fixed;
+    		text-transform: uppercase;
+    		top: 0;
+    		width: 100%;
+    		z-index: 10000;
+    	}
+    	*/
+
 	#header {
 		display: -moz-flex;
 		display: -webkit-flex;
@@ -3742,6 +3815,7 @@ input, select, textarea {
 
 /* Wrapper */
 
+
 	#wrapper {
 		-moz-transition: -moz-filter 0.35s ease, -webkit-filter 0.35s ease, opacity 0.375s ease-out;
 		-webkit-transition: -webkit-filter 0.35s ease, -webkit-filter 0.35s ease, opacity 0.375s ease-out;
@@ -3755,11 +3829,11 @@ input, select, textarea {
 		}
 
 		#wrapper > * > .inner {
-			padding: 4em 0 2em 0 ;
-			margin: 0 auto;
-			max-width: 65em;
-			width: calc(100% - 6em);
-		}
+    			padding: 4em 0 2em 0 ;
+    			margin: 0 auto;
+    			max-width: 65em;
+    			width: calc(100% - 6em);
+    		}
 
 			@media screen and (max-width: 736px) {
 
@@ -3952,13 +4026,3 @@ input, select, textarea {
 		}
 
 
-/* css 추가*/
-
-        div.company.description{
-            position : static;
-        }
-
-        div.company.description{
-         position : relative;
-            top : 50%
-        }
