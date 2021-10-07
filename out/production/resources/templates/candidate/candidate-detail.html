@@ -84,12 +84,21 @@
     <section id="two">
         <div class="inner">
             <h3>지난 일주일간 후보의 뉴스기사 빈도수</h3>
+
+            <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2674_RC03/embed_loader.js"></script>
+            <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {
+                "comparisonItem": [{
+                    "keyword": "이재명",
+                    "geo": "KR",
+                    "time": "now 7-d"
+                }], "category": 0, "property": ""
+            }, {
+                "exploreQuery": "date=now%207-d&geo=KR&q=%EC%9D%B4%EC%9E%AC%EB%AA%85",
+                "guestPath": "https://trends.google.co.kr:443/trends/embed/"
+            }); </script>
+
+
             <div>
-                <div class="row">
-                    <div class="col-12-medium">
-                        <canvas id="myChart" width="400" height="400"></canvas>
-                    </div>
-                </div>
 
 
                 <!-- Footer -->
