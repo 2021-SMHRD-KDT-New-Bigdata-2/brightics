@@ -29,6 +29,7 @@
         </nav>
     </header>
 
+
     <!-- Menu -->
     <nav id="menu">
         <ul class="links">
@@ -64,7 +65,7 @@
 
                     <tr th:each="stock:${stockList}">
                         <td><a th:href="@{stock/{code}(code=${stock.code})}" th:text="${stock.name}">item.</a></td>
-                        <td><a th:href="@{stock/{code}(code=${stock.code})}" th:text="${stock.name}">Ante turpis integer
+                        <td><a th:href="@{stock/{code}(code=${stock.code})}" th:text="${stock.description}">Ante turpis integer
                             aliquet porttitor.</a></td>
                         <td th:text="${stock.category}">카테고리</td>
                     </tr>

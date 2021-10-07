@@ -21,7 +21,7 @@ public class MainController {
 
     @GetMapping("")
     public String home(){
-        System.out.println("11");
+
         return "index";
     }
     @GetMapping("/candidate")
