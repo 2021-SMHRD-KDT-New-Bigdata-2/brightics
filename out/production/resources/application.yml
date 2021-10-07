@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test
-    username: root
-    password: 123456
+    url: jdbc:mysql://project-db-stu.ddns.net:3307/campus_k_1_1006
+    username: team1
+    password: smhrd1
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -11,7 +11,7 @@ spring:
     show-sql: true
     hibernate:
       format_sql: true
-      ddl-auto:
+      ddl-auto: create-drop
 
 server:
   port: 8081
