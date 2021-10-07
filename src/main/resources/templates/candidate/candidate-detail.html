@@ -87,9 +87,14 @@
             <h3>지난 일주일간 후보의 관심도</h3>
 
             <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2674_RC03/embed_loader.js"></script>
-            <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {
+
+            <script type="text/javascript" th:inline="javascript">
+                /*<![CDATA[*/
+                var name = [[${candidate.name}]];
+                /*]]>*/
+                trends.embed.renderExploreWidget("TIMESERIES", {
                 "comparisonItem": [{
-                    "keyword": "이재명",
+                    "keyword": name,
                     "geo": "KR",
                     "time": "now 7-d"
                 }], "category": 0, "property": ""
