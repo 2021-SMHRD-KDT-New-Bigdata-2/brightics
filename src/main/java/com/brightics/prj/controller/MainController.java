@@ -30,6 +30,7 @@ public class MainController {
         model.addAttribute("candidates",candidates);
         return "candidate";
     }
+
     @GetMapping("/candidate/{id}")
     public String candidateDetail(@PathVariable Long id, Model model){
         Candidate candidate=candidateRepository.findById(id).get();

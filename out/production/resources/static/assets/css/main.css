@@ -3160,28 +3160,6 @@ input, select, textarea {
 		}
 	}
 
-/*	#divheader {
-    		display: -moz-flex;
-    		display: -webkit-flex;
-    		display: -ms-flex;
-    		display: flex;
-    		background-color: #2a2f4a;
-    		box-shadow: 0 0 0.25em 0 rgba(0, 0, 0, 0.15);
-    		cursor: default;
-    		font-weight: 600;
-    		height: 3.25em;
-    		left: 0;
-    		letter-spacing: 0.25em;
-    		line-height: 3.25em;
-    		margin: 0;
-    		position: fixed;
-    		text-transform: uppercase;
-    		top: 0;
-    		width: 100%;
-    		z-index: 10000;
-    	}
-    	*/
-
 	#header {
 		display: -moz-flex;
 		display: -webkit-flex;

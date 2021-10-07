@@ -21,7 +21,7 @@
 							<section id="one" class="tiles">
 								<article th:each="candidate:${candidates}">
 									<span class="image">
-										<img src="images/pic01.jpg" alt="" />
+										<img th:src="|images/candidate${candidate.id}.jpg|" alt="candidate" />
 									</span>
 									<header class="major">
 										<h3><a th:href="@{candidate/{id}(id=${candidate.id})}" class="link" th:text="${candidate.name}">후보자</a></h3>
