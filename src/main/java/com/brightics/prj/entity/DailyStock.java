@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Getter
 @Setter
-@NamedEntityGraph(name="dailyStockWithStock",attributeNodes = @NamedAttributeNode("stock"))
 public class DailyStock {
     @Id
     @GeneratedValue
@@ -20,7 +20,7 @@ public class DailyStock {
     @JoinColumn(name="stock_code")
     private Stock stock;
     private Long tradingVolume;
-    private Date date;
+    private LocalDateTime date;
     private double open;
     private double close;
     private double high;
