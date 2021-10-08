@@ -5,12 +5,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
 @Setter
-
 public class News {
     @Id @GeneratedValue
     @Column(name="news_id")
