@@ -19,6 +19,14 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
+        function nullCheck(data){
+            if (!data){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
         var newsChartData
         var newsStart;
         var newsEnd;
@@ -27,7 +35,16 @@
             $("#newsCheck").click(function () {
                 newsStart= document.getElementById("newsStart").value;
                 newsEnd= document.getElementById("newsEnd").value;
-                newsChart()
+                $("#news_error").text("")
+                if(nullCheck(newsStart)||nullCheck(newsEnd) || Date.parse(newsStart)>Date.parse(newsEnd)){
+
+                    $("#news_error").text("올바른 날짜를 입력해주세요")
+                    return;
+                }
+
+                $("#news_title").text(newsStart+"부터 "+newsEnd+ "까지의 뉴스 수");
+
+                newsChart();
             })
 
             function newsChart() {
@@ -56,6 +73,12 @@
             $("#stockCheck").click(function () {
                 stockStart= document.getElementById("stockStart").value;
                 stockEnd= document.getElementById("stockEnd").value;
+                $("#stock_error").text("")
+                if(nullCheck(stockStart)||nullCheck(stockEnd) || Date.parse(stockStart)>Date.parse(stockEnd)){
+                    $("#stock_error").text("올바른 날짜를 입력해주세요")
+                    return;
+                }
+                $("#stock_title").text(stockStart+"부터 "+stockEnd+ "까지의 주식 차트");
                 stockChart()
             })
             function stockChart() {
@@ -119,20 +142,22 @@
                 </div>
             </section>
 
-            <h3>지난 일주일간 관련 후보 뉴스 언급량</h3>
+            <h3 id="news_title">지난 일주일간 관련 후보 뉴스 개수</h3>
 
             <!--news graph-->
             <div id="chart_div_news" style="width: 100%; height: 500px;"></div>
             <input type="date" id="newsStart"><input type="date" id="newsEnd"><button class="button primary small" id="newsCheck">확인</button>
+            <div id="news_error"></div>
 
         </div>
     </section>
 
     <section id="two">
         <div class="inner">
-            <h3>지난 일주일간 주식 차트</h3>
+            <h3 id="stock_title">지난 일주일간 주식 차트</h3>
             <div id="chart_div_stock" style="width: 100%; height: 500px;"></div>
             <input type="date" id="stockStart"><input type="date" id="stockEnd"><button class="button primary small" id="stockCheck">확인</button>
+            <div id="stock_error"></div>
         </div>
     </section>
 
