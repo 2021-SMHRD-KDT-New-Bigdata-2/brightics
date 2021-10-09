@@ -63,4 +63,6 @@ class NewsRepositoryTest {
     void time(){
         System.out.println("LocalDateTime.now() = " + LocalDateTime.now());
     }
+
+
 }

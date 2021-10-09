@@ -25,13 +25,13 @@ public class StockService {
     private static final DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ISO_DATE;
 
 
-    public List<Object[]> makeCandidateNewsGraph(String code, String start, String end){
+    public List<Object[]> makeNewsGraph(String code, String start, String end){
         Stock stock=stockRepository.findStockByCodeIs(code).stream().findAny().orElse(null);
         if(stock==null){
             return null;
         }
         LocalDate target= parsing(end);
-        Long interval= DateBetween(parsing(start),parsing(end))-1L;
+        Long interval= DateBetween(parsing(start),parsing(end));
         Candidate candidate=stock.getCandidate();
 
         return newsRepository.findCountNumberOfNewsPerPeriodAndCandidateIs(target,interval,candidate.getId());
