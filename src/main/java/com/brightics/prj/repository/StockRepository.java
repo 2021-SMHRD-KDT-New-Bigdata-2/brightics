@@ -15,4 +15,9 @@ public interface StockRepository extends JpaRepository<Stock,Long> {
 
     @Query("select s from Stock s left join fetch s.candidate where s.code=:code")
     Optional<Stock> findStockByCodeIs(@Param("code") String code);
+
+    @EntityGraph(attributePaths = {"candidate"})
+    List<Stock> findAll();
+
+
 }

@@ -1,6 +1,8 @@
 package com.brightics.prj.controller;
 
 
+import com.brightics.prj.entity.Stock;
+import com.brightics.prj.service.SearchService;
 import com.brightics.prj.service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainApiController {
     private final StockService stockService;
+    private final SearchService searchService;
     private static final LocalDate CURRENT_DATE= LocalDate.now();
+
 
     @GetMapping("/candidate/stock/{code}/getnewsgraph")
     public Object newsGraphInfoApi(@PathVariable String code , @RequestParam(required = false) String start, @RequestParam(required = false) String end){
@@ -37,7 +41,10 @@ public class MainApiController {
         }
         return stockService.makeStockGraph(code,startDate,endDate);
     }
-
+    @GetMapping("/search")
+    public List<Stock> searchApi(){
+        return searchService.stockSearch();
+    }
 
 
 }

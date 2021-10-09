@@ -48,6 +48,7 @@ public class MainController {
         model.addAttribute("candidateName", stock.getCandidate().getName());
         return "candidate/stock/stock-detail";
     }
+ 
 }
 
 
