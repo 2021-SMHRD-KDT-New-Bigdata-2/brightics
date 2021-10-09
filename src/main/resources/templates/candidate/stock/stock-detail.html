@@ -9,45 +9,70 @@
     <div th:replace="/fragments/head :: headFragment"></div>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script th:inline="javascript">
-        var graphData
-        var url = location.pathname+"/getnewsgraph?"
-        var queryString
-
-        /*<![CDATA[*/
-        var candidateName = [[${candidateName}]];
-        /*]]>*/
-
+    <script>
+        var newsChartData
+        var newsStart;
+        var newsEnd;
         $(document).ready(function () {
-            graph()
-            function graph() {
+            newsChart()
+            function newsChart() {
                 $.ajax({
-                    url: url + queryString,
+                    url: location.pathname+"/getnewsgraph" ,
+                    data: {
+                        "start": newsStart,
+                        "end": newsEnd
+                    },
                     type: 'get',
                     success: function (data) {
                         data.unshift(['기간', '빈도'])
-                        graphData = data
-                        console.log(graphData)
+                        newsChartData = data
                         google.charts.load('current', {'packages': ['corechart']});
-                        google.charts.setOnLoadCallback(drawChart);
+                        google.charts.setOnLoadCallback(drawNewsChart);
                     },
                     error: function (err) {
-                        console.log(url)
                     }
                 })
             }})
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable(graphData);
-
+        var stockChartData
+        var stockStart;
+        var stockEnd;
+        $(document).ready(function () {
+            newsChart()
+            function newsChart() {
+                $.ajax({
+                    url: location.pathname+"/getstockgraph" ,
+                    data: {
+                        "start": stockStart,
+                        "end": stockEnd
+                    },
+                    type: 'get',
+                    success: function (data) {
+                        stockChartData = data
+                        google.charts.load('current', {'packages':['corechart']});
+                        google.charts.setOnLoadCallback(drawStockChart);
+                    },
+                    error: function (err) {
+                    }
+                })
+            }})
+        function drawNewsChart() {
+            var data = google.visualization.arrayToDataTable(newsChartData);
             var options = {
-                title: candidateName+' 후보의 관련 뉴스 수',
+                title: "",
                 hAxis: {title: '기간', titleTextStyle: {color: '#333'}},
                 vAxis: {minValue: 0}
             };
-            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+            var chart = new google.visualization.AreaChart(document.getElementById('chart_div_news'));
             chart.draw(data, options);
         }
-
+        function drawStockChart() {
+            var data = google.visualization.arrayToDataTable(stockChartData, true);
+            var options = {
+                legend:'none'
+            };
+            var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div_stock'));
+            chart.draw(data, options);
+        }
     </script>
 </head>
 <body class="is-preload">
@@ -57,7 +82,7 @@
 
     <!-- Header -->
     <div th:replace="/fragments/nav :: navFragment"></div>
-    
+
     <section id="one">
         <div class="inner">
             <divheader class="major">
@@ -76,15 +101,15 @@
             <h3>지난 일주일간 관련 후보 뉴스 언급량</h3>
 
             <!--news graph-->
-            <div id="chart_div" style="width: 100%; height: 500px;"></div>
+            <div id="chart_div_news" style="width: 100%; height: 500px;"></div>
 
         </div>
     </section>
 
-
     <section id="two">
         <div class="inner">
-            <h3>지난 일주일간 주가 변동 그래프</h3>
+            <h3>지난 일주일간 주식 차트</h3>
+            <div id="chart_div_stock" style="width: 100%; height: 500px;"></div>
         </div>
     </section>
 

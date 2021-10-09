@@ -19,6 +19,6 @@ class DailyStockRepositoryTest {
 
     @Test
     void test() {
-        dailyStockRepository.findStockInfoPerDay(LocalDate.now(),7,"025550");
+        dailyStockRepository.findStockInfoPerDay(LocalDate.now(),7L,"025550");
     }
 }

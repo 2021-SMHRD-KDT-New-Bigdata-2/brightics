@@ -34,12 +34,24 @@ public class StockService {
         LocalDate target= parsing(end);
         Long interval= DateBetween(parsing(start),parsing(end));
         Candidate candidate=stock.getCandidate();
-
-
-
         return newsRepository.findCountNumberOfNewsPerPeriodAndCandidateIs(target,interval,candidate.getId());
 
     }
+    public List<Object[]> makeStockGraph(String code, String start, String end){
+        Stock stock=stockRepository.findStockByCodeIs(code).stream().findAny().orElse(null);
+        if(stock==null){
+            return null;
+        }
+        LocalDate target= parsing(end);
+        Long interval= DateBetween(parsing(start),parsing(end));
+
+
+        return dailyStockRepository.findStockInfoPerDay(target,interval,code);
+    }
+
+
+
+
 
     private static LocalDate parsing(String time){
         return LocalDate.parse(time,dateTimeFormatter);

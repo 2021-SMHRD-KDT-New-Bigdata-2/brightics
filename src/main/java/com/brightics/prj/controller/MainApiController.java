@@ -25,8 +25,17 @@ public class MainApiController {
             startDate=start;
             endDate=end;
         }
-
         return stockService.makeNewsGraph(code,startDate,endDate);
+    }
+    @GetMapping("/candidate/stock/{code}/getstockgraph")
+    public Object stockGraphInfoApi(@PathVariable String code , @RequestParam(required = false) String start, @RequestParam(required = false) String end){
+        String endDate=CURRENT_DATE.toString();
+        String startDate=CURRENT_DATE.minusDays(6).toString();
+        if(start!=null && end!=null){
+            startDate=start;
+            endDate=end;
+        }
+        return stockService.makeStockGraph(code,startDate,endDate);
     }
 
 
