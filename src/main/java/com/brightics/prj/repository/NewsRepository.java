@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,7 +24,8 @@ public interface NewsRepository extends JpaRepository<News,Long> {
             "ON DATE_FORMAT(ad.dt, '%Y-%m-%d') = DATE_FORMAT(n.date, '%Y-%m-%d')\n" +
             "GROUP BY `md`\n" +
             "ORDER BY `md` ", nativeQuery = true) // 각 날짜별 등록된 뉴스의 카운트 구하는 쿼리
-    List<Object[]> findCountNumberOfNewsPerPeriod(@Param("target") LocalDateTime target, @Param("interval") int interval);
+    List<Object[]> findCountNumberOfNewsPerPeriod(@Param("target") LocalDateTime target,
+                                                  @Param("interval") Long interval);
     // target : 타겟 날짜, interval : 타겟 날짜에서 뺄 일수, target-interval ~ target 날짜까지 나옴.
 
     @Query(value = "with recursive all_dates(dt) as (\n" +
@@ -38,6 +40,8 @@ public interface NewsRepository extends JpaRepository<News,Long> {
             "AND n.candidate_id = :candidate_id \n" +
             "GROUP BY `md`\n" +
             "ORDER BY `md` ", nativeQuery = true) // 각 날짜별 등록된 - 후보별 뉴스의 카운트 구하는 쿼리
-    List<Object[]> findCountNumberOfNewsPerPeriodAndCandidateIs(@Param("target") LocalDateTime target, @Param("interval") int interval, @Param("candidate_id") BigInteger candidate_id);
+    List<Object[]> findCountNumberOfNewsPerPeriodAndCandidateIs(@Param("target") LocalDate target,
+                                                                @Param("interval") Long interval,
+                                                                @Param("candidate_id") Long candidate_id);
 
 }

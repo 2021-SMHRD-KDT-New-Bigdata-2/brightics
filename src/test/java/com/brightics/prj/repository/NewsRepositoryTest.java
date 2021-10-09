@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,7 +36,7 @@ class NewsRepositoryTest {
             newsRepository.save(news);
         }
 
-        List<Object[]> result= newsRepository.findCountNumberOfNewsPerPeriod(LocalDateTime.now(),7);
+        List<Object[]> result= newsRepository.findCountNumberOfNewsPerPeriod(LocalDateTime.now(),7L);
 
         for (Object[] objects : result) {
             System.out.println("objects[0] = " + objects[0]);
@@ -43,7 +44,7 @@ class NewsRepositoryTest {
         }
 
         BigInteger candidate_id=new BigInteger("1");
-        List<Object[]> result2= newsRepository.findCountNumberOfNewsPerPeriodAndCandidateIs(LocalDateTime.now(),7, candidate_id);
+        List<Object[]> result2= newsRepository.findCountNumberOfNewsPerPeriodAndCandidateIs(LocalDate.now(),7L, candidate.getId());
 
         for (Object[] objects : result2) {
             System.out.println("objects[0]2 = " + objects[0]);
