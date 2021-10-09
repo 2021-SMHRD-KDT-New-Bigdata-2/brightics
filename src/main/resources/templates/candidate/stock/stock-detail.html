@@ -6,6 +6,15 @@
 -->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <style>
+        input[type="date"]::-webkit-clear-button, input[type="date"]::-webkit-inner-spin-button {
+            display: none;
+        }
+        input[type="date"] {
+            background: grey;
+            color: white;
+        }
+    </style>
     <div th:replace="/fragments/head :: headFragment"></div>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -15,6 +24,12 @@
         var newsEnd;
         $(document).ready(function () {
             newsChart()
+            $("#newsCheck").click(function () {
+                newsStart= document.getElementById("newsStart").value;
+                newsEnd= document.getElementById("newsEnd").value;
+                newsChart()
+            })
+
             function newsChart() {
                 $.ajax({
                     url: location.pathname+"/getnewsgraph" ,
@@ -37,8 +52,13 @@
         var stockStart;
         var stockEnd;
         $(document).ready(function () {
-            newsChart()
-            function newsChart() {
+            stockChart()
+            $("#stockCheck").click(function () {
+                stockStart= document.getElementById("stockStart").value;
+                stockEnd= document.getElementById("stockEnd").value;
+                stockChart()
+            })
+            function stockChart() {
                 $.ajax({
                     url: location.pathname+"/getstockgraph" ,
                     data: {
@@ -64,6 +84,7 @@
             };
             var chart = new google.visualization.AreaChart(document.getElementById('chart_div_news'));
             chart.draw(data, options);
+
         }
         function drawStockChart() {
             var data = google.visualization.arrayToDataTable(stockChartData, true);
@@ -102,6 +123,7 @@
 
             <!--news graph-->
             <div id="chart_div_news" style="width: 100%; height: 500px;"></div>
+            <input type="date" id="newsStart"><input type="date" id="newsEnd"><button class="button primary small" id="newsCheck">확인</button>
 
         </div>
     </section>
@@ -110,6 +132,7 @@
         <div class="inner">
             <h3>지난 일주일간 주식 차트</h3>
             <div id="chart_div_stock" style="width: 100%; height: 500px;"></div>
+            <input type="date" id="stockStart"><input type="date" id="stockEnd"><button class="button primary small" id="stockCheck">확인</button>
         </div>
     </section>
 
