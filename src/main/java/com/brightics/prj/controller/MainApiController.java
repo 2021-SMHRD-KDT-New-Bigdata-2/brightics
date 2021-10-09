@@ -18,23 +18,17 @@ public class MainApiController {
     private static final LocalDate CURRENT_DATE= LocalDate.now();
 
     @GetMapping("/candidate/stock/{code}/getnewsgraph")
-    public List<Object[]> newsGraphInfoApi(@PathVariable String code , @RequestParam(required = false) String start, @RequestParam(required = false) String end){
-        String startDate=CURRENT_DATE.toString();
-        String endDate=CURRENT_DATE.minusDays(6).toString();
-
+    public Object newsGraphInfoApi(@PathVariable String code , @RequestParam(required = false) String start, @RequestParam(required = false) String end){
+        String endDate=CURRENT_DATE.toString();
+        String startDate=CURRENT_DATE.minusDays(6).toString();
         if(start!=null && end!=null){
             startDate=start;
             endDate=end;
         }
 
-
         return stockService.makeNewsGraph(code,startDate,endDate);
     }
 
-    public static void main(String[] args) {
-        String startDate=CURRENT_DATE.toString();
-        String endDate=CURRENT_DATE.minusDays(6).toString();
-        System.out.println(startDate);
-        System.out.println(endDate);
-    }
+
+
 }

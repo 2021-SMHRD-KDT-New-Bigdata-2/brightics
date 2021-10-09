@@ -7,6 +7,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="/fragments/head :: headFragment"></div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script th:inline="javascript">
+        var graphData
+        var url = location.pathname+"/getnewsgraph?"
+        var queryString
+
+        /*<![CDATA[*/
+        var candidateName = [[${candidateName}]];
+        /*]]>*/
+
+        $(document).ready(function () {
+            graph()
+            function graph() {
+                $.ajax({
+                    url: url + queryString,
+                    type: 'get',
+                    success: function (data) {
+                        data.unshift(['기간', '빈도'])
+                        graphData = data
+                        console.log(graphData)
+                        google.charts.load('current', {'packages': ['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
+                    },
+                    error: function (err) {
+                        console.log(url)
+                    }
+                })
+            }})
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(graphData);
+
+            var options = {
+                title: candidateName+' 후보의 관련 뉴스 수',
+                hAxis: {title: '기간', titleTextStyle: {color: '#333'}},
+                vAxis: {minValue: 0}
+            };
+            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+    </script>
 </head>
 <body class="is-preload">
 
@@ -15,8 +57,7 @@
 
     <!-- Header -->
     <div th:replace="/fragments/nav :: navFragment"></div>
-
-
+    
     <section id="one">
         <div class="inner">
             <divheader class="major">
@@ -24,15 +65,18 @@
                 <span class="middle" th:text="${stock.code}">주식 코드 </span>
             </divheader>
             <section>
-            <div class="row">
-                <div class="col-6 col-12-small">
-                    <h3>----제목</h3>
-                    <p >회사설명.</p>
+                <div class="row">
+                    <div class="col-6 col-12-small">
+                        <h3>----제목</h3>
+                        <p>회사설명.</p>
+                    </div>
                 </div>
-            </div>
             </section>
 
             <h3>지난 일주일간 관련 후보 뉴스 언급량</h3>
+
+            <!--news graph-->
+            <div id="chart_div" style="width: 100%; height: 500px;"></div>
 
         </div>
     </section>
@@ -43,8 +87,6 @@
             <h3>지난 일주일간 주가 변동 그래프</h3>
         </div>
     </section>
-
-
 
 
     <!-- Footer -->

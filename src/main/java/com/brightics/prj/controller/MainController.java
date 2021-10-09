@@ -45,7 +45,7 @@ public class MainController {
     public String StockDetail(@PathVariable String code, Model model){
         Stock stock = stockRepository.findStockByCodeIs(code).get();
         model.addAttribute("stock", stock);
-
+        model.addAttribute("candidateName", stock.getCandidate().getName());
         return "candidate/stock/stock-detail";
     }
 }

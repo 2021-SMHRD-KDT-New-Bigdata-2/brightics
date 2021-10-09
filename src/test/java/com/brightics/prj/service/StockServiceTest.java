@@ -18,7 +18,7 @@ class StockServiceTest {
     void test1(){
         List<Object[]> resultList= stockService.makeNewsGraph("13360","2010-10-10","2010-10-11");
         for (Object[] objects : resultList) {
-            System.out.println("objects[0] = " + objects[0]);
+            System.out.println("objects = " + objects);
         }
     }
 
