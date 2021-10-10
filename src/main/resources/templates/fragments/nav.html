@@ -1,12 +1,124 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <th:block th:fragment="navFragment">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <style>
+        ::placeholder{
+            color: #2e3450;
+        }
+        #query{
+            color:#2e3450;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        #drop-content {
+            position: absolute;
+            z-index: 1;
+        }
+
+        #drop-content a {
+            display: block;
+            font-size: 20px;
+            background-color: #ffffff;
+            color: black;
+            text-decoration: none;
+            width: 200px;
+            margin: 2px 0px 0px 0px;
+        }
+    </style>
+
+    <script>
+        function validate(data) {
+            var blank_pattern = /^\s+|\s+$/g;
+            if (data.replace(blank_pattern, '') == "") {
+                return true;
+            } else if (!data) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        var result;
+        var query;
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://localhost:8081/search",
+                type: 'get',
+                success: function (data) {
+                    result = data
+                },
+                error: function (err) {
+                }
+            });
+            $("#query").keyup(function () {
+                let click = document.getElementById("drop-content");
+                click.style.display = "block";
+
+                query = document.getElementById("query").value
+                if (validate(query)) {
+                    return;
+                }
+                var newResult = result.filter(function (elem) {
+                        return elem.code.includes(query) || elem.name.includes(query) || elem.description.includes(query) || elem.category.includes(query) || elem.candidate.name.includes(query);
+                    },
+                )
+                var elem = document.getElementById("searchResult")
+                elem.innerHTML = ""
+                var i=0;
+                var stockUrl='http://localhost:8081/candidate/stock/'
+
+                for(var r of newResult){
+                elem.innerHTML+= "<a href="+stockUrl+r.code+">"  +r.name+ "</a>";
+                i+=1;
+                if (i>5){break};}
+            });
+        });
+
+        function dp_menu() {
+            let click = document.getElementById("drop-content");
+            click.style.display = "block";
+        }
+        $(function(){
+            $(document).mousedown(function( e ){
+                if( $("#drop-content").is(":visible") ) {
+                    $("#drop-content").each(function(){
+                        var l_position = $(this).offset();
+                        l_position.right = parseInt(l_position.left) + ($(this).width());
+                        l_position.bottom = parseInt(l_position.top) + parseInt($(this).height());
+                        if( ( l_position.left <= e.pageX && e.pageX <= l_position.right )
+                            && ( l_position.top <= e.pageY && e.pageY <= l_position.bottom ) ) {
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
     <!------------Static navbar ------------>
     <!-- Header -->
     <header id="header" class="alt">
         <a href="/" class="logo"><strong>TEAM BRIGHTICS</strong></a>
         <nav>
+
+            <div class="dropdown">
+                <input onclick="dp_menu()" id="query" placeholder="search stock . . ." autocomplete="off">
+                <div style="display: none;" id="drop-content">
+
+                    <div id="searchResult"></div>
+
+                </div>
+            </div>
+
+
             <a href="#menu">Menu</a>
         </nav>
     </header>
@@ -19,10 +131,10 @@
             <li><a href="/analysis">ANALYSIS</a></li>
             <li><a href="/about">ABOUT THIS PROJECT</a></li>
         </ul>
-<!--        <ul class="actions stacked">-->
-<!--            <li><a href="#" class="button primary fit">Get Started</a></li>-->
-<!--            <li><a href="#" class="button fit">Log In</a></li>-->
-<!--        </ul>-->
+        <!--        <ul class="actions stacked">-->
+        <!--            <li><a href="#" class="button primary fit">Get Started</a></li>-->
+        <!--            <li><a href="#" class="button fit">Log In</a></li>-->
+        <!--        </ul>-->
     </nav>
 
 </th:block>
