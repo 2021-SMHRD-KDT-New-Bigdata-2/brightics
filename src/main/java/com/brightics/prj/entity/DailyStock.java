@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 public class DailyStock {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="dailystock_id")
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)

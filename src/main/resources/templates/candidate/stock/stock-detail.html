@@ -136,8 +136,8 @@
             <section>
                 <div class="row">
                     <div class="col-6 col-12-small">
-                        <h3>----제목</h3>
-                        <p>회사설명.</p>
+                        <h3 th:text="|${stock.candidate.name} 후보 테마주|">----제목</h3>
+                        <p th:text="${stock.description}">회사설명.</p>
                     </div>
                 </div>
             </section>
