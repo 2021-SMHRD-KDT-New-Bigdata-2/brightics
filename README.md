@@ -3,4 +3,6 @@
 
 //spring boot 2.5.5 기반
 //db : mysql
-//table 명 등등 소문자
+//table 명,column명 소문자, 언더바 형식
+
+//2021-10-11: csv형식으로 insert해서 주가종목코드 앞의 0 사라진 문제 해결
