@@ -8,10 +8,10 @@
 <head>
     <style>
         input[type="date"]::-webkit-clear-button, input[type="date"]::-webkit-inner-spin-button {
-            display: none;
+            display: inline-block;
         }
         input[type="date"] {
-            background: grey;
+            background: transparent;
             color: white;
         }
     </style>
@@ -38,7 +38,7 @@
                 $("#news_error").text("")
                 if(nullCheck(newsStart)||nullCheck(newsEnd) || Date.parse(newsStart)>Date.parse(newsEnd)){
 
-                    $("#news_error").text("올바른 날짜를 입력해주세요")
+                    $("#news_error").html("<h4><i class=\"fas fa-exclamation-triangle\"></i>Please check the date</h4>")
                     return;
                 }
 
@@ -75,7 +75,7 @@
                 stockEnd= document.getElementById("stockEnd").value;
                 $("#stock_error").text("")
                 if(nullCheck(stockStart)||nullCheck(stockEnd) || Date.parse(stockStart)>Date.parse(stockEnd)){
-                    $("#stock_error").text("올바른 날짜를 입력해주세요")
+                    $("#stock_error").html("<h4><i class=\"fas fa-exclamation-triangle\"></i>Please check the date</h4>")
                     return;
                 }
                 $("#stock_title").text(stockStart+"부터 "+stockEnd+ "까지의 주식 차트");
@@ -112,7 +112,8 @@
         function drawStockChart() {
             var data = google.visualization.arrayToDataTable(stockChartData, true);
             var options = {
-                legend:'none'
+                legend:'none',
+                fallingColor: { strokeWidth: 0, fill: '#a52714' }
             };
             var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div_stock'));
             chart.draw(data, options);
@@ -136,8 +137,8 @@
             <section>
                 <div class="row">
                     <div class="col-6 col-12-small">
-                        <h3>----제목</h3>
-                        <p>회사설명.</p>
+                        <h3 th:text="|${stock.candidate.name} 후보 테마주|">----제목</h3>
+                        <p th:text="${stock.description}">회사설명.</p>
                     </div>
                 </div>
             </section>
@@ -156,7 +157,7 @@
         <div class="inner">
             <h3 id="stock_title">지난 일주일간 주식 차트</h3>
             <div id="chart_div_stock" style="width: 100%; height: 500px;"></div>
-            <input type="date" id="stockStart"><input type="date" id="stockEnd"><button class="button primary small" id="stockCheck">확인</button>
+            <input type="date" id="stockStart"><input type="date" id="stockEnd"><button class="button primary small" id="stockCheck"> submit</button>
             <div id="stock_error"></div>
         </div>
     </section>
