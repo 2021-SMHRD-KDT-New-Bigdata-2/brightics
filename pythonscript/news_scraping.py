@@ -9,11 +9,12 @@ import sqlalchemy
 
 engine = sqlalchemy.create_engine(
     "mysql+mysqlconnector://team1:smhrd1@project-db-stu.ddns.net:3307/campus_k_1_1006?charset=utf8")
-
+prevtime=datetime.datetime.now()-datetime.timedelta(weeks=1)
 conn = engine.connect()
 result =conn.execute("select date from news limit 1")
 for i in result:
     prevtime=i[0]
+
 client_id = "D0SJvjlJN9AcFgYffFSR"
 client_secret = "Eohhvy5UsO"
 candidate = [('이재명', 1), ('홍준표', 2), ('윤석열', 3), ('이낙연', 4)]
@@ -50,6 +51,7 @@ for c in candidate:
                 candidate_id = c[1]
                 web_df.loc[idx] = [title, url, contents, date, candidate_id]
                 idx += 1
+            web_df.drop_duplicates(['title'])
             web_df.to_sql(name="news", con=engine, if_exists='append', index=False)
         else:
             print("Error Code:" + rescode)
