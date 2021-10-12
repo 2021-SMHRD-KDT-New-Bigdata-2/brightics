@@ -6,11 +6,9 @@
             crossorigin="anonymous"></script>
     <style>
         ::placeholder{
-            color: #2e3450;
+            color: #ffffff;
         }
-        #query{
-            color:#2e3450;
-        }
+
 
         .dropdown {
             position: relative;
@@ -18,17 +16,15 @@
         }
 
         #drop-content {
+            background-color: #2a2f4a;
             position: absolute;
             z-index: 1;
         }
 
         #drop-content a {
             display: block;
-            font-size: 20px;
-            background-color: #ffffff;
-            color: black;
             text-decoration: none;
-            width: 200px;
+            min-width: 300px;
             margin: 2px 0px 0px 0px;
         }
     </style>
@@ -109,16 +105,15 @@
         <a href="/" class="logo"><strong>TEAM BRIGHTICS</strong></a>
         <nav>
 
+            <span>
+
             <div class="dropdown">
-                <input onclick="dp_menu()" id="query" placeholder="search stock . . ." autocomplete="off">
+                <span><input onclick="dp_menu()" type="text" id="query" placeholder="search stock . . ." autocomplete="off"></span>
                 <div style="display: none;" id="drop-content">
-
-                    <div id="searchResult"></div>
-
-                </div>
+                    <div class="col-6 col-12-xsmall box" id="searchResult"></div>
             </div>
-
-
+            </div>
+                </span>
             <a href="#menu">Menu</a>
         </nav>
     </header>

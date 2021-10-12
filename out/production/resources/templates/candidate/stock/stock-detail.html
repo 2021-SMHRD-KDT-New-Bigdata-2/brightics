@@ -112,8 +112,7 @@
         function drawStockChart() {
             var data = google.visualization.arrayToDataTable(stockChartData, true);
             var options = {
-                legend:'none',
-                fallingColor: { strokeWidth: 0, fill: '#a52714' }
+                legend:'none'
             };
             var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div_stock'));
             chart.draw(data, options);
