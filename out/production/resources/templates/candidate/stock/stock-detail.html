@@ -35,9 +35,9 @@
             $("#newsCheck").click(function () {
                 newsStart= document.getElementById("newsStart").value;
                 newsEnd= document.getElementById("newsEnd").value;
+
                 $("#news_error").text("")
                 if(nullCheck(newsStart)||nullCheck(newsEnd) || Date.parse(newsStart)>Date.parse(newsEnd)){
-
                     $("#news_error").html("<h4><i class=\"fas fa-exclamation-triangle\"></i>Please check the date</h4>")
                     return;
                 }
@@ -103,7 +103,29 @@
             var options = {
                 title: "",
                 hAxis: {title: '기간', titleTextStyle: {color: '#333'}},
-                vAxis: {minValue: 0}
+                vAxis: {minValue: 0},
+                backgroundColor: "transparent",
+
+                hAxis: {
+                    textStyle: {
+                        color: 'white'
+                    },
+                    titleTextStyle: {
+                        color: 'white'
+                    }
+                },
+                vAxis: {
+                    textStyle: {
+                        color: 'white'
+                    },
+                    titleTextStyle: {
+                        color: 'white'
+                    }
+                },
+                legend:'none'
+
+
+
             };
             var chart = new google.visualization.AreaChart(document.getElementById('chart_div_news'));
             chart.draw(data, options);
@@ -112,7 +134,31 @@
         function drawStockChart() {
             var data = google.visualization.arrayToDataTable(stockChartData, true);
             var options = {
-                legend:'none'
+                legend:'none',
+                backgroundColor: "transparent",
+                candlestick: {
+                    fallingColor: { strokeWidth: 0, fill: '#a52714' }, // red
+
+                },
+
+
+                hAxis: {
+                    textStyle: {
+                        color: 'white'
+                    },
+                    titleTextStyle: {
+                        color: 'white'
+                    }
+                },
+                vAxis: {
+                    textStyle: {
+                        color: 'white'
+                    },
+                    titleTextStyle: {
+                        color: 'white'
+                    },
+
+                },
             };
             var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div_stock'));
             chart.draw(data, options);
