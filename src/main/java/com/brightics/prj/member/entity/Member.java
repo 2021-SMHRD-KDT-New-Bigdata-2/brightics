@@ -1,4 +1,4 @@
-package com.brightics.member.entity;
+package com.brightics.prj.member.entity;
 
 
 import lombok.Getter;

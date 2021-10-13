@@ -1,4 +1,4 @@
-package com.brightics.member;
+package com.brightics.prj.member;
 
 
 import lombok.Data;
