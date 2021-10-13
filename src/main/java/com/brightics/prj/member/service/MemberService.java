@@ -2,7 +2,7 @@ package com.brightics.prj.member.service;
 
 import com.brightics.prj.entity.Stock;
 import com.brightics.prj.member.LoginForm;
-import com.brightics.prj.member.RegisterForm;
+import com.brightics.prj.member.SignupForm;
 import com.brightics.prj.member.entity.Comment;
 import com.brightics.prj.member.entity.Member;
 import com.brightics.prj.member.entity.MemberRole;
@@ -19,19 +19,19 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final CommentRepository commentRepository;
 
-    public Member register(RegisterForm registerForm){
-        if(memberRepository.existsMemberByLoginId(registerForm.getLoginId())){
+    public Member register(SignupForm signupForm){
+        if(memberRepository.existsMemberByLoginId(signupForm.getLoginId())){
             return null;
         }
 
         Member member = new Member();
-        member.setLoginId(registerForm.getLoginId());
+        member.setLoginId(signupForm.getLoginId());
 
-        String hashedPassword = BCrypt.hashpw(registerForm.getPassword(),BCrypt.gensalt());
+        String hashedPassword = BCrypt.hashpw(signupForm.getPassword(),BCrypt.gensalt());
         member.setPassword(hashedPassword);
 
-        member.setEmail(registerForm.getEmail());
-        member.setMemberRole(MemberRole.USER);
+        member.setEmail(signupForm.getEmail());
+        member.setMemberRole(MemberRole.ROLE_USER);
 
         memberRepository.save(member);
 

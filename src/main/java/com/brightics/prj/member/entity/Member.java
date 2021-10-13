@@ -3,6 +3,7 @@ package com.brightics.prj.member.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -16,5 +17,6 @@ public class Member {
     private String password;
 
     @Enumerated(EnumType.STRING)
+
     private MemberRole memberRole;
 }

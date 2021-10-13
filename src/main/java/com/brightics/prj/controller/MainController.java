@@ -19,7 +19,7 @@ public class MainController {
     private final StockRepository stockRepository;
 
 
-    @GetMapping("")
+    @GetMapping("/home")
     public String home(){
 
         return "index";
@@ -47,6 +47,15 @@ public class MainController {
         model.addAttribute("stock", stock);
         model.addAttribute("candidateName", stock.getCandidate().getName());
         return "candidate/stock/stock-detail";
+    }
+
+    @GetMapping("/login")
+    public String loginPage(){
+        return "login";
+    }
+    @GetMapping("/signup")
+    public String signupPage(){
+        return "signup";
     }
 
 }

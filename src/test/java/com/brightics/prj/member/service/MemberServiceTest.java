@@ -2,7 +2,7 @@ package com.brightics.prj.member.service;
 
 import com.brightics.prj.entity.Stock;
 import com.brightics.prj.member.LoginForm;
-import com.brightics.prj.member.RegisterForm;
+import com.brightics.prj.member.SignupForm;
 import com.brightics.prj.member.entity.Member;
 import com.brightics.prj.member.entity.MemberRole;
 import com.brightics.prj.member.repository.CommentRepository;
@@ -38,26 +38,26 @@ class MemberServiceTest {
 
     @Test
     void register() {
-        RegisterForm registerForm= new RegisterForm();
-        registerForm.setLoginId("임재곤");
-        registerForm.setPassword("1234");
-        registerForm.setEmail("im@gmail.com");
+        SignupForm signupForm= new SignupForm();
+        signupForm.setLoginId("임재곤");
+        signupForm.setPassword("1234");
+        signupForm.setEmail("im@gmail.com");
 
-        memberService.register(registerForm);
+        memberService.register(signupForm);
 
         Optional<Member> findMember = memberRepository.findMemberByLoginId("임재곤");
 
         Assertions.assertThat(findMember.get().getPassword()).isNotEqualTo("1234");
-        Assertions.assertThat(findMember.get().getMemberRole()).isEqualTo(MemberRole.USER);
+        Assertions.assertThat(findMember.get().getMemberRole()).isEqualTo(MemberRole.ROLE_USER);
 
     }
     @Test
     void login(){
-        RegisterForm registerForm= new RegisterForm();
-        registerForm.setLoginId("임재곤");
-        registerForm.setPassword("1234");
-        registerForm.setEmail("im@gmail.com");
-        memberService.register(registerForm);
+        SignupForm signupForm= new SignupForm();
+        signupForm.setLoginId("임재곤");
+        signupForm.setPassword("1234");
+        signupForm.setEmail("im@gmail.com");
+        memberService.register(signupForm);
 
         LoginForm loginForm=new LoginForm();
         loginForm.setLoginId("임재곤");
@@ -71,11 +71,11 @@ class MemberServiceTest {
 
     @Test
     void comment(){
-        RegisterForm registerForm= new RegisterForm();
-        registerForm.setLoginId("임재곤");
-        registerForm.setPassword("1234");
-        registerForm.setEmail("im@gmail.com");
-        Member member= memberService.register(registerForm);
+        SignupForm signupForm= new SignupForm();
+        signupForm.setLoginId("임재곤");
+        signupForm.setPassword("1234");
+        signupForm.setEmail("im@gmail.com");
+        Member member= memberService.register(signupForm);
         Stock stock= stockRepository.findAll().get(0);
 
         memberService.CreateComment("ㅎㅎ", member, stock);
