@@ -30,29 +30,23 @@
                 <div class="col-6 col-12-small">
                     <div class="login">
                         <div class="login_id">
+                            <form th:object="${signupForm}">
                             <h4>Id</h4>
-                            <input type="text" name="" id="id" placeholder="id">
 
-
+                            <input type="text" name="loginId" id="loginId" th:field="${signupForm.loginId}" placeholder="loginId">
                             <div class="email">
                                 <h4>E-mail</h4>
-                                <input type="email" name="" id="email" placeholder="Email">
+                                <input type="email" name="email" id="email" th:field="${signupForm.email}" placeholder="Email">
                             </div>
                             <div class="login_pw">
                                 <h4>Password</h4>
-                                <input type="password" name="" id="password" placeholder="Password">
+                                <input type="password" name="password" th:field="${signupForm.password}" id="password" placeholder="Password">
                             </div>
-                            <div class="login_etc">
-
-
-
-                            </div>
-
                             <hr />
-
                             <div class="submit">
                                 <input type="submit" value="sign in">
                             </div>
+                            </form>
 
                         </div>
                     </div>

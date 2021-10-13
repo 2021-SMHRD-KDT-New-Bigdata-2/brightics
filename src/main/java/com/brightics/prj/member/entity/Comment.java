@@ -1,6 +1,6 @@
 package com.brightics.prj.member.entity;
 
-import com.brightics.prj.entity.Stock;
+import com.brightics.prj.web.entity.Stock;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
