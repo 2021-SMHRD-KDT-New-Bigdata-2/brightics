@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/login","/signup/**","/static/**", "/candidate/**", "/search", "/check-email-token" ).permitAll()
+                .antMatchers("/","/login","/signup/**","/static/**", "/candidate/**", "/search", "/check-email-token","/logout" ).permitAll()
                 .anyRequest().authenticated();
 
         http.formLogin()
@@ -49,10 +49,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenRepository(tokenRepository());
 
     }
+
     @Bean
     public PersistentTokenRepository tokenRepository(){
         JdbcTokenRepositoryImpl jdbcTokenRepository= new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
         return jdbcTokenRepository;
     }
+
 }

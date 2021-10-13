@@ -18,7 +18,7 @@ public class PersistentLogins {
     @Column(length=64)
     private String series;
     @Column(nullable=false, length=64)
-    private String loginId;
+    private String username;
     @Column(nullable=false, length=64)
     private String token;
     @Column(name="last_used", nullable = false, length = 64)

@@ -27,7 +27,7 @@
                 <ul class="actions stacked" >
                     <li><a sec:authorize="!isAuthenticated()" th:href="@{/signup}" class="button primary fit">Sign Up</a></li>
                     <li><a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="button fit">Log-In</a></li>
-                    <li><form th:action="@{/logout}" method="post"><button type="submit" sec:authorize="isAuthenticated()" class="button fit">Logout</button></form></li>
+                    <li><form th:action="@{/logout}" th:method="Post"><button type="submit" sec:authorize="isAuthenticated()" class="button fit">Logout</button></form></li>
                 </ul>
     </nav>
 
