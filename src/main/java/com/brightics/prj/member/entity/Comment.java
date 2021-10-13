@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,9 +17,11 @@ public class Comment {
     private String Comment;
 
     @ManyToOne
+    @JoinColumn(name="stock_code")
     private Stock stock;
 
     @ManyToOne
+    @JoinColumn(name="member_id")
     private Member member;
 
     @CreatedDate
