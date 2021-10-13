@@ -18,6 +18,7 @@ public class Member {
     private String password;
     private String emailCheckToken;
     private String profileImage;
+    private Boolean emailVerified;
 
 
     @Enumerated(EnumType.STRING)

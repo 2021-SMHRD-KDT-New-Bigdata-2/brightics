@@ -12,6 +12,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -30,6 +31,7 @@ class MemberServiceTest {
     StockRepository stockRepository;
     @Autowired
     CommentRepository commentRepository;
+
 
 
 
@@ -63,8 +65,6 @@ class MemberServiceTest {
         loginForm.setLoginId("임재곤");
         loginForm.setPassword("1234");
 
-        Member loginMember= memberService.login(loginForm);
-        System.out.println(loginMember.getLoginId());
 
 
     }
