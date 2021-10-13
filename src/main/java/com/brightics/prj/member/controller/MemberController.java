@@ -39,6 +39,7 @@ public class MemberController {
 
     @GetMapping("/login")
     public String loginPage(@ModelAttribute(name="loginForm") LoginForm loginForm){
+
         return "login";
     }
     @GetMapping("/signup")

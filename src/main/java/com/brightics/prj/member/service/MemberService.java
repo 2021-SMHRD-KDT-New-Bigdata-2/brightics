@@ -1,11 +1,11 @@
 package com.brightics.prj.member.service;
 
 import com.brightics.prj.member.MailSender;
+import com.brightics.prj.member.UserAccount;
 import com.brightics.prj.web.entity.Stock;
 import com.brightics.prj.member.SignupForm;
 import com.brightics.prj.member.entity.Comment;
 import com.brightics.prj.member.entity.Member;
-import com.brightics.prj.member.entity.MemberRole;
 import com.brightics.prj.member.repository.CommentRepository;
 import com.brightics.prj.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,20 +13,26 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
     private final CommentRepository commentRepository;
     private final MailSender mailSender;
+    private final PasswordEncoder passwordEncoder;
 
 
 
@@ -34,13 +40,9 @@ public class MemberService {
 
         Member member = new Member();
         member.setLoginId(signupForm.getLoginId());
-
-        String hashedPassword = BCrypt.hashpw(signupForm.getPassword(),BCrypt.gensalt());
-        member.setPassword(hashedPassword);
-
+        member.setPassword(passwordEncoder.encode(signupForm.getPassword()));
         member.setEmail(signupForm.getEmail());
         member.setEmailVerified(false);
-        member.setMemberRole(MemberRole.ROLE_USER);
 
         memberRepository.save(member);
 
@@ -84,4 +86,17 @@ public class MemberService {
         SecurityContextHolder.getContext().setAuthentication(token);
     }
 
+
+    @Override
+    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
+        Member member= memberRepository.findMemberByLoginId(loginId).stream().findAny().orElse(null);
+        System.out.println(loginId+"============================================");
+
+        if(member==null){
+            System.out.println("122223");
+            throw new UsernameNotFoundException(loginId);
+        }
+        System.out.println("123");
+        return new UserAccount(member);
+    }
 }

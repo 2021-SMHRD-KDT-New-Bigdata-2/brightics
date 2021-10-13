@@ -16,14 +16,11 @@ public class Member {
     private String loginId;
     private String email;
     private String password;
-    private String emailCheckToken;
     private String profileImage;
+    private String emailCheckToken;
     private Boolean emailVerified;
 
 
-    @Enumerated(EnumType.STRING)
-
-    private MemberRole memberRole;
 
     public void genToken(){
         this.emailCheckToken = UUID.randomUUID().toString();

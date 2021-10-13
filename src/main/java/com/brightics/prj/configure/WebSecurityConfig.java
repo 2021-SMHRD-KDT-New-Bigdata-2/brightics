@@ -1,12 +1,10 @@
 package com.brightics.prj.configure;
 
-import com.brightics.prj.member.entity.MemberRole;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -19,8 +17,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/login","/signup/**","/static/**", "/candidate/**", "/search", "/check-email-token").permitAll()
+                .antMatchers("/","/login","/signup/**","/static/**", "/candidate/**", "/search", "/check-email-token" ).permitAll()
                 .anyRequest().authenticated();
+
+        http.formLogin()
+                .loginPage("/login")
+                .usernameParameter("loginId")
+                .passwordParameter("password")
+                .permitAll();
+
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
 
     }
 }
