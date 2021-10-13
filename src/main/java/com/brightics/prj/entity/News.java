@@ -14,6 +14,8 @@ public class News {
     @Column(name="news_id")
     private Long id;
     private String title;
+
+    @Lob
     private String contents;
     private String url;
     private LocalDateTime date;
