@@ -4,6 +4,9 @@ spring:
     url: jdbc:mysql://project-db-stu.ddns.net:3307/campus_k_1_1006
     username: team1
     password: smhrd1
+  profiles:
+    active: local
+
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

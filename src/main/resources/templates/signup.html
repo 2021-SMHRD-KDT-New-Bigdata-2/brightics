@@ -28,19 +28,23 @@
                 </header>
                 <!-- Content -->
                 <div class="col-6 col-12-small">
-                    <div class="login">
-                        <div class="login_id">
-                            <form th:object="${signupForm}">
+
+                        <div class="signup">
+                            <form th:action="@{/signup}" th:object="${signupForm}" method="post">
                             <h4>Id</h4>
 
-                            <input type="text" name="loginId" id="loginId" th:field="${signupForm.loginId}" placeholder="loginId">
+                            <input type="text" th:field="*{loginId}" placeholder="loginId">
+                                <error th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}">Title Error</error>
+
                             <div class="email">
                                 <h4>E-mail</h4>
-                                <input type="email" name="email" id="email" th:field="${signupForm.email}" placeholder="Email">
+                                <input type="email"  th:field="*{email}" placeholder="Email">
+                                <error th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Title Error</error>
                             </div>
                             <div class="login_pw">
                                 <h4>Password</h4>
-                                <input type="password" name="password" th:field="${signupForm.password}" id="password" placeholder="Password">
+                                <input type="password" th:field="*{password}" placeholder="Password">
+                                <error th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Title Error</error>
                             </div>
                             <hr />
                             <div class="submit">
@@ -49,7 +53,7 @@
                             </form>
 
                         </div>
-                    </div>
+
 
                 </div>
             </div>

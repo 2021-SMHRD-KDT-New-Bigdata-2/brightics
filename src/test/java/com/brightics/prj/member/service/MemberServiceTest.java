@@ -37,13 +37,13 @@ class MemberServiceTest {
 
 
     @Test
-    void register() {
+    void signup() {
         SignupForm signupForm= new SignupForm();
         signupForm.setLoginId("임재곤");
         signupForm.setPassword("1234");
         signupForm.setEmail("im@gmail.com");
 
-        memberService.register(signupForm);
+        memberService.signup(signupForm);
 
         Optional<Member> findMember = memberRepository.findMemberByLoginId("임재곤");
 
@@ -57,7 +57,7 @@ class MemberServiceTest {
         signupForm.setLoginId("임재곤");
         signupForm.setPassword("1234");
         signupForm.setEmail("im@gmail.com");
-        memberService.register(signupForm);
+        memberService.signup(signupForm);
 
         LoginForm loginForm=new LoginForm();
         loginForm.setLoginId("임재곤");
@@ -71,15 +71,5 @@ class MemberServiceTest {
 
     @Test
     void comment(){
-        SignupForm signupForm= new SignupForm();
-        signupForm.setLoginId("임재곤");
-        signupForm.setPassword("1234");
-        signupForm.setEmail("im@gmail.com");
-        Member member= memberService.register(signupForm);
-        Stock stock= stockRepository.findAll().get(0);
-
-        memberService.CreateComment("ㅎㅎ", member, stock);
-
-
     }
 }
