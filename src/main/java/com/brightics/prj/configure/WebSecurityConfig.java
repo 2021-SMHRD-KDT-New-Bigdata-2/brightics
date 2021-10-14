@@ -2,15 +2,14 @@ package com.brightics.prj.configure;
 
 import com.brightics.prj.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -25,6 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
     private final LoginFailHandler loginFailHandler;
 
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/login","/signup/**","/static/**", "/candidate/**", "/search", "/check-email-token","/logout" ).permitAll()
+                .antMatchers("/", "/login","/signup/**","/static/**", "/candidate/**", "/search", "/check-email-token","/oauth2/**").permitAll()
                 .anyRequest().authenticated();
 
         http.formLogin()
@@ -51,6 +51,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.rememberMe()
                 .userDetailsService(memberService)
                 .tokenRepository(tokenRepository());
+
+        http.oauth2Login()
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .permitAll();
+
 
     }
 

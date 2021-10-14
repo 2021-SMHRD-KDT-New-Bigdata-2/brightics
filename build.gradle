@@ -19,21 +19,27 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.5'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.5'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+	implementation 'org.springframework.boot:spring-boot-starter-security:2.5.5'
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.5.5'
+    implementation 'org.springframework.security:spring-security-oauth2-client:5.5.1'
+	implementation 'org.springframework.security:spring-security-oauth2-jose:5.5.1'
+	implementation 'org.springframework.security:spring-security-remoting:5.5.1'
+    implementation 'org.springframework.security:spring-security-oauth2-core:5.5.1'
+	implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.5.5'
+	implementation 'com.racquettrack:spring-security-oauth2-client:3.2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'mysql:mysql-connector-java'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.5'
+	runtimeOnly 'mysql:mysql-connector-java:8.0.25'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
 }
 
 test {

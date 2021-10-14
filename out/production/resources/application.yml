@@ -7,6 +7,27 @@ spring:
 
 
 
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: aba6b07c2a5481787d80e0ab78261fe5
+            redirect-uri: "http://localhost:8081/login/oauth2/code/kakao"
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+            scope: account_email
+            client-name: Kakao
+        provider:
+          kakao:
+            authorization_uri: https://kauth.kakao.com/oauth/authorize
+            token_uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user_name_attribute: kakao_account
+
+
+
+
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
