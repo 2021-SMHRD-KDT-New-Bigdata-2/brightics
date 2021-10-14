@@ -4,8 +4,7 @@ spring:
     url: jdbc:mysql://project-db-stu.ddns.net:3307/campus_k_1_1006
     username: team1
     password: smhrd1
-  profiles:
-    active: local
+
 
 
   jpa:
@@ -15,6 +14,20 @@ spring:
     hibernate:
       format_sql: true
       ddl-auto:
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: limjae0@gmail.com
+    password: kiaqchowxkbiugvg
+    properties:
+      mail:
+        smtp:
+          ssl: true
+#          auth: true
+#          timeout: 500
+          starttls:
+            enable: true
 
 server:
   port: 8081
