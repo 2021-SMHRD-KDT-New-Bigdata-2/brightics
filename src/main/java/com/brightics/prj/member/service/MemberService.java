@@ -11,6 +11,7 @@ import com.brightics.prj.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.internet.MimeMessage;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +34,7 @@ public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
     private final CommentRepository commentRepository;
-    private final MailSender mailSender;
+    private final JavaMailSender mailSender;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -59,10 +61,11 @@ public class MemberService implements UserDetailsService {
     }
 
     private void sendCheckEmail(Member signupMember) {
+
         SimpleMailMessage mailMessage=new SimpleMailMessage();
         mailMessage.setTo(signupMember.getEmail());
         mailMessage.setSubject("Thanks for signing up");
-        mailMessage.setText("/check-email-token?token="+ signupMember.getEmailCheckToken()+"&email="+ signupMember.getEmail());
+        mailMessage.setText("localhost:8081/check-email-token?token="+ signupMember.getEmailCheckToken()+"&email="+ signupMember.getEmail());
         mailSender.send(mailMessage);
     }
 
