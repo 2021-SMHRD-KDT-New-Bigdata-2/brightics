@@ -1,4 +1,4 @@
-package com.brightics.prj.member.service;
+package com.brightics.prj.web.service;
 
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -13,6 +13,10 @@ public class KakaoService implements OAuth2UserService<OAuth2UserRequest, OAuth2
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService delegate= new DefaultOAuth2UserService();
         OAuth2User oAuth2User= delegate.loadUser(userRequest);
+
+
+
+        System.out.println(oAuth2User.getAttributes());
 
 
         return oAuth2User;

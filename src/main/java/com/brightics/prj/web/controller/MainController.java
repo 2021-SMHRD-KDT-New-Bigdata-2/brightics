@@ -1,12 +1,10 @@
 package com.brightics.prj.web.controller;
 
-import com.brightics.prj.member.entity.Member;
 import com.brightics.prj.web.entity.Candidate;
 import com.brightics.prj.web.entity.Stock;
 import com.brightics.prj.web.repository.CandidateRepository;
 import com.brightics.prj.web.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

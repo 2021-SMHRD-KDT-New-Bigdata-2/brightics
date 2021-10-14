@@ -1,6 +1,6 @@
-package com.brightics.prj.member;
+package com.brightics.prj.web;
 
-import com.brightics.prj.member.repository.MemberRepository;
+import com.brightics.prj.web.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

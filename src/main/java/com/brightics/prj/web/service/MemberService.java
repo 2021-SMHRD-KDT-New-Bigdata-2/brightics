@@ -1,15 +1,13 @@
-package com.brightics.prj.member.service;
+package com.brightics.prj.web.service;
 
-import com.brightics.prj.member.MailSender;
-import com.brightics.prj.member.UserAccount;
+import com.brightics.prj.web.UserAccount;
 import com.brightics.prj.web.entity.Stock;
-import com.brightics.prj.member.SignupForm;
-import com.brightics.prj.member.entity.Comment;
-import com.brightics.prj.member.entity.Member;
-import com.brightics.prj.member.repository.CommentRepository;
-import com.brightics.prj.member.repository.MemberRepository;
+import com.brightics.prj.web.SignupForm;
+import com.brightics.prj.web.entity.Comment;
+import com.brightics.prj.web.entity.Member;
+import com.brightics.prj.web.repository.CommentRepository;
+import com.brightics.prj.web.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,14 +16,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.mail.internet.MimeMessage;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -99,7 +94,6 @@ public class MemberService implements UserDetailsService {
         if(!member.getEmailVerified()){
             throw new UsernameNotFoundException(loginId);
         }
-
 
 
         return new UserAccount(member);

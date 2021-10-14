@@ -1,9 +1,8 @@
-package com.brightics.prj.member.repository;
+package com.brightics.prj.web.repository;
 
-import com.brightics.prj.member.entity.Member;
+import com.brightics.prj.web.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 

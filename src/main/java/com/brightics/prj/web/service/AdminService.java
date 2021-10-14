@@ -1,4 +1,4 @@
-package com.brightics.prj.member.service;
+package com.brightics.prj.web.service;
 
 
 import com.brightics.prj.web.repository.StockRepository;

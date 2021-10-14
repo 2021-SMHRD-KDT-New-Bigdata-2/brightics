@@ -1,4 +1,4 @@
-package com.brightics.prj.member;
+package com.brightics.prj.web;
 
 import lombok.Getter;
 import lombok.Setter;

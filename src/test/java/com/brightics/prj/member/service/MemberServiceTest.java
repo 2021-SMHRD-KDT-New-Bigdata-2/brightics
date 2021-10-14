@@ -1,11 +1,12 @@
 package com.brightics.prj.member.service;
 
-import com.brightics.prj.member.LoginForm;
-import com.brightics.prj.member.SignupForm;
-import com.brightics.prj.member.entity.Member;
-import com.brightics.prj.member.repository.CommentRepository;
-import com.brightics.prj.member.repository.MemberRepository;
+import com.brightics.prj.web.LoginForm;
+import com.brightics.prj.web.SignupForm;
+import com.brightics.prj.web.entity.Member;
+import com.brightics.prj.web.repository.CommentRepository;
+import com.brightics.prj.web.repository.MemberRepository;
 import com.brightics.prj.web.repository.StockRepository;
+import com.brightics.prj.web.service.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

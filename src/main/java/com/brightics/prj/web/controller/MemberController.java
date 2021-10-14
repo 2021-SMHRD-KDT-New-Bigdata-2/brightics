@@ -1,16 +1,12 @@
-package com.brightics.prj.member.controller;
+package com.brightics.prj.web.controller;
 
-import com.brightics.prj.member.LoginForm;
-import com.brightics.prj.member.SignupForm;
-import com.brightics.prj.member.SignupFormValidator;
-import com.brightics.prj.member.entity.Member;
-import com.brightics.prj.member.repository.MemberRepository;
-import com.brightics.prj.member.service.MemberService;
+import com.brightics.prj.web.LoginForm;
+import com.brightics.prj.web.SignupForm;
+import com.brightics.prj.web.SignupFormValidator;
+import com.brightics.prj.web.entity.Member;
+import com.brightics.prj.web.repository.MemberRepository;
+import com.brightics.prj.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor

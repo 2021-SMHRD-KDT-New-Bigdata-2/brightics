@@ -1,6 +1,6 @@
-package com.brightics.prj.member;
+package com.brightics.prj.web;
 
-import com.brightics.prj.member.entity.Member;
+import com.brightics.prj.web.entity.Member;
 import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
