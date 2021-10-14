@@ -2,9 +2,11 @@ package com.brightics.prj.configure;
 
 import com.brightics.prj.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MemberService memberService;
     private final DataSource dataSource;
+    private final LoginFailHandler loginFailHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -38,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("loginId")
                 .passwordParameter("password")
+                .failureHandler(loginFailHandler)
                 .permitAll();
 
         http.logout()

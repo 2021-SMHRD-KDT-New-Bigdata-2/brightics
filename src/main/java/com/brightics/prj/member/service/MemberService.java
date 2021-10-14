@@ -9,6 +9,7 @@ import com.brightics.prj.member.entity.Member;
 import com.brightics.prj.member.repository.CommentRepository;
 import com.brightics.prj.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,15 +38,12 @@ public class MemberService implements UserDetailsService {
 
 
     private Member saveMember(SignupForm signupForm){
-
         Member member = new Member();
         member.setLoginId(signupForm.getLoginId());
         member.setPassword(passwordEncoder.encode(signupForm.getPassword()));
         member.setEmail(signupForm.getEmail());
         member.setEmailVerified(false);
-
         memberRepository.save(member);
-
 
         return member;
     }
@@ -87,16 +85,19 @@ public class MemberService implements UserDetailsService {
     }
 
 
+
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
         Member member= memberRepository.findMemberByLoginId(loginId).stream().findAny().orElse(null);
-        System.out.println(loginId+"============================================");
-
         if(member==null){
-            System.out.println("122223");
             throw new UsernameNotFoundException(loginId);
         }
-        System.out.println("123");
+        if(!member.getEmailVerified()){
+            throw new UsernameNotFoundException(loginId);
+        }
+
+
+
         return new UserAccount(member);
     }
 }

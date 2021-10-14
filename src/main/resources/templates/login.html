@@ -34,11 +34,17 @@
                             <div class="login_id">
                                 <h4>E-mail</h4>
                                 <input type="text" placeholder="loginId" th:field="*{loginId}">
+
+
                             </div>
                             <div class="login_pw">
                                 <h4>Password</h4>
                                 <input type="password"placeholder="Password" th:field="*{password}">
                             </div>
+                            <error th:if="${param.error}">
+                                <p th:text="${exception}"></p>
+                            </error>
+
                             <div class="login_etc">
                                 <div class="col-6 col-12-small">
                                     <input type="checkbox" id="remember-me" name="remember-me" checked>
