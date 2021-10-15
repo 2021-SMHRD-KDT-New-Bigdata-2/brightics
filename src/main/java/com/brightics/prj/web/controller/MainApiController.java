@@ -22,7 +22,7 @@ public class MainApiController {
     private final StockService stockService;
     private final SearchService searchService;
     private static final LocalDate CURRENT_DATE= LocalDate.now();
-
+    private final StockRepository stockRepository;
 
     @GetMapping("/candidate/stock/{code}/getnewsgraph")
     public Object newsGraphInfoApi(@PathVariable String code , @RequestParam(required = false) String start, @RequestParam(required = false) String end){
@@ -47,7 +47,7 @@ public class MainApiController {
 
     @GetMapping("/searchApi")
     public List<Stock> searchStock () {
-        List<Stock> stockList= StockRepository.findAll();
+        List<Stock> stockList = stockRepository.findAll();
 
         return stockList;
     }
