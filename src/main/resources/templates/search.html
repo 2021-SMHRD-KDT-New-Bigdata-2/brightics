@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:replace="/fragments/head :: headFragment"></div>
+
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+    <div th:replace="/fragments/nav :: navFragment"></div>
+
+    <!-- main -->
+    <div id="main" >
+        <!-- One -->
+        <section id="one">
+            <div class="inner">
+                <header class="major">
+                    <h1><i class="fas fa-search"></i>Search &nbsp;&nbsp;</h1>
+                </header>
+                <div class="dropdown">
+                    <span><input onclick="dp_menu()" type="text" id="query" placeholder="Stock" autocomplete="off" ></span>
+                    <div style="display: none;" id="drop-content" >
+                        <div class="col-6 col-12-xsmall box" id="searchResult"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function validate(data) {
+            var blank_pattern = /^\s+|\s+$/g;
+            if (data.replace(blank_pattern, '') == "") {
+                return true;
+            } else if (!data) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    <!-- enter 기능 추가
+        function enterkey() {
+            document.getElementById("query").value
+            if(validate(query)){
+        }
+    -->
+
+        var result;
+        var query;
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://localhost:8081/searchApi",
+                type: 'get',
+                success: function (data) {
+                    result = data
+                },
+                error: function (err) {
+                }
+            });
+            $("#query").keyup(function () {
+                let click = document.getElementById("drop-content");
+                click.style.display = "block";
+
+                query = document.getElementById("query").value
+                if (validate(query)) {
+                    return;
+                }
+                var newResult = result.filter(function (elem) {
+                        return elem.code.includes(query) || elem.name.includes(query) || elem.description.includes(query) || elem.category.includes(query) || elem.candidate.name.includes(query);
+                    },
+                )
+                var elem = document.getElementById("searchResult")
+                elem.innerHTML = ""
+                var i=0;
+                var stockUrl='http://localhost:8081/candidate/stock/'
+
+                for(var r of newResult){
+                elem.innerHTML+= "<p><a href="+stockUrl+r.code+">"  +r.name+ "</a></p>";
+                i+=1;
+                if (i>5){break};}
+            });
+        });
+
+
+        function dp_menu() {
+            let click = document.getElementById("drop-content");
+            click.style.display = "block";
+        }
+        $(function(){
+            $(document).mousedown(function( e ){
+                if( $("#drop-content").is(":visible") ) {
+                    $("#drop-content").each(function(){
+                        var l_position = $(this).offset();
+                        l_position.right = parseInt(l_position.left) + ($(this).width());
+                        l_position.bottom = parseInt(l_position.top) + parseInt($(this).height());
+                        if( ( l_position.left <= e.pageX && e.pageX <= l_position.right )
+                            && ( l_position.top <= e.pageY && e.pageY <= l_position.bottom ) ) {
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <div th:replace="/fragments/footer :: footerFragment"></div>
+</div>
+<!-- Scripts -->
+<div th:replace="/fragments/script :: scriptFragment"></div>
+
+</body>
+</html>

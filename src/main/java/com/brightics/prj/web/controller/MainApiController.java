@@ -2,6 +2,7 @@ package com.brightics.prj.web.controller;
 
 
 import com.brightics.prj.web.entity.Stock;
+import com.brightics.prj.web.repository.StockRepository;
 import com.brightics.prj.web.service.SearchService;
 import com.brightics.prj.web.service.StockService;
 import lombok.RequiredArgsConstructor;
@@ -44,5 +45,11 @@ public class MainApiController {
         return stockService.makeStockGraph(code,startDate,endDate);
     }
 
+    @GetMapping("/searchApi")
+    public List<Stock> searchStock () {
+        List<Stock> stockList= StockRepository.findAll();
+
+        return stockList;
+    }
 
 }

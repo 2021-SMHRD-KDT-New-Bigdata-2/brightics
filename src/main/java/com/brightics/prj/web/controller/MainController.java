@@ -125,6 +125,11 @@ public class MainController {
         return "redirect:/candidate/stock/{code}";
     }
 
+    @GetMapping("/search")
+    public String search () {
+        return "search";
+    }
+
 
 
 
