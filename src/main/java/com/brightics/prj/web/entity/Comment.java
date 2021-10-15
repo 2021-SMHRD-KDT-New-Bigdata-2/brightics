@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,6 +15,8 @@ public class Comment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="comment_id")
     private Long id;
+
+    @NotBlank
     private String Comment;
 
     @ManyToOne
@@ -24,7 +27,6 @@ public class Comment {
     @JoinColumn(name="member_id")
     private Member member;
 
-    @CreatedDate
     private LocalDateTime commentedAt;
 
 

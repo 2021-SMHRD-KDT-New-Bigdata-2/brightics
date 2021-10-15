@@ -265,8 +265,11 @@
 
                 <div class="input-comment">
                     <i class="fa fa-comment fa"></i> comment
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        <button type="button" class="btn btn-dark mt-3" onClick="javascript:addReply();">post reply</button>
+                    <form action="" method="post" th:object="${comment}">
+                        <textarea class="form-control" th:field="${comment.comment}" rows="3"></textarea>
+                        <button type="submit">post reply</button>
+
+                    </form>
                 </div>
             </div>
         </div>
