@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,8 @@ public class MainController {
 
     @GetMapping("")
     public String home(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+
 
 
 

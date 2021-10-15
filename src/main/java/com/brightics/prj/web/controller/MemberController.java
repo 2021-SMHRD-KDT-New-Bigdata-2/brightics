@@ -8,6 +8,9 @@ import com.brightics.prj.web.entity.Member;
 import com.brightics.prj.web.repository.MemberRepository;
 import com.brightics.prj.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -16,7 +19,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,6 +36,13 @@ public class MemberController {
 
     @GetMapping("/login")
     public String loginPage(@ModelAttribute(name="loginForm") LoginForm loginForm ,@RequestParam(value = "error" ,required=false) String error ,@RequestParam(value = "exception" ,required=false) String exception, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object authority=authentication.getAuthorities().stream().filter(
+                a->a.equals(new SimpleGrantedAuthority("ROLE_ANONYMOUS"))).findAny().orElse(null);
+        if(authority==null){
+            return "redirect:/";
+        }
+
         model.addAttribute("error",error);
         model.addAttribute("exception",exception);
 
@@ -41,6 +50,13 @@ public class MemberController {
     }
     @GetMapping("/signup")
     public String signupPage(@ModelAttribute(name="signupForm") SignupForm signupForm){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object authority=authentication.getAuthorities().stream().filter(
+                a->a.equals(new SimpleGrantedAuthority("ROLE_ANONYMOUS"))).findAny().orElse(null);
+        if(authority==null){
+            return "redirect:/";
+        }
+
         return "signup";
     }
 
