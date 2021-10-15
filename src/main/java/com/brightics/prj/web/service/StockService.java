@@ -52,6 +52,8 @@ public class StockService {
 
 
 
+
+
     private static LocalDate parsing(String time){
         return LocalDate.parse(time,dateTimeFormatter);
     }

@@ -88,6 +88,8 @@ public class MainController {
         Stock stock= stockRepository.findStockByCodeIs(code).stream().findAny().orElse(null);
         if (stock==null || member ==null){
             errors.reject("invalid");
+        }
+        if(errors.hasErrors()){
             return "redirect:/error";
         }
 
