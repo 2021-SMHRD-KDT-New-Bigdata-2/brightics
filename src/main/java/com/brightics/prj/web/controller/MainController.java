@@ -1,5 +1,6 @@
 package com.brightics.prj.web.controller;
 
+import com.brightics.prj.web.CommentForm;
 import com.brightics.prj.web.entity.Candidate;
 import com.brightics.prj.web.entity.Comment;
 import com.brightics.prj.web.entity.Member;
@@ -9,6 +10,9 @@ import com.brightics.prj.web.repository.CommentRepository;
 import com.brightics.prj.web.repository.MemberRepository;
 import com.brightics.prj.web.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -63,16 +67,18 @@ public class MainController {
         return "candidate/candidate-detail";
     }
     @GetMapping("/candidate/stock/{code}")
-    public String StockDetail(@PathVariable String code, Model model, Comment comment){
+    public String StockDetail(@PathVariable String code, Model model, CommentForm commentForm,@PageableDefault(size = 10) Pageable pageable){
         Stock stock = stockRepository.findStockByCodeIs(code).get();
+        Page<Comment> commentList=commentRepository.findCommentByStockIs(stock, pageable);
         model.addAttribute("stock", stock);
         model.addAttribute("candidateName", stock.getCandidate().getName());
-        model.addAttribute("comment", comment);
+        model.addAttribute("commentForm", commentForm);
+        model.addAttribute("commentList", commentList);
         return "candidate/stock/stock-detail";
     }
 
     @PostMapping("/candidate/stock/{code}")
-    public String createComment(@PathVariable String code, Model model, @Valid @ModelAttribute Comment comment, Errors errors){
+    public String createComment(@PathVariable String code, Model model, @Valid @ModelAttribute CommentForm commentForm, Errors errors){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member;
@@ -92,7 +98,8 @@ public class MainController {
         if(errors.hasErrors()){
             return "redirect:/error";
         }
-
+        Comment comment=new Comment();
+        comment.setComment(commentForm.getComment());
         comment.setMember(member);
         comment.setStock(stock);
         comment.setCommentedAt(LocalDateTime.now());

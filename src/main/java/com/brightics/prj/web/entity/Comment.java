@@ -16,14 +16,15 @@ public class Comment {
     @Column(name="comment_id")
     private Long id;
 
+
     @NotBlank
     private String Comment;
 
-    @ManyToOne
+    @ManyToOne(fetch =FetchType.LAZY)
     @JoinColumn(name="stock_code")
     private Stock stock;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="member_id")
     private Member member;
 

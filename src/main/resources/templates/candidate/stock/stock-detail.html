@@ -222,51 +222,26 @@
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
+                            <th>comment</th>
+                            <th>commented</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Item1</td>
-                            <td>Ante turpis integer aliquet porttitor.</td>
-                            <td>29.99</td>
+                        <tr th:each="co:${commentList}">
+                            <td th:text="${co.member.email}? ${#strings.abbreviate(co.member.email,8)}:${#strings.abbreviate(co.member.kakaoEmail,8)}"></td>
+                            <td th:text="${co.comment}"></td>
+                            <td th:text="${co.commentedAt}"></td>
                         </tr>
-                        <tr>
-                            <td>Item2</td>
-                            <td>Vis ac commodo adipiscing arcu aliquet.</td>
-                            <td>19.99</td>
-                        </tr>
-                        <tr>
-                            <td>Item3</td>
-                            <td> Morbi faucibus arcu accumsan lorem.</td>
-                            <td>29.99</td>
-                        </tr>
-                        <tr>
-                            <td>Item4</td>
-                            <td>Vitae integer tempus condimentum.</td>
-                            <td>19.99</td>
-                        </tr>
-                        <tr>
-                            <td>Item5</td>
-                            <td>Ante turpis integer aliquet porttitor.</td>
-                            <td>29.99</td>
-                        </tr>
+
                         </tbody>
-                        <tfoot>
-                        <tr>
-                            <td colspan="2"></td>
-                            <td>100.00</td>
-                        </tr>
-                        </tfoot>
                     </table>
                 </div>
 
 
                 <div class="input-comment" sec:authorize="isAuthenticated()">
                     <i class="fa fa-comment fa"></i> comment
-                    <form action="" method="post" th:object="${comment}">
-                        <textarea class="form-control" th:field="${comment.comment}" rows="3"></textarea>
+                    <form action="" method="post" th:object="${commentForm}">
+                        <textarea class="form-control" th:field="${commentForm.comment}" rows="3"></textarea>
                         <button type="submit">post reply</button>
 
                     </form>
