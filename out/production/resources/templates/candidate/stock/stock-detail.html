@@ -222,15 +222,19 @@
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>comment</th>
+                            <th class="th-2">comment</th>
                             <th>commented</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="co:${commentList}">
                             <td th:text="${co.member.email}? ${#strings.abbreviate(co.member.email,8)}:${#strings.abbreviate(co.member.kakaoEmail,8)}"></td>
                             <td th:text="${co.comment}"></td>
-                            <td th:text="${co.commentedAt}"></td>
+                            <td th:text="${#temporals.format(co.commentedAt,'MM/dd')}"></td>
+                            <td><form th:action="@{{code}/delete/{id}(code=${stock.code},id=${co.id})}" method="post"><button type="submit" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form></td>
+
+
                         </tr>
 
                         </tbody>
@@ -238,7 +242,7 @@
                 </div>
 
 
-                <div class="input-comment" sec:authorize="isAuthenticated()">
+                <div class="input-comment" sec:authorize="hasRole('USER')">
                     <i class="fa fa-comment fa"></i> comment
                     <form action="" method="post" th:object="${commentForm}">
                         <textarea class="form-control" th:field="${commentForm.comment}" rows="3"></textarea>

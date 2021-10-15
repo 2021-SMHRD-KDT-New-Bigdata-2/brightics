@@ -10,9 +10,11 @@ import com.brightics.prj.web.repository.CommentRepository;
 import com.brightics.prj.web.repository.MemberRepository;
 import com.brightics.prj.web.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -28,6 +30,7 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MainController {
     private final CandidateRepository candidateRepository;
     private final StockRepository stockRepository;
@@ -41,7 +44,6 @@ public class MainController {
     @GetMapping("")
     public String home(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
 
 
 
@@ -91,6 +93,8 @@ public class MainController {
         else {
             member=memberRepository.findMemberByLoginId(authentication.getPrincipal().toString()).stream().findAny().orElse(null);
         }
+
+
         Stock stock= stockRepository.findStockByCodeIs(code).stream().findAny().orElse(null);
         if (stock==null || member ==null){
             errors.reject("invalid");
@@ -107,6 +111,20 @@ public class MainController {
 
         return "redirect:/candidate/stock/{code}";
     }
+
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/candidate/stock/{code}/delete/{id}")
+    public String deleteComment(@PathVariable Long id, @PathVariable String code){
+        log.error("!!!!!!!!!!!!!!!!");
+        Comment comment= commentRepository.findById(id).stream().findAny().orElse(null);
+        if (comment==null){
+            return "redirect:/error";
+        }
+        commentRepository.delete(comment);
+        return "redirect:/candidate/stock/{code}";
+    }
+
 
 
 
