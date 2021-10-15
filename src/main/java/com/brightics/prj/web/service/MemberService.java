@@ -1,9 +1,9 @@
 package com.brightics.prj.web.service;
 
-import com.brightics.prj.web.ForgotPasswordForm;
-import com.brightics.prj.web.UserAccount;
+import com.brightics.prj.web.form.ForgotPasswordForm;
+import com.brightics.prj.web.form.UserAccount;
 import com.brightics.prj.web.entity.Stock;
-import com.brightics.prj.web.SignupForm;
+import com.brightics.prj.web.form.SignupForm;
 import com.brightics.prj.web.entity.Comment;
 import com.brightics.prj.web.entity.Member;
 import com.brightics.prj.web.repository.CommentRepository;
@@ -46,16 +46,6 @@ public class MemberService implements UserDetailsService {
         return member;
     }
 
-    public Comment CreateComment(String commentText , Member member, Stock stock){
-        Comment comment= new Comment();
-        comment.setComment(commentText);
-        comment.setMember(member);
-        comment.setStock(stock);
-        commentRepository.save(comment);
-        return comment;
-
-    }
-
     private void sendCheckEmail(Member signupMember) {
 
         SimpleMailMessage mailMessage=new SimpleMailMessage();
@@ -71,9 +61,6 @@ public class MemberService implements UserDetailsService {
         signupMember.genToken();
         sendCheckEmail(signupMember);
         return signupMember;
-    }
-
-    public void deleteComment(Comment comment){
     }
 
     public void login(Member member){
@@ -99,6 +86,7 @@ public class MemberService implements UserDetailsService {
 
         return new UserAccount(member);
     }
+
 
     public Member findMemberAccount(ForgotPasswordForm forgotPasswordForm){
         String id=forgotPasswordForm.getLoginId();

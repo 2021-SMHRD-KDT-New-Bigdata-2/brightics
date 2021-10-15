@@ -1,7 +1,7 @@
 package com.brightics.prj.member.service;
 
-import com.brightics.prj.web.LoginForm;
-import com.brightics.prj.web.SignupForm;
+import com.brightics.prj.web.form.LoginForm;
+import com.brightics.prj.web.form.SignupForm;
 import com.brightics.prj.web.entity.Member;
 import com.brightics.prj.web.repository.CommentRepository;
 import com.brightics.prj.web.repository.MemberRepository;

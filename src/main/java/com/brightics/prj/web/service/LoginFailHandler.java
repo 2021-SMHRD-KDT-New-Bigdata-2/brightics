@@ -1,4 +1,4 @@
-package com.brightics.prj.configure;
+package com.brightics.prj.web.service;
 
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;

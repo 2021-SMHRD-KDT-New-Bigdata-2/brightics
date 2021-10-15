@@ -1,14 +1,11 @@
-package com.brightics.prj.web;
-
+package com.brightics.prj.web.form;
 
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class ForgotPasswordForm {
-
+public class CommentForm {
     @NotBlank
-    String loginId;
-
+    private String comment;
 }

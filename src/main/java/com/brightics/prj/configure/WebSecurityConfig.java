@@ -1,5 +1,6 @@
 package com.brightics.prj.configure;
 
+import com.brightics.prj.web.service.LoginFailHandler;
 import com.brightics.prj.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -10,15 +11,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.sql.DataSource;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 @Configuration
 @EnableWebSecurity

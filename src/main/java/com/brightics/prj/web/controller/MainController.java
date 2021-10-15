@@ -1,6 +1,6 @@
 package com.brightics.prj.web.controller;
 
-import com.brightics.prj.web.CommentForm;
+import com.brightics.prj.web.form.CommentForm;
 import com.brightics.prj.web.entity.Candidate;
 import com.brightics.prj.web.entity.Comment;
 import com.brightics.prj.web.entity.Member;
@@ -16,16 +16,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.socket.messaging.SubProtocolWebSocketHandler;
 
 import javax.validation.Valid;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,10 +48,6 @@ public class MainController {
 
     @GetMapping("")
     public String home(Model model){
-
-
-
-
 
         return "index";
     }

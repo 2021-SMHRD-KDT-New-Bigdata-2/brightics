@@ -1,9 +1,9 @@
 package com.brightics.prj.web.controller;
 
-import com.brightics.prj.web.ForgotPasswordForm;
-import com.brightics.prj.web.LoginForm;
-import com.brightics.prj.web.SignupForm;
-import com.brightics.prj.web.SignupFormValidator;
+import com.brightics.prj.web.form.ForgotPasswordForm;
+import com.brightics.prj.web.form.LoginForm;
+import com.brightics.prj.web.form.SignupForm;
+import com.brightics.prj.web.util.SignupFormValidator;
 import com.brightics.prj.web.entity.Member;
 import com.brightics.prj.web.repository.MemberRepository;
 import com.brightics.prj.web.service.MemberService;

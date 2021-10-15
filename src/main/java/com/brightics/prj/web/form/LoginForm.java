@@ -1,4 +1,4 @@
-package com.brightics.prj.web;
+package com.brightics.prj.web.form;
 
 import lombok.Getter;
 import lombok.Setter;

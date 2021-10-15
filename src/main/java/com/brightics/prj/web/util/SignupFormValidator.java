@@ -1,5 +1,6 @@
-package com.brightics.prj.web;
+package com.brightics.prj.web.util;
 
+import com.brightics.prj.web.form.SignupForm;
 import com.brightics.prj.web.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
