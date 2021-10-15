@@ -27,11 +27,12 @@ public class KakaoService implements OAuth2UserService<OAuth2UserRequest, OAuth2
 
 
         Object oauthId=oAuth2User.getAttribute("id");
-  
+
         Member member =memberRepository.findMemberByOauthId(oauthId.toString());
         if (member==null){
             member= new Member();
         }
+        member.setKakaoEmail(userInfo.get("email").toString());
         member.setOauthId(oauthId.toString());
         member.setEmailVerified(true);
         memberRepository.save(member);

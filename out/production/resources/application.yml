@@ -16,7 +16,7 @@ spring:
             redirect-uri: "http://localhost:8081/login/oauth2/code/kakao"
             client-authentication-method: POST
             authorization-grant-type: authorization_code
-            scope: account_email
+            scope:
             client-name: Kakao
         provider:
           kakao:
@@ -34,7 +34,7 @@ spring:
     show-sql: true
     hibernate:
       format_sql: true
-      ddl-auto:
+      ddl-auto: update
 
   mail:
     host: smtp.gmail.com

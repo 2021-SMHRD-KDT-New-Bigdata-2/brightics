@@ -19,6 +19,8 @@ public class Member {
 
     @Column(unique = true)
     private String oauthId;
+    private String kakaoEmail;
+
     private String loginId;
     private String email;
     private String password;
