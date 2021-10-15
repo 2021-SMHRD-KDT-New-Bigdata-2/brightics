@@ -14,8 +14,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.sql.DataSource;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final LoginFailHandler loginFailHandler;
     private final PasswordEncoder passwordEncoder;
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         String password = passwordEncoder.encode("1234");
@@ -37,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-//        web.ignoring().antMatchers("/assets/**");
+        web.ignoring().antMatchers("/assets/**");
     }
 
     @Override
@@ -48,6 +52,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
+
+
+
 
         http.formLogin()
                 .loginPage("/login")
@@ -72,6 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement()
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(false);
+
 
     }
 
