@@ -25,25 +25,18 @@
             <div class="inner">
                 <!-- Content -->
                 <div class="col-6 col-12-small">
-                    <H3> 이메일 인증</H3>
+                    <H1> <i class="fas fa-cat"></i> ERROR</H1>
 
-                        <hr/>
-                    <div th:if="${error}">
-                    <H4>인증 실패!</H4>
-                    </div>
-                    <div th:if="${error==null}">
-                        <H3 th:text="|${memberEmail}님, 환영합니다!|"></H3>
-                    </div>
+
                 </div>
-
             </div>
+
+
         </section>
 
         <!-- Footer -->
         <div th:replace="/fragments/footer :: footerFragment"></div>
-
     </div>
-
     <div th:replace="/fragments/script :: scriptFragment"></div>
 </div>
 

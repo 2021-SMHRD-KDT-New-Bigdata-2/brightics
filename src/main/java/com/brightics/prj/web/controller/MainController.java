@@ -116,7 +116,7 @@ public class MainController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/candidate/stock/{code}/delete/{id}")
     public String deleteComment(@PathVariable Long id, @PathVariable String code){
-        log.error("!!!!!!!!!!!!!!!!");
+
         Comment comment= commentRepository.findById(id).stream().findAny().orElse(null);
         if (comment==null){
             return "redirect:/error";

@@ -1,5 +1,6 @@
 package com.brightics.prj.web.service;
 
+import com.brightics.prj.web.ForgotPasswordForm;
 import com.brightics.prj.web.UserAccount;
 import com.brightics.prj.web.entity.Stock;
 import com.brightics.prj.web.SignupForm;
@@ -97,5 +98,16 @@ public class MemberService implements UserDetailsService {
 
 
         return new UserAccount(member);
+    }
+
+    public Member findMemberAccount(ForgotPasswordForm forgotPasswordForm){
+        String id=forgotPasswordForm.getLoginId();
+        Member member = memberRepository.findMemberByLoginId(id).stream().findAny().orElse(null);
+        if (member==null){
+            return null;
+        }
+        member.genToken();
+        sendCheckEmail(member);
+        return member;
     }
 }
