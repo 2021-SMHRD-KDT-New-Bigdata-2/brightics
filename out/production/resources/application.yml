@@ -43,8 +43,8 @@ spring:
       mail:
         smtp:
           ssl: true
-#          auth: true
-#          timeout: 500
+          #          auth: true
+          #          timeout: 500
           starttls:
             enable: true
 
