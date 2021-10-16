@@ -4,7 +4,7 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.orh/extra/spring-security">
 
 <head>
     <div th:replace="/fragments/head :: headFragment"></div>
@@ -30,36 +30,31 @@
 
                 <div id="stock">
                     <h3>새로운 주식 등록</h3>
-                    <form>
-                        <input type="text" placeholder="주식명">
-                        <input type="text" placeholder="코드">
-                        <input type="text" placeholder="설명">
-                        <input type="text" placeholder="카테고리">
-                        <select name="후보자">
-                            <option value="1">이재명</option>
-                            <option value="2">홍준표</option>
-                            <option value="3">윤석열</option>
-                            <option value="4">이낙연</option>
+                    <form action="" th:object="${stockForm}" method="post">
+                        <input type="text" th:field="${stockForm.name}" placeholder="주식명">
+                        <input type="text" th:field="${stockForm.stock_code}" placeholder="코드">
+                        <input type="text" th:field="${stockForm.description}" placeholder="설명">
+                        <input type="text" th:field="${stockForm.category}" placeholder="카테고리">
+                        <select th:field="${stockForm.candidate}">
+                            <option th:each="candidate:${candidateList}" th:value="${candidate.id}" th:text="${candidate.name}"></option>
+
                         </select>
+
                         <input type="submit" value="등록">
                     </form>
                 </div>
 
                 <div id="comment">
                     <h3>댓글 관리</h3>
-                    <form>
-                        <input type="text" placeholder="주식명">
-                        <input type="text" placeholder="코드">
-                        <input type="text" placeholder="설명">
-                        <input type="text" placeholder="카테고리">
-                        <select name="후보자">
-                            <option value="1">이재명</option>
-                            <option value="2">홍준표</option>
-                            <option value="3">윤석열</option>
-                            <option value="4">이낙연</option>
-                        </select>
-                        <input type="submit" value="등록">
-                    </form>
+                    <select name="관련주 목록"></select>
+                    <tr th:each="co:${commentList}">
+                        <td th:text="${co.member.email}? ${#strings.abbreviate(co.member.email,8)}:${#strings.abbreviate(co.member.kakaoEmail,8)}"></td>
+                        <td th:text="${co.comment}"></td>
+                        <td th:text="${#temporals.format(co.commentedAt,'MM/dd')}"></td>
+                        <td><form th:action="@{{code}/delete/{id}(code=${stock.code},id=${co.id})}" method="post"><button type="submit" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form></td>
+
+                    </tr>
+
                 </div>
 
 

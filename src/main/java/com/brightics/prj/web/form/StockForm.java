@@ -1,5 +1,6 @@
 package com.brightics.prj.web.form;
 
+import com.brightics.prj.web.entity.Candidate;
 import lombok.Data;
 
 @Data
@@ -8,6 +9,6 @@ public class StockForm {
     private String name;
     private String category;
     private String description;
-    private Long candidate_id;
+    private Candidate candidate;
 }
 
