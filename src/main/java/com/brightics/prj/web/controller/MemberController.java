@@ -46,7 +46,7 @@ public class MemberController {
         model.addAttribute("error",error);
         model.addAttribute("exception",exception);
 
-        return "login";
+        return "member/login";
     }
     @GetMapping("/signup")
     public String signupPage(@ModelAttribute(name="signupForm") SignupForm signupForm){
@@ -57,7 +57,7 @@ public class MemberController {
             return "redirect:/";
         }
 
-        return "signup";
+        return "member/signup";
     }
 
     @PostMapping("/login")
@@ -69,7 +69,7 @@ public class MemberController {
     @PostMapping("/signup")
     public String signup(@Valid SignupForm signupForm, Errors errors){
         if(errors.hasErrors()){
-            return "signup";
+            return "member/signup";
         }
         Member signupMember = memberService.signup(signupForm);
         return "redirect:/";
@@ -83,14 +83,14 @@ public class MemberController {
         Member member= memberRepository.findMemberByEmail(email);
         if (member==null){
             model.addAttribute("error","invalid.email");
-            return "/checked-email";
+            return "member/checked-email";
         }
         if(member.getEmailCheckToken().equals("checked")){
             model.addAttribute("error","invalid.token");
         }
         if (!member.getEmailCheckToken().equals(token)){
             model.addAttribute("error","invalid.token");
-            return "/checked-email";
+            return "member/checked-email";
         }
 
 
@@ -99,7 +99,7 @@ public class MemberController {
         model.addAttribute("memberEmail",member.getEmail());
         memberService.login(member);
 
-        return "/checked-email";
+        return "member/checked-email";
     }
     @GetMapping("/we-send-email")
     public String weSendEmail(){
@@ -109,7 +109,7 @@ public class MemberController {
     @GetMapping("/forgot-password")
     public String forgotPasswordPage(Model model){
         model.addAttribute("forgotPasswordForm", new ForgotPasswordForm());
-        return "forgot-password";
+        return "member/forgot-password";
     }
 
     @PostMapping("/forgot-password")
@@ -119,6 +119,11 @@ public class MemberController {
         }
         memberService.findMemberAccount(forgotPasswordForm);
         return "redirect:/we-send-email";
+    }
+    @GetMapping("/mypage")
+    public String myPageHome(){
+
+        return "member/mypage";
     }
 
 

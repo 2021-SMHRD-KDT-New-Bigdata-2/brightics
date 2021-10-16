@@ -57,9 +57,17 @@
                             </div>
 
                             <hr/>
-                            <div class="submit">
+                            <div class="row">
+                            <div class="submit col-6">
                                 <input type="submit" value="Log-in">
                             </div>
+                                <div class="col-6">
+                                    <button type="button" onclick="location.href='/signup'">sign up</button>
+                                </div>
+                            </div>
+                            <hr/>
+
+                            <h3>login with .. .</h3>
 
                             <div class="kakao">
                                 <a href="oauth2/authorization/kakao"><img style="width: 120px" th:src="@{/images/kakao_login_medium.png}"></a>
