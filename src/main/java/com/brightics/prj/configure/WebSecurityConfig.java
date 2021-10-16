@@ -26,14 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
     private final LoginFailHandler loginFailHandler;
     private final PasswordEncoder passwordEncoder;
-
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        String password = passwordEncoder.encode("1234");
-        auth.inMemoryAuthentication().withUser("admin").password(password).roles("ADMIN");
-
-    }
+    
 
     @Override
     public void configure(WebSecurity web) throws Exception {

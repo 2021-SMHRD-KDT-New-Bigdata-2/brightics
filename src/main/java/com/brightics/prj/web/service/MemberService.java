@@ -51,6 +51,7 @@ public class MemberService implements UserDetailsService {
         SimpleMailMessage mailMessage=new SimpleMailMessage();
         mailMessage.setTo(signupMember.getEmail());
         mailMessage.setSubject("Thanks for signing up");
+
         mailMessage.setText("http://localhost:8081/check-email-token?token="+ signupMember.getEmailCheckToken()+"&email="+ signupMember.getEmail()
         +"\n"+"가입해주셔서 감사합니다람쥐.");
         mailSender.send(mailMessage);
