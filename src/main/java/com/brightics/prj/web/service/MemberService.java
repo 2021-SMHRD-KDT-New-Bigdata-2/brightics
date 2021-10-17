@@ -2,11 +2,9 @@ package com.brightics.prj.web.service;
 
 import com.brightics.prj.web.entity.*;
 import com.brightics.prj.web.form.ForgotPasswordForm;
-import com.brightics.prj.web.form.MyPageDto;
 import com.brightics.prj.web.form.UserAccount;
 import com.brightics.prj.web.form.SignupForm;
 import com.brightics.prj.web.repository.CommentRepository;
-import com.brightics.prj.web.repository.MemberCandidateRepository;
 import com.brightics.prj.web.repository.MemberRepository;
 import com.brightics.prj.web.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,21 +20,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class MemberService implements UserDetailsService {
-    private final NewsRepository newsRepository;
+
     private final MemberRepository memberRepository;
-    private final CommentRepository commentRepository;
     private final JavaMailSender mailSender;
     private final PasswordEncoder passwordEncoder;
-    private final MemberCandidateRepository memberCandidateRepository;
+
 
 
 
@@ -103,31 +97,6 @@ public class MemberService implements UserDetailsService {
         member.genToken();
         sendCheckEmail(member);
         return member;
-    }
-
-    public MyPageDto myPageInfo(Member member){
-
-        LocalDate yesterday=LocalDate.now().minusDays(1);
-        MyPageDto myPageDto= new MyPageDto();
-        List<MemberCandidate> memberCandidates = memberCandidateRepository.findAllByMemberIs(member);
-        for (MemberCandidate memberCandidate : memberCandidates) {
-            Candidate candidate= memberCandidate.getCandidate();
-            List<Object[]> count = newsRepository.findCountNumberOfNewsPerPeriodAndCandidateIs(yesterday, 1L, candidate.getId());
-            BigInteger beforeYesterdayCount= (BigInteger) count.get(0)[1];
-            BigInteger yesterdayCount= (BigInteger) count.get(1)[1];
-            Long countNewsPercent;
-
-            if (beforeYesterdayCount.longValue()==0L){
-            countNewsPercent=yesterdayCount.longValue()/beforeYesterdayCount.longValue()*100;}
-            else{
-                countNewsPercent =0L;;
-            }
-            myPageDto.setCandidate(candidate);
-            myPageDto.setCountNewsPercent(countNewsPercent);
-        }
-
-
-        return myPageDto;
     }
 
 

@@ -48,6 +48,7 @@ public class MainController {
 
     @GetMapping("")
     public String home(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         return "index";
     }

@@ -25,16 +25,22 @@
         <section id="one">
             <div class="inner">
                 <div class="primary">
-                    <H1> 내 관심후보</H1>
-                    <div class="box">
+                    <H1>MyPage</H1>
+                    <hr/>
+                    <div class="row">
 
-                            <span>후보 이름</span><button type="button" th:href="@{#}" style="float:right; width: 10%; height: 5%;"><i class="fas fa-trash"></i></button>
-                        <hr/>
+                        <div class="col-6">
+                            <form action="" method="post">
+                                <h3>비밀번호 수정</h3>
+                                <input type="password" id="password" name="password">
+                                <input type="submit" value="확인">
+                            </form>
+                        </div>
 
-                        <div class="row">
-                            <div class="col-6"><h4>전전일 대비 뉴스</h4></div>
+                        <div class="col-6">
 
-                            <div class="col-6"><h4>최고 거래량 주식</h4></div>
+                        </div>
+                    </div>
 
 
 
@@ -44,36 +50,10 @@
 
 
                 <hr/>
-                <div class="row">
-                    <div class="col-6">
-                        <form action="" method="post">
-                            <h3>비밀번호 수정</h3>
-                            <input type="password" id="password">
-                            <input type="submit" value="확인">
-                        </form>
-                    </div>
-
-                    <div class="col-6">
-                        <form action="" method="post">
-                            <h3>관심후보 등록</h3>
-                            <select>
-                                <option>1</option>
-                            </select>
-                            <div class="row">
-                                <div class="col=6">
-                                    <input type="submit" value="등록">
-                                </div>
-
-                                <div th:class="col-6">
-                                    <input type="submit" value="해제">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
 
 
-            </div>
+
+
         </section>
 
         <!-- Footer -->

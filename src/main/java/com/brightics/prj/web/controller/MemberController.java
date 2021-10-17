@@ -3,7 +3,6 @@ package com.brightics.prj.web.controller;
 import com.brightics.prj.web.entity.Candidate;
 import com.brightics.prj.web.form.ForgotPasswordForm;
 import com.brightics.prj.web.form.LoginForm;
-import com.brightics.prj.web.form.MyPageDto;
 import com.brightics.prj.web.form.SignupForm;
 import com.brightics.prj.web.repository.CandidateRepository;
 import com.brightics.prj.web.util.SignupFormValidator;
@@ -11,9 +10,11 @@ import com.brightics.prj.web.entity.Member;
 import com.brightics.prj.web.repository.MemberRepository;
 import com.brightics.prj.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +34,7 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final SignupFormValidator signupFormValidator;
-    private final CandidateRepository candidateRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     @InitBinder("signupForm")
@@ -129,21 +131,35 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public String myPageHome(Model model){
-        List<Candidate> candidateList= candidateRepository.findAll();
+    public String myPageHome(){
+        Member member=getMember();
+        if (member==null){
+            return "redirect:/";
+        }
+        Long id=member.getId();
 
-        Member member = getMember();
-        MyPageDto myPageDto = memberService.myPageInfo(member);
-        model.addAttribute("myPageDto", myPageDto);
-        model.addAttribute("candidateList", candidateList);
+        return "redirect:/mypage/"+id;
+    }
+    @GetMapping("/mypage/{id}")
+    public String myPageDetail(Model model, @PathVariable Long id){
+        Member member=getMember();
+        if (member==null){
+            return "redirect:/";
+        }
+        return "member/mypage";
+    }
+    @PostMapping("/mypage/{id}")
+    public String changePassword(Model model, @PathVariable Long id){
+        Member member=getMember();
+        if (member==null){
+            return "redirect:/";
+        }
 
         return "member/mypage";
     }
-    @PostMapping("/mypage")
-    public String changePassword(){
-        return null;
-    }
-    
+
+
+
 
     @PostMapping("/mypage/add-candidate")
     public String addCandidate(){
@@ -161,7 +177,7 @@ public class MemberController {
             member=memberRepository.findMemberByOauthId(oauthId);
         }
         else {
-            member=memberRepository.findMemberByLoginId(authentication.getPrincipal().toString()).stream().findAny().orElse(null);
+            member=memberRepository.findMemberByLoginId(authentication.getName()).stream().findAny().orElse(null);
         }
         return member;
     }
