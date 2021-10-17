@@ -43,4 +43,8 @@ public interface NewsRepository extends JpaRepository<News,Long> {
                                                                 @Param("interval") Long interval,
                                                                 @Param("candidate_id") Long candidate_id);
 
+
+
+    List<Long> countNewsByDateBetween(LocalDateTime start, LocalDateTime end);
+
 }

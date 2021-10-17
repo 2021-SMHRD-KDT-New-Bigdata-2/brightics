@@ -40,8 +40,8 @@ class NewsRepositoryTest {
             System.out.println("objects[1] = " + objects[1]);
         }
 
-        BigInteger candidate_id=new BigInteger("1");
-        List<Object[]> result2= newsRepository.findCountNumberOfNewsPerPeriodAndCandidateIs(LocalDate.now(),7L, candidate.getId());
+
+        List<Object[]> result2= newsRepository.findCountNumberOfNewsPerPeriodAndCandidateIs(LocalDate.now(),1L, candidate.getId());
 
         for (Object[] objects : result2) {
             System.out.println("objects[0]2 = " + objects[0]);
@@ -61,5 +61,21 @@ class NewsRepositoryTest {
         System.out.println("LocalDateTime.now() = " + LocalDateTime.now());
     }
 
+    @Test
+    void Test(){
 
-}
+        LocalDate yesterday=LocalDate.now().minusDays(1);
+        List<Object[]> count = newsRepository.findCountNumberOfNewsPerPeriodAndCandidateIs(yesterday, 1L, 1L);
+
+        BigInteger yesterdayCount= (BigInteger) count.get(1)[1];
+        BigInteger beforeYesterdayCount= (BigInteger) count.get(0)[1];
+        System.out.println(yesterdayCount);
+        System.out.println(beforeYesterdayCount);
+        int perCent=yesterdayCount.intValue()/beforeYesterdayCount.intValue();
+
+
+        }
+
+    }
+
+
