@@ -30,6 +30,11 @@ dependencies {
     implementation 'org.springframework.security:spring-security-oauth2-core:5.5.1'
 	implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.5.5'
 	implementation 'com.racquettrack:spring-security-oauth2-client:3.2'
+	// https://mvnrepository.com/artifact/org.jsoup/jsoup
+	implementation group: 'org.jsoup', name: 'jsoup', version: '1.14.3'
+	implementation 'com.vaadin.external.jsoup:jsoup-case-sensitive:1.9.2'
+
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'

@@ -28,4 +28,9 @@ public interface DailyStockRepository extends JpaRepository<DailyStock, String> 
                                               @Param("interval") Long interval,
                                               @Param("stock_code") String stock_code
     );
+
+
+
+    @Query(value= "select date(date), count(*) from news where date between :start and :end group by date(date)" ,nativeQuery = true)
+    public List<Object[]> findStockInfoPerDayNoWeekend(@Param("start") LocalDate start, @Param("end") LocalDate end);
 }
