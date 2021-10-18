@@ -65,7 +65,7 @@ public class AdminController {
         if (notice!=null){
             noticeRepository.delete(notice);
         }
-        return "redirect:/nocite";
+        return "redirect:/notice";
     }
 
 
