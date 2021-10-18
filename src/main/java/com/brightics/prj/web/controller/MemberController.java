@@ -1,6 +1,7 @@
 package com.brightics.prj.web.controller;
 
 import com.brightics.prj.web.entity.Candidate;
+import com.brightics.prj.web.form.ChangePasswordForm;
 import com.brightics.prj.web.form.ForgotPasswordForm;
 import com.brightics.prj.web.form.LoginForm;
 import com.brightics.prj.web.form.SignupForm;
@@ -10,6 +11,7 @@ import com.brightics.prj.web.entity.Member;
 import com.brightics.prj.web.repository.MemberRepository;
 import com.brightics.prj.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,6 +32,7 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
@@ -146,14 +149,17 @@ public class MemberController {
         if (member==null){
             return "redirect:/";
         }
+        model.addAttribute("member", member);
+
         return "member/mypage";
     }
     @PostMapping("/mypage/{id}")
-    public String changePassword(Model model, @PathVariable Long id){
+    public String changePassword(Model model, @PathVariable Long id, @ModelAttribute ChangePasswordForm changePasswordForm){
         Member member=getMember();
         if (member==null){
             return "redirect:/";
         }
+
 
         return "member/mypage";
     }
