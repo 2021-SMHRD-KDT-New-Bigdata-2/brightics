@@ -229,7 +229,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="co:${commentList}">
-                            <td th:text="${co.member.email}? ${#strings.abbreviate(co.member.email,8)}:${#strings.abbreviate(co.member.kakaoEmail,8)}"></td>
+                            <td><a th:text="${co.member.email}? ${#strings.abbreviate(co.member.email,8)}:${#strings.abbreviate(co.member.kakaoEmail,8)}" th:href="@{/mypage/{id}(id=${co.member.id})}"></a></td>
                             <td th:text="${co.comment}"></td>
                             <td th:text="${#temporals.format(co.commentedAt,'MM/dd')}"></td>
                             <td><form th:action="@{{code}/delete/{id}(code=${stock.code},id=${co.id})}" method="post"><button type="submit" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form></td>
