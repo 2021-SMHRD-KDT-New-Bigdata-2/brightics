@@ -14,6 +14,11 @@
             background: transparent;
             color: white;
         }
+        .dateSend {
+            text-align : center;
+        }
+
+
     </style>
     <div th:replace="/fragments/head :: headFragment"></div>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -193,8 +198,10 @@
 
             <!--news graph-->
             <div id="chart_div_news" style="width: 100%; height: 500px;"></div>
-            <input type="date" id="newsStart"><input type="date" id="newsEnd"><button class="button primary small" id="newsCheck">확인</button>
+            <div class="dateSend">
+            <input type="date" id="newsStart" ><input type="date" id="newsEnd" style="margin-left:0.8em;"><button class="button primary small" id="newsCheck" style="margin-left:1em;" >확인</button>
             <div id="news_error"></div>
+            </div>
             <hr/>
 
         </div>
@@ -204,8 +211,10 @@
         <div class="inner">
             <h3 id="stock_title">지난 일주일간 주식 차트</h3>
             <div id="chart_div_stock" style="width: 100%; height: 500px;"></div>
-            <input type="date" id="stockStart"><input type="date" id="stockEnd"><button class="button primary small" id="stockCheck"> submit</button>
+            <div class="dateSend">
+            <input type="date" id="stockStart" ><input type="date" id="stockEnd" style="margin-left:0.8em;"><button class="button primary small" id="stockCheck" style="margin-left:1em;">확인</button>
             <div id="stock_error"></div>
+            </div>
             <hr/>
         </div>
     </section>
