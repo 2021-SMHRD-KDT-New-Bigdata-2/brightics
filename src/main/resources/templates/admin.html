@@ -25,46 +25,71 @@
         <section id="one">
             <div class="inner">
                 <H1>Admin</H1>
-                <hr />
+                <hr/>
                 <div class="row">
 
 
-                <div id="stock" class="col-6">
-                    <h3>새로운 주식 등록</h3>
-                    <form action="" th:object="${stockForm}" method="post">
-                        <input type="text" th:field="${stockForm.name}" placeholder="주식명">
-                        <input type="text" th:field="${stockForm.stock_code}" placeholder="코드">
-                        <input type="text" th:field="${stockForm.description}" placeholder="설명">
-                        <input type="text" th:field="${stockForm.category}" placeholder="카테고리">
-                        <select th:field="${stockForm.candidate}">
-                            <option th:each="candidate:${candidateList}" th:value="${candidate.id}" th:text="${candidate.name}"></option>
+                    <div id="stock" class="col-6">
+                        <h3>새로운 주식 등록</h3>
+                        <form action="" th:object="${stockForm}" method="post">
+                            <input type="text" th:field="${stockForm.name}" placeholder="주식명">
+                            <input type="text" th:field="${stockForm.stock_code}" placeholder="코드">
+                            <input type="text" th:field="${stockForm.description}" placeholder="설명">
+                            <input type="text" th:field="${stockForm.category}" placeholder="카테고리">
+                            <select th:field="${stockForm.candidate}">
+                                <option th:each="candidate:${candidateList}" th:value="${candidate.id}"
+                                        th:text="${candidate.name}"></option>
 
-                        </select>
+                            </select>
 
-                        <input type="submit" value="등록">
-                    </form>
+                            <input type="submit" value="등록">
+                        </form>
+                    </div>
+
+                    <div id="comment" class="col-6">
+                        <h3>공지 등록</h3>
+                        <form action="/notice" method="post" th:object="${noticeForm}">
+                            <input type="text" placeholder="제목" th:field="${noticeForm.title}">
+                            <textarea cols="5" placeholder="내용" th:field="${noticeForm.content}"></textarea> <input
+                                type=submit>
+
+                        </form>
+
+                        </tr>
+
+                    </div>
+
+                </div>
                 </div>
 
-                <div id="comment" class="col-6">
-                    <h3>공지 등록</h3>
-                    <form action="/notice" method="post" th:object="${noticeForm}">
-                        <input type="text" placeholder="제목" th:field="${noticeForm.title}">
-                        <textarea cols="5" placeholder="내용" th:field="${noticeForm.content}"></textarea>                        <input type=submit>
+
+            <div class="comment inner">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th class="th-2">comment</th>
+                            <th>commented</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="co:${commentList}">
+                            <td th:text="${co.member.email}? ${#strings.abbreviate(co.member.email,8)}:${#strings.abbreviate(co.member.kakaoEmail,8)}"></td>
+                            <td th:text="${co.comment}"></td>
+                            <td th:text="${#temporals.format(co.commentedAt,'MM/dd')}"></td>
+                            <td><form th:action="@{candidate/stock/{code}/delete/{id}(code=${co.stock.code},id=${co.id})}" method="post"><button type="submit" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form></td>
 
 
-                    </form>
+                        </tr>
 
-
-                    </tr>
-
+                        </tbody>
+                    </table>
                 </div>
 
-
-
-
-
-            </div>
         </section>
+
 
         <!-- Footer -->
         <div th:replace="/fragments/footer :: footerFragment"></div>

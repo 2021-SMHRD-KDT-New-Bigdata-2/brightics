@@ -1,15 +1,19 @@
 package com.brightics.prj.web.controller;
 
 import com.brightics.prj.web.entity.Candidate;
+import com.brightics.prj.web.entity.Comment;
 import com.brightics.prj.web.entity.Notice;
 import com.brightics.prj.web.entity.Stock;
 import com.brightics.prj.web.form.NoticeForm;
 import com.brightics.prj.web.form.StockForm;
 import com.brightics.prj.web.repository.CandidateRepository;
+import com.brightics.prj.web.repository.CommentRepository;
 import com.brightics.prj.web.repository.NoticeRepository;
 import com.brightics.prj.web.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +28,17 @@ public class AdminController {
     private final CandidateRepository candidateRepository;
     private final StockRepository stockRepository;
     private final NoticeRepository noticeRepository;
+    private final CommentRepository commentRepository;
 
     @GetMapping("/admin")
-    public String adminHome(Model model){
+    public String adminHome(Model model, Pageable pageable){
+        Page<Comment> commentList = commentRepository.findAll(pageable);
+
         model.addAttribute("stockForm", new StockForm());
         List<Candidate> candidateList= candidateRepository.findAll();
         model.addAttribute("candidateList",candidateList);
         model.addAttribute("noticeForm",new NoticeForm());
+        model.addAttribute("commentList", commentList);
 
         return "admin";
     }
