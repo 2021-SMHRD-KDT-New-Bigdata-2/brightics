@@ -60,7 +60,7 @@
 
             </div>
 
-         
+
 
     </section>
 
@@ -68,9 +68,9 @@
             <div class="inner block">
                 <div class="primary">
                         <div class="col-6">
-                            <form action="" method="post">
+                            <form action="" th:object="${changePasswordForm}" method="post">
                                 <h3>비밀번호 수정</h3>
-                                <input type="password" id="password" name="password">
+                                <input type="password" id="password" th:field="${changePasswordForm.password}" name="password">
                                 <input type="submit" value="확인">
                             </form>
                         </div>

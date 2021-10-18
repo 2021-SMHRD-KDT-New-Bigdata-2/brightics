@@ -161,7 +161,7 @@ public class MemberController {
             return "redirect:/";
         }
         Page<Comment> pageMemberCommentList = commentRepository.findCommentByMemberIs(pageMember, pageable);
-
+        model.addAttribute("changePasswordForm", new ChangePasswordForm());
         model.addAttribute("pageMemberCommentList", pageMemberCommentList);
         model.addAttribute("visitMember", visitMember);
         model.addAttribute("pageMember", pageMember);
@@ -170,14 +170,22 @@ public class MemberController {
 
         return "member/mypage";
     }
+    @Transactional
     @PostMapping("/mypage/{id}")
     public String changePassword(Model model, @PathVariable Long id, @ModelAttribute ChangePasswordForm changePasswordForm){
+        log.error("!!!!!!!!!!!!!!!!");
+
+
         Member member=getMember();
-        if (member==null){
+        Member pageMember=memberRepository.findById(id).stream().findAny().orElse(null);
+        if (member==null ||pageMember==null ||member.getId()!=pageMember.getId()){
             return "redirect:/";
         }
 
-        return "member/mypage";
+        member.setPassword(passwordEncoder.encode(changePasswordForm.getPassword()));
+        memberRepository.save(member);
+
+        return "redirect:/mypage";
     }
 
 
