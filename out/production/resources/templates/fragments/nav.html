@@ -13,7 +13,7 @@
             <a sec:authorize="hasRole('USER')" th:href="@{/mypage}">mypage &nbsp;</a>
             <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}">admin &nbsp;</a>
             <div id="alert"><a th:href="@{/search}" ><i class="fas fa-search"></i>search &nbsp;&nbsp;</a></div>
-            <div id="search"><a><i class="fas fa-globe"></i>notice &nbsp;&nbsp;</a></div>
+            <div id="search"><a th:href="@{/notice}"><i class="fas fa-globe"></i>notice &nbsp;&nbsp;</a></div>
             <a href="#menu">Menu</a>
         </nav>
     </header>

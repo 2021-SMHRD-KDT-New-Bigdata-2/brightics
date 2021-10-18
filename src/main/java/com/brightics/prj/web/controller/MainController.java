@@ -1,14 +1,8 @@
 package com.brightics.prj.web.controller;
 
+import com.brightics.prj.web.entity.*;
 import com.brightics.prj.web.form.CommentForm;
-import com.brightics.prj.web.entity.Candidate;
-import com.brightics.prj.web.entity.Comment;
-import com.brightics.prj.web.entity.Member;
-import com.brightics.prj.web.entity.Stock;
-import com.brightics.prj.web.repository.CandidateRepository;
-import com.brightics.prj.web.repository.CommentRepository;
-import com.brightics.prj.web.repository.MemberRepository;
-import com.brightics.prj.web.repository.StockRepository;
+import com.brightics.prj.web.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,14 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.socket.messaging.SubProtocolWebSocketHandler;
 
 import javax.validation.Valid;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +30,7 @@ public class MainController {
     private final StockRepository stockRepository;
     private final MemberRepository memberRepository;
     private final CommentRepository commentRepository;
+    private final NoticeRepository noticeRepository;
 
 
 
@@ -84,16 +74,19 @@ public class MainController {
 
     @PostMapping("/candidate/stock/{code}")
     public String createComment(@PathVariable String code, Model model, @Valid @ModelAttribute CommentForm commentForm, Errors errors){
-
+        log.debug("1");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member;
         if(authentication.getPrincipal().getClass()== DefaultOAuth2User.class){
+            log.debug("2");
             DefaultOAuth2User user= (DefaultOAuth2User) authentication.getPrincipal();
             Map att= user.getAttributes();
             String oauthId= att.get("id").toString();
             member=memberRepository.findMemberByOauthId(oauthId);
+
         }
         else {
+            log.debug("3");
             member=memberRepository.findMemberByLoginId(authentication.getPrincipal().toString()).stream().findAny().orElse(null);
         }
 
@@ -133,11 +126,21 @@ public class MainController {
         return "search";
     }
 
+    @GetMapping("/notice")
+    public String noticePage(Model model, Pageable pageable){
+
+        Page<Notice> noticeList=noticeRepository.findAll(pageable);
+        model.addAttribute("noticeList", noticeList);
+        return "notice";
+    }
+    @GetMapping("/notice/{id}")
+    public String noticeDetail(@PathVariable Long id, Model model){
+        Notice notice = noticeRepository.findById(id).stream().findAny().orElse(null);
+        model.addAttribute("notice", notice);
 
 
-
-
-
+        return "noticepage";
+    }
 
 }
 
