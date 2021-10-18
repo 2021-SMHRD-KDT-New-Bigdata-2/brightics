@@ -74,11 +74,11 @@ public class MainController {
 
     @PostMapping("/candidate/stock/{code}")
     public String createComment(@PathVariable String code, Model model, @Valid @ModelAttribute CommentForm commentForm, Errors errors){
-        log.debug("1");
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member;
         if(authentication.getPrincipal().getClass()== DefaultOAuth2User.class){
-            log.debug("2");
+
             DefaultOAuth2User user= (DefaultOAuth2User) authentication.getPrincipal();
             Map att= user.getAttributes();
             String oauthId= att.get("id").toString();
@@ -86,7 +86,7 @@ public class MainController {
 
         }
         else {
-            log.debug("3");
+
             member=memberRepository.findMemberByLoginId(authentication.getPrincipal().toString()).stream().findAny().orElse(null);
         }
 

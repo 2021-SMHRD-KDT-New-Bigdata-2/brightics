@@ -1,6 +1,7 @@
 package com.brightics.prj.web.repository;
 
 import com.brightics.prj.web.entity.Comment;
+import com.brightics.prj.web.entity.Member;
 import com.brightics.prj.web.entity.Stock;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
 
     Page<Comment> findCommentByStockIs(Stock stock, Pageable pageable);
+    Page<Comment> findCommentByMemberIs(Member member, Pageable pageable);
 
 
 }

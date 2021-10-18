@@ -1,11 +1,14 @@
 package com.brightics.prj.web.controller;
 
 import com.brightics.prj.web.entity.Candidate;
+import com.brightics.prj.web.entity.Comment;
+import com.brightics.prj.web.entity.Notice;
 import com.brightics.prj.web.form.ChangePasswordForm;
 import com.brightics.prj.web.form.ForgotPasswordForm;
 import com.brightics.prj.web.form.LoginForm;
 import com.brightics.prj.web.form.SignupForm;
 import com.brightics.prj.web.repository.CandidateRepository;
+import com.brightics.prj.web.repository.CommentRepository;
 import com.brightics.prj.web.util.SignupFormValidator;
 import com.brightics.prj.web.entity.Member;
 import com.brightics.prj.web.repository.MemberRepository;
@@ -13,6 +16,8 @@ import com.brightics.prj.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,6 +43,7 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final SignupFormValidator signupFormValidator;
     private final PasswordEncoder passwordEncoder;
+    private final CommentRepository commentRepository;
 
 
     @InitBinder("signupForm")
@@ -144,12 +150,20 @@ public class MemberController {
         return "redirect:/mypage/"+id;
     }
     @GetMapping("/mypage/{id}")
-    public String myPageDetail(Model model, @PathVariable Long id){
-        Member member=getMember();
-        if (member==null){
+    public String myPageDetail(Model model, @PathVariable Long id, Pageable pageable){
+        Member visitMember=getMember();
+
+        Member pageMember=memberRepository.findById(id).stream().findAny().orElse(null);
+        if(pageMember==null){
             return "redirect:/";
         }
-        model.addAttribute("member", member);
+        Page<Comment> pageMemberCommentList = commentRepository.findCommentByMemberIs(pageMember, pageable);
+
+        model.addAttribute("pageMemberCommentList", pageMemberCommentList);
+        model.addAttribute("visitMember", visitMember);
+        model.addAttribute("pageMember", pageMember);
+
+
 
         return "member/mypage";
     }

@@ -55,7 +55,7 @@ public class AdminController {
         notice.setContent(noticeForm.getContent());
         notice.setNoticedAt(LocalDateTime.now());
         noticeRepository.save(notice);
-        return null;
+        return "redirect:/admin";
     }
 
 
@@ -65,7 +65,7 @@ public class AdminController {
         if (notice!=null){
             noticeRepository.delete(notice);
         }
-        return null;
+        return "redirect:/nocite";
     }
 
 
