@@ -78,7 +78,6 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member;
         if(authentication.getPrincipal().getClass()== DefaultOAuth2User.class){
-
             DefaultOAuth2User user= (DefaultOAuth2User) authentication.getPrincipal();
             Map att= user.getAttributes();
             String oauthId= att.get("id").toString();
@@ -87,7 +86,7 @@ public class MainController {
         }
         else {
 
-            member=memberRepository.findMemberByLoginId(authentication.getPrincipal().toString()).stream().findAny().orElse(null);
+            member=memberRepository.findMemberByLoginId(authentication.getName()).stream().findAny().orElse(null);
         }
 
 
