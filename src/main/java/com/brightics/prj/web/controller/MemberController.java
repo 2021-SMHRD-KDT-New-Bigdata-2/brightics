@@ -1,7 +1,7 @@
 package com.brightics.prj.web.controller;
 
 import com.brightics.prj.web.entity.Candidate;
-import com.brightics.prj.web.form.ChangePasswordForm;
+
 import com.brightics.prj.web.form.ForgotPasswordForm;
 import com.brightics.prj.web.form.LoginForm;
 import com.brightics.prj.web.form.SignupForm;
@@ -154,7 +154,7 @@ public class MemberController {
         return "member/mypage";
     }
     @PostMapping("/mypage/{id}")
-    public String changePassword(Model model, @PathVariable Long id, @ModelAttribute ChangePasswordForm changePasswordForm){
+    public String changePassword(Model model, @PathVariable Long id){
         Member member=getMember();
         if (member==null){
             return "redirect:/";
