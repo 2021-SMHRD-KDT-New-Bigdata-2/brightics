@@ -152,6 +152,9 @@ public class MemberController {
     @GetMapping("/mypage/{id}")
     public String myPageDetail(Model model, @PathVariable Long id, Pageable pageable){
         Member visitMember=getMember();
+        if (visitMember==null){
+            return "redirect:/login";
+        }
 
         Member pageMember=memberRepository.findById(id).stream().findAny().orElse(null);
         if(pageMember==null){
@@ -173,7 +176,6 @@ public class MemberController {
         if (member==null){
             return "redirect:/";
         }
-
 
         return "member/mypage";
     }

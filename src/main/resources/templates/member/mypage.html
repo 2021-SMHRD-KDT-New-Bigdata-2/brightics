@@ -25,10 +25,48 @@
         <section id="one">
             <div class="inner">
                 <div class="primary">
-                    <H1>MyPage</H1>
+                    <H1>UserPage</H1>
                     <hr/>
-                    <div class="row">
+                    <div id="user-info">
+                        <p th:text="${pageMember.kakaoEmail}"></p>
+                        <p th:text="${pageMember.email}"></p>
+                    </div>
 
+                            <div class="comment">
+                                <div class="table-wrapper">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th class="th-2">comment</th>
+                                            <th>commented</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="co:${pageMemberCommentList}">
+                                            <td th:text="${co.member.email}? ${#strings.abbreviate(co.member.email,8)}:${#strings.abbreviate(co.member.kakaoEmail,8)}"></td>
+                                            <td th:text="${co.comment}"></td>
+                                            <td th:text="${#temporals.format(co.commentedAt,'MM/dd')}"></td>
+                                            <td><form th:action="@{{code}/delete/{id}(code=${co.stock.code},id=${co.id})}" method="post"><button type="submit" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form></td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                    </div>
+
+            </div>
+
+         
+
+    </section>
+
+        <section id="two" th:if="${visitMember.id.equals(pageMember.id) and pageMember.loginId!=null} " >
+            <div class="inner block">
+                <div class="primary">
                         <div class="col-6">
                             <form action="" method="post">
                                 <h3>비밀번호 수정</h3>
@@ -41,18 +79,12 @@
 
                         </div>
                     </div>
-
-
-
-
-                </div>
                 </div>
 
 
-                <hr/>
+</section>
 
-
-
+</div>
 
         </section>
 
