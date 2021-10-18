@@ -64,6 +64,7 @@ public class AdminController {
         Notice notice= noticeRepository.findById(id).stream().findAny().orElse(null);
         if (notice!=null){
             noticeRepository.delete(notice);
+            return "redirect:/notice";
         }
         return "redirect:/notice";
     }
