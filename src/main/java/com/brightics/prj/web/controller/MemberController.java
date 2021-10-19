@@ -121,7 +121,7 @@ public class MemberController {
     }
     @GetMapping("/we-send-email")
     public String weSendEmail(){
-        return "we-send-email";
+        return "member/we-send-email";
     }
 
     @GetMapping("/forgot-password")
