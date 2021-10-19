@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -68,15 +69,15 @@ public class AdminController {
 
 
     @PostMapping("/notice/{id}")
-    public String deleteNotice(@PathVariable Long id){
+    public String deleteNotice(@PathVariable Long id, HttpServletRequest request){
         Notice notice= noticeRepository.findById(id).stream().findAny().orElse(null);
+        String refer= request.getHeader("Referer");
         if (notice!=null){
             noticeRepository.delete(notice);
-            return "redirect:/notice";
+            return "redirect:"+refer;
         }
-        return "redirect:/notice";
+
+        return "redirect:/";
     }
-
-
 
 }
