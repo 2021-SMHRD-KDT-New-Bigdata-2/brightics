@@ -33,6 +33,7 @@ public class StockService {
         LocalDate target= parsing(end);
         Long interval= DateBetween(parsing(start),parsing(end));
         Candidate candidate=stock.getCandidate();
+
         return newsRepository.findCountNumberOfNewsPerPeriodAndCandidateIs(target,interval,candidate.getId());
 
     }
