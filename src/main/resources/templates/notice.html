@@ -40,7 +40,7 @@
                         <tr th:each="notice:${noticeList}">
                             <td><a th:href="@{/notice/{id}(id=${notice.id})}" th:text="${notice.title}">item.</a></td>
                             <td th:text="${#temporals.format(notice.noticedAt,'MM-dd')}"></td>
-                           <td><form th:action="@{/notice/{id}(id=${notice.id})}" method="post"><button type="submit" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form>
+                           <td><form th:action="@{/notice/{id}(id=${notice.id})}" method="post"><button type="submit small" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form>
                            </td>
                         </tr>
 
