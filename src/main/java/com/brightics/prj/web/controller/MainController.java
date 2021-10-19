@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -126,7 +127,7 @@ public class MainController {
     }
 
     @GetMapping("/notice")
-    public String noticePage(Model model, Pageable pageable){
+    public String noticePage(Model model,@PageableDefault(size=10, sort="noticedAt", direction = Sort.Direction.DESC) Pageable pageable){
 
         Page<Notice> noticeList=noticeRepository.findAll(pageable);
         model.addAttribute("noticeList", noticeList);

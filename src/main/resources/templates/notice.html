@@ -38,9 +38,9 @@
                         <tbody>
 
                         <tr th:each="notice:${noticeList}">
-                            <td><a th:href="@{notice/{id}(code=${notice.id})}" th:text="${notice.title}">item.</a></td>
-                            <td th:text="${notice.noticedAt}"></td>
-                           <td><form th:action="@{/notice/{id}(id=${notice.id})}" method="post"><button type="submit" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form>
+                            <td><a th:href="@{/notice/{id}(id=${notice.id})}" th:text="${notice.title}">item.</a></td>
+                            <td th:text="${#temporals.format(notice.noticedAt,'MM-dd')}"></td>
+                           <td><form th:action="@{/notice/{id}(id=${notice.id})}" method="post"><button type="submit small" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form>
                            </td>
                         </tr>
 
@@ -52,6 +52,16 @@
                         </tr>
                         </tfoot>
                     </table>
+
+                    <ul class="pagination">
+                        <li><a class="button small" th:href="@{'/notice'+'?page='+${noticeList.getNumber()-1}}"
+                               th:classappend="${!noticeList.hasPrevious()}?disabled">Prev</a></li>
+
+                        <li th:each="i: ${#numbers.sequence(0,noticeList.getTotalPages()-1)}" ><a th:href="@{'/notice'+'?page='+${i}}" class="page" th:text="${i+1}" th:classappend="${i==noticeList.getNumber()}? active">1</a></li>
+
+                        <li><a href="#" class="button small" th:href="@{'/notice'+'?page='+${noticeList.getNumber()+1}}"
+                               th:classappend="${!noticeList.hasNext()}?disabled">Next</a></li>
+                    </ul>
 
                 </div>
 

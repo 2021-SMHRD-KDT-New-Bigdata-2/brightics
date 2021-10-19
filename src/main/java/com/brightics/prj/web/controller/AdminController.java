@@ -14,10 +14,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,9 +34,8 @@ public class AdminController {
     private final CommentRepository commentRepository;
 
     @GetMapping("/admin")
-    public String adminHome(Model model, Pageable pageable){
+    public String adminHome(Model model,@PageableDefault(sort = "commentedAt", direction = Sort.Direction.DESC) Pageable pageable){
         Page<Comment> commentList = commentRepository.findAll(pageable);
-
         model.addAttribute("stockForm", new StockForm());
         List<Candidate> candidateList= candidateRepository.findAll();
         model.addAttribute("candidateList",candidateList);
@@ -68,15 +70,15 @@ public class AdminController {
 
 
     @PostMapping("/notice/{id}")
-    public String deleteNotice(@PathVariable Long id){
+    public String deleteNotice(@PathVariable Long id, HttpServletRequest request){
         Notice notice= noticeRepository.findById(id).stream().findAny().orElse(null);
+        String refer= request.getHeader("Referer");
         if (notice!=null){
             noticeRepository.delete(notice);
-            return "redirect:/notice";
+            return "redirect:"+refer;
         }
-        return "redirect:/notice";
+
+        return "redirect:/";
     }
-
-
 
 }
