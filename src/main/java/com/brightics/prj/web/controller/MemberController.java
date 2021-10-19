@@ -18,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -150,7 +152,7 @@ public class MemberController {
         return "redirect:/mypage/"+id;
     }
     @GetMapping("/mypage/{id}")
-    public String myPageDetail(Model model, @PathVariable Long id, Pageable pageable){
+    public String myPageDetail(Model model, @PathVariable Long id,@PageableDefault(size = 5, sort = "commentedAt", direction = Sort.Direction.DESC) Pageable pageable){
         Member visitMember=getMember();
         if (visitMember==null){
             return "redirect:/login";
