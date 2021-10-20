@@ -1,0 +1,24 @@
+y춗 뉴스값을 550000으로 나눈다
+
+pearson 계수 : (-0.3481520454632487, 0.22252756863740022)
+
+
+spearmanr 계수 : SpearmanrResult(correlation=-0.16483516483516483, pvalue=0.5733464050131383)
+
+OLS Regression Results
+Dep. Variable:	all_news_num	R-squared:	0.121
+Model:	OLS	Adj. R-squared:	0.048
+Method:	Least Squares	F-statistic:	1.655
+Date:	Wed, 20 Oct 2021	Prob (F-statistic):	0.223
+Time:	07:17:22	Log-Likelihood:	57.624
+No. Observations:	14	AIC:	-111.2
+Df Residuals:	12	BIC:	-110.0
+Df Model:	1		
+Covariance Type:	nonrobust		
+coef	std err	t	P>|t|	[0.025	0.975]
+const	0.0051	0.001	3.506	0.004	0.002	0.008
+trading_volume	-2.754e-12	2.14e-12	-1.287	0.223	-7.42e-12	1.91e-12
+Omnibus:	1.575	Durbin-Watson:	0.541
+Prob(Omnibus):	0.455	Jarque-Bera (JB):	1.233
+Skew:	0.639	Prob(JB):	0.540
+Kurtosis:	2.306	Cond. No.	8.81e+08
