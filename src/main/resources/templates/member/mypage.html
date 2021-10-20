@@ -40,14 +40,15 @@
                                         <thead>
                                         <tr>
 
-                                            <th class="th-2">comment</th>
-                                            <th>commented</th>
-                                            <th></th>
+                                            <th class="th-2">댓글</th>
+                                            <th>주식</th>
+                                            <th>작성일</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="co:${pageMemberCommentList}">
                                             <td th:text="${co.comment}"></td>
+                                            <td><a th:text="${co.stock.name}" th:href="@{/candidate/stock/{code}(code=${co.stock.code})}"></a> </td>
                                             <td th:text="${#temporals.format(co.commentedAt,'MM/dd')}"></td>
                                             <td><form th:action="@{/candidate/stock/{code}/delete/{id}(code=${co.stock.code},id=${co.id})}" method="post"><button type="submit" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form></td>
 

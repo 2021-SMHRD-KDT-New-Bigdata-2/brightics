@@ -90,20 +90,6 @@ public class MainController {
         return "redirect:/candidate/stock/{code}";
     }
 
-    private Member getMember() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member;
-        if(authentication.getPrincipal().getClass()== DefaultOAuth2User.class){
-            DefaultOAuth2User user= (DefaultOAuth2User) authentication.getPrincipal();
-            Map att= user.getAttributes();
-            String oauthId= att.get("id").toString();
-            member=memberRepository.findMemberByOauthId(oauthId);
-        }
-        else {
-            member=memberRepository.findMemberByLoginId(authentication.getName()).stream().findAny().orElse(null);
-        }
-        return member;
-    }
 
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -139,6 +125,20 @@ public class MainController {
         return "noticepage";
     }
 
+    private Member getMember() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member;
+        if(authentication.getPrincipal().getClass()== DefaultOAuth2User.class){
+            DefaultOAuth2User user= (DefaultOAuth2User) authentication.getPrincipal();
+            Map att= user.getAttributes();
+            String oauthId= att.get("id").toString();
+            member=memberRepository.findMemberByOauthId(oauthId);
+        }
+        else {
+            member=memberRepository.findMemberByLoginId(authentication.getName()).stream().findAny().orElse(null);
+        }
+        return member;
+    }
 }
 
 

@@ -40,22 +40,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN") //admin 권한이 있어야 /admin 경로 접속가능
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
 
         http.formLogin()
-                .loginPage("/login")
+                .loginPage("/login") //login 설정
                 .usernameParameter("loginId")
                 .passwordParameter("password")
                 .failureHandler(loginFailHandler)
                 .permitAll();
 
-        http.logout()
+        http.logout() //logout 설정
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/");
 
-        http.rememberMe()
+        http.rememberMe() //rememberMe 설정
                 .userDetailsService(memberService)
                 .tokenRepository(tokenRepository());
 
@@ -71,9 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
-
-    @Bean
+    @Bean //rememberMe의 토큰 관리
     public PersistentTokenRepository tokenRepository(){
         JdbcTokenRepositoryImpl jdbcTokenRepository= new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
