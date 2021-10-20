@@ -28,17 +28,18 @@
                     <H1>UserPage</H1>
                     <hr/>
                     <div id="user-info">
-                        <h3 th:text="${pageMember.kakaoEmail}"></h3>
-                        <h3 th:text="${pageMember.email}"></h3>
+                        <h3><span th:text="${pageMember.email}? ${#strings.abbreviate(pageMember.email,8)}:${#strings.abbreviate(pageMember.kakaoEmail,8)}"></span><span>님의 페이지입니다</span></h3>
+
 
                     </div>
+                    <h4><span th:text="${pageMember.email}? ${#strings.abbreviate(pageMember.email,8)}:${#strings.abbreviate(pageMember.kakaoEmail,8)}"></span><span>님이 작성하신 댓글</span></h4>
 
                             <div class="comment">
                                 <div class="table-wrapper">
                                     <table>
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
+
                                             <th class="th-2">comment</th>
                                             <th>commented</th>
                                             <th></th>
@@ -46,7 +47,6 @@
                                         </thead>
                                         <tbody>
                                         <tr th:each="co:${pageMemberCommentList}">
-                                            <td th:text="${co.member.email}? ${#strings.abbreviate(co.member.email,8)}:${#strings.abbreviate(co.member.kakaoEmail,8)}"></td>
                                             <td th:text="${co.comment}"></td>
                                             <td th:text="${#temporals.format(co.commentedAt,'MM/dd')}"></td>
                                             <td><form th:action="@{/candidate/stock/{code}/delete/{id}(code=${co.stock.code},id=${co.id})}" method="post"><button type="submit" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form></td>

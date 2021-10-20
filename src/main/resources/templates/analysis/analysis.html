@@ -30,19 +30,20 @@
 </head>
 
 <body class="is-preload">
-<div id="quickmenu" class="box">
-    <ul>
-        <h5><a href="#one">이재명</a></h5>
-        <h5><a href="#two">홍준표</a></h5>
-        <h5><a href="#three">윤석열</a></h5>
-        <h5><a href="#four">이낙연</a></h5>
-
-    </ul>
-</div>
 
 
 <!-- Wrapper -->
 <div id="wrapper">
+    <div id="quickmenu" class="box">
+        <ul>
+            <h5><a href="#one">이재명</a></h5>
+            <h5><a href="#two">홍준표</a></h5>
+            <h5><a href="#three">윤석열</a></h5>
+            <h5><a href="#four">이낙연</a></h5>
+
+        </ul>
+    </div>
+
 
     <div th:replace="/fragments/nav :: navFragment"></div>
 
@@ -50,7 +51,11 @@
 
     <!-- One -->
     <section id="one">
+
         <div class="inner">
+            <H1>인공신경망</H1>
+            <h3>수집된 뉴스의 키워드를 분석해서 도출한 각 후보별 인공신경망입니다.</h3>
+            <hr/>
             <!-- Content -->
             <H1> 이재명</H1>
             <!--이미지 슬라이드-->
