@@ -1,6 +1,7 @@
 package com.brightics.prj.web.service;
 
 import com.brightics.prj.web.entity.*;
+import com.brightics.prj.web.form.CommentForm;
 import com.brightics.prj.web.form.ForgotPasswordForm;
 import com.brightics.prj.web.form.UserAccount;
 import com.brightics.prj.web.form.SignupForm;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,6 +32,7 @@ public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final JavaMailSender mailSender;
     private final PasswordEncoder passwordEncoder;
+    private final CommentRepository commentRepository;
 
 
 
@@ -97,6 +100,17 @@ public class MemberService implements UserDetailsService {
         member.genToken();
         sendCheckEmail(member);
         return member;
+    }
+
+    public Comment createComment(CommentForm commentForm, Member member, Stock stock)
+    {
+        Comment comment=new Comment();
+        comment.setComment(commentForm.getComment());
+        comment.setMember(member);
+        comment.setStock(stock);
+        comment.setCommentedAt(LocalDateTime.now());
+        return  commentRepository.save(comment);
+
     }
 
 

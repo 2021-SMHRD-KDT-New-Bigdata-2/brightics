@@ -32,7 +32,7 @@
                         <tr>
 
                             <th class="th-2" th:text="${notice.title}">title</th>
-                            <th th:text="${notice.noticedAt}">noticed at..</th>
+                            <th th:text="${#temporals.format(notice.noticedAt,'MM-dd')}">noticed at..</th>
                         </tr>
                         </thead>
                         <tbody>

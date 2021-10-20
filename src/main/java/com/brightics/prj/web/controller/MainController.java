@@ -3,6 +3,7 @@ package com.brightics.prj.web.controller;
 import com.brightics.prj.web.entity.*;
 import com.brightics.prj.web.form.CommentForm;
 import com.brightics.prj.web.repository.*;
+import com.brightics.prj.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,7 @@ public class MainController {
     private final MemberRepository memberRepository;
     private final CommentRepository commentRepository;
     private final NoticeRepository noticeRepository;
+    private final MemberService memberService;
 
 
 
@@ -39,7 +41,6 @@ public class MainController {
 
     @GetMapping("")
     public String home(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         return "index";
     }
@@ -63,7 +64,7 @@ public class MainController {
         return "candidate/candidate-detail";
     }
     @GetMapping("/candidate/stock/{code}")
-    public String StockDetail(@PathVariable String code, Model model, CommentForm commentForm,@PageableDefault(size = 10) Pageable pageable){
+    public String StockDetail(@PathVariable String code, Model model, CommentForm commentForm,@PageableDefault(size=10, sort="commentedAt", direction = Sort.Direction.DESC) Pageable pageable){
         Stock stock = stockRepository.findStockByCodeIs(code).get();
         Page<Comment> commentList=commentRepository.findCommentByStockIs(stock, pageable);
         model.addAttribute("stock", stock);
@@ -75,21 +76,7 @@ public class MainController {
 
     @PostMapping("/candidate/stock/{code}")
     public String createComment(@PathVariable String code, Model model, @Valid @ModelAttribute CommentForm commentForm, Errors errors){
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member;
-        if(authentication.getPrincipal().getClass()== DefaultOAuth2User.class){
-            DefaultOAuth2User user= (DefaultOAuth2User) authentication.getPrincipal();
-            Map att= user.getAttributes();
-            String oauthId= att.get("id").toString();
-            member=memberRepository.findMemberByOauthId(oauthId);
-
-        }
-        else {
-
-            member=memberRepository.findMemberByLoginId(authentication.getName()).stream().findAny().orElse(null);
-        }
-
+        Member member = getMember();
 
         Stock stock= stockRepository.findStockByCodeIs(code).stream().findAny().orElse(null);
         if (stock==null || member ==null){
@@ -98,14 +85,24 @@ public class MainController {
         if(errors.hasErrors()){
             return "redirect:/error";
         }
-        Comment comment=new Comment();
-        comment.setComment(commentForm.getComment());
-        comment.setMember(member);
-        comment.setStock(stock);
-        comment.setCommentedAt(LocalDateTime.now());
-        commentRepository.save(comment);
+       memberService.createComment(commentForm,member,stock);
 
         return "redirect:/candidate/stock/{code}";
+    }
+
+    private Member getMember() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member;
+        if(authentication.getPrincipal().getClass()== DefaultOAuth2User.class){
+            DefaultOAuth2User user= (DefaultOAuth2User) authentication.getPrincipal();
+            Map att= user.getAttributes();
+            String oauthId= att.get("id").toString();
+            member=memberRepository.findMemberByOauthId(oauthId);
+        }
+        else {
+            member=memberRepository.findMemberByLoginId(authentication.getName()).stream().findAny().orElse(null);
+        }
+        return member;
     }
 
 

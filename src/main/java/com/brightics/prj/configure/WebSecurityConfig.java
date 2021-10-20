@@ -44,9 +44,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
 
-
-
-
         http.formLogin()
                 .loginPage("/login")
                 .usernameParameter("loginId")
@@ -70,7 +67,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement()
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(false);
-
 
     }
 
