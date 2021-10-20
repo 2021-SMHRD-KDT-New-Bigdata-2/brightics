@@ -7,27 +7,35 @@
 <html>
 
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <div th:replace="/fragments/head :: headFragment"></div>
     <style> #quickmenu {
         position: fixed;
         width: 175px;
         display: inline-block;
         right: 0px; /* 창에서 오른쪽 길이 */
-        top: 50%; /* 창에서 위에서 부터의 높이 */
-        background-color: transparent;
+        top: 80%; /* 창에서 위에서 부터의 높이 */
+        background-color: #2a2f4a;
         margin: 0;
-    } </style>
+        z-index: 1;
+    }
+    img{
+        height: 650px;
+    }
+
+    </style>
 
 
 </head>
 
 <body class="is-preload">
-<div id="quickmenu">
+<div id="quickmenu" class="box">
     <ul>
-        <li><a href="#one">이재명</a></li>
-        <li><a href="#two">홍준표</a></li>
-        <li><a href="#three">윤석열</a></li>
-        <li><a href="#four">이낙연</a></li>
+        <h5><a href="#one">이재명</a></h5>
+        <h5><a href="#two">홍준표</a></h5>
+        <h5><a href="#three">윤석열</a></h5>
+        <h5><a href="#four">이낙연</a></h5>
 
     </ul>
 </div>
@@ -45,10 +53,30 @@
         <div class="inner">
             <!-- Content -->
             <H1> 이재명</H1>
-            <span class="image fit">
-                <img th:src="@{/images/analysis/이재명_가중치2_support0001_상.png}"></span>
-            <span class="image fit">
-                <img th:src="@{/images/analysis/이재명_가중치2_support001_하.png}"></span>
+            <!--이미지 슬라이드-->
+            <div id="carouselExampleDark" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="false">
+                        <img th:src="@{/images/analysis/이재명_가중치2_support0001_상.png}" class="d-block w-100" alt="...">
+
+                    </div>
+                    <div class="carousel-item" data-bs-interval="false">
+                        <img th:src="@{/images/analysis/이재명_가중치2_support001_하.png}" class="d-block w-100" alt="...">
+
+                    </div>
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+
 
 
         </div>
@@ -58,12 +86,32 @@
             <!-- Content -->
             <H1> 홍준표</H1>
 
-            <span class="image fit">
-                <img th:src="@{/images/analysis/홍준표_상.png}"></span>
-            <span class="image fit">
-                <img th:src="@{/images/analysis/홍준표_중.png}"></span>
-            <span class="image fit">
-                <img th:src="@{/images/analysis/홍준표_하.png}"></span>
+            <div id="carouselExampleDark2" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="false" >
+                        <img th:src="@{/images/analysis/홍준표_상.png}" class="d-block w-100" alt="...">
+
+                    </div>
+                    <div class="carousel-item" data-bs-interval="false">
+                        <img th:src="@{/images/analysis/홍준표_중.png}" class="d-block w-100" alt="...">
+
+                    </div>
+                    <div class="carousel-item" data-bs-interval="false">
+                        <img th:src="@{/images/analysis/홍준표_하.png}" class="d-block w-100" alt="...">
+
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark2" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark2" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
 
 
         </div>
@@ -73,12 +121,33 @@
         <div class="inner">
             <!-- Content -->
             <H1> 윤석열</H1>
-            <span class="image fit">
-                <img th:src="@{/images/analysis/윤석열_상.png}"></span>
-            <span class="image fit">
-                <img th:src="@{/images/analysis/윤석열_중.png}"></span>
-            <span class="image fit">
-                <img th:src="@{/images/analysis/윤석열_하.png}"></span>
+<!--            이미지 슬라이드-->
+            <div id="carouselExampleDark3" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="false">
+                        <img th:src="@{/images/analysis/윤석열_상.png}" class="d-block w-100" alt="...">
+
+                    </div>
+                    <div class="carousel-item" data-bs-interval="false">
+                        <img th:src="@{/images/analysis/윤석열_중.png}" class="d-block w-100" alt="...">
+
+                    </div>
+                    <div class="carousel-item" data-bs-interval="false">
+                        <img th:src="@{/images/analysis/윤석열_하.png}" class="d-block w-100" alt="...">
+
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark3" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark3" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
 
 
         </div>
@@ -88,12 +157,33 @@
         <div class="inner">
             <!-- Content -->
             <H1> 이낙연</H1>
-            <span class="image fit">
-                <img th:src="@{/images/analysis/이낙연_상.png}"></span>
-            <span class="image fit">
-                <img th:src="@{/images/analysis/이낙연_중.png}"></span>
-            <span class="image fit">
-                <img th:src="@{/images/analysis/이낙연_하.png}"></span>
+            <!--            이미지 슬라이드-->
+            <div id="carouselExampleDark4" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active"data-bs-interval="false" >
+                        <img th:src="@{/images/analysis/이낙연_상.png}" class="d-block w-100" alt="...">
+
+                    </div>
+                    <div class="carousel-item" data-bs-interval="false">
+                        <img th:src="@{/images/analysis/이낙연_중.png}" class="d-block w-100" alt="...">
+
+                    </div>
+                    <div class="carousel-item" data-bs-interval="false">
+                        <img th:src="@{/images/analysis/이낙연_하.png}" class="d-block w-100" alt="...">
+
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark4" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark4" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
 
 
         </div>
@@ -107,7 +197,7 @@
 </div>
 <div id="main" class="alt">
 
-
+</div>
 </body>
 
 </html>
