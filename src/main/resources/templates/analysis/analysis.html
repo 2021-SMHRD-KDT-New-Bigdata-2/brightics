@@ -8,10 +8,30 @@
 
 <head>
     <div th:replace="/fragments/head :: headFragment"></div>
+    <style> #quickmenu {
+        position: fixed;
+        width: 175px;
+        display: inline-block;
+        right: 0px; /* 창에서 오른쪽 길이 */
+        top: 50%; /* 창에서 위에서 부터의 높이 */
+        background-color: transparent;
+        margin: 0;
+    } </style>
+
 
 </head>
 
 <body class="is-preload">
+<div id="quickmenu">
+    <ul>
+        <li><a href="#one">이재명</a></li>
+        <li><a href="#two">홍준표</a></li>
+        <li><a href="#three">윤석열</a></li>
+        <li><a href="#four">이낙연</a></li>
+
+    </ul>
+</div>
+
 
 <!-- Wrapper -->
 <div id="wrapper">
@@ -20,77 +40,72 @@
 
     <!-- Main -->
 
-        <!-- One -->
-        <section id="one">
-            <div class="inner">
-                <!-- Content -->
-                    <H1> 이재명</H1>
-                <span class="image fit">
+    <!-- One -->
+    <section id="one">
+        <div class="inner">
+            <!-- Content -->
+            <H1> 이재명</H1>
+            <span class="image fit">
                 <img th:src="@{/images/analysis/이재명_가중치2_support0001_상.png}"></span>
-                <span class="image fit">
+            <span class="image fit">
                 <img th:src="@{/images/analysis/이재명_가중치2_support001_하.png}"></span>
 
 
+        </div>
+    </section>
+    <section id="two">
+        <div class="inner">
+            <!-- Content -->
+            <H1> 홍준표</H1>
 
-                </div>
-        </section>
-        <section id="two">
-            <div class="inner">
-                <!-- Content -->
-                <H1> 홍준표</H1>
-
-                <span class="image fit">
+            <span class="image fit">
                 <img th:src="@{/images/analysis/홍준표_상.png}"></span>
-                <span class="image fit">
+            <span class="image fit">
                 <img th:src="@{/images/analysis/홍준표_중.png}"></span>
-                <span class="image fit">
+            <span class="image fit">
                 <img th:src="@{/images/analysis/홍준표_하.png}"></span>
 
 
-            </div>
+        </div>
 
-        </section>
-        <section id="three">
-            <div class="inner">
-                <!-- Content -->
-                <H1> 윤석열</H1>
-                <span class="image fit">
+    </section>
+    <section id="three">
+        <div class="inner">
+            <!-- Content -->
+            <H1> 윤석열</H1>
+            <span class="image fit">
                 <img th:src="@{/images/analysis/윤석열_상.png}"></span>
-                <span class="image fit">
+            <span class="image fit">
                 <img th:src="@{/images/analysis/윤석열_중.png}"></span>
-                <span class="image fit">
+            <span class="image fit">
                 <img th:src="@{/images/analysis/윤석열_하.png}"></span>
 
 
+        </div>
 
-            </div>
-
-        </section>
-        <section id="four">
-            <div class="inner">
-                <!-- Content -->
-                <H1> 이낙연</H1>
-                <span class="image fit">
+    </section>
+    <section id="four">
+        <div class="inner">
+            <!-- Content -->
+            <H1> 이낙연</H1>
+            <span class="image fit">
                 <img th:src="@{/images/analysis/이낙연_상.png}"></span>
-                <span class="image fit">
+            <span class="image fit">
                 <img th:src="@{/images/analysis/이낙연_중.png}"></span>
-                <span class="image fit">
+            <span class="image fit">
                 <img th:src="@{/images/analysis/이낙연_하.png}"></span>
 
 
+        </div>
 
-            </div>
+    </section>
 
-        </section>
-
-        <!-- Footer -->
-        <div th:replace="/fragments/footer :: footerFragment"></div>
-    </div>
-    <div th:replace="/fragments/script :: scriptFragment"></div>
+    <!-- Footer -->
+    <div th:replace="/fragments/footer :: footerFragment"></div>
+</div>
+<div th:replace="/fragments/script :: scriptFragment"></div>
 </div>
 <div id="main" class="alt">
-
-
 
 
 </body>
