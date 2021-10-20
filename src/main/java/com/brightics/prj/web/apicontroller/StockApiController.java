@@ -24,7 +24,7 @@ public class StockApiController {
 
     @GetMapping("/candidate/stock/{code}/getnewsgraph")
     public Object newsGraphInfoApi(@PathVariable String code , @RequestParam(required = false) String start, @RequestParam(required = false) String end){
-        log.error("!!!!");
+
         String endDate=CURRENT_DATE.toString();
         String startDate=CURRENT_DATE.minusDays(6).toString();
         if(start!=null && end!=null){
