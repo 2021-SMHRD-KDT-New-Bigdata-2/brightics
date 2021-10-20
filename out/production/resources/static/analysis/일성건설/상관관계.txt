@@ -1,0 +1,23 @@
+pearson 계수 : (0.8043717005346102, 0.0005232475918054423)
+
+
+spearmanr 계수 : SpearmanrResult(correlation=0.8769230769230769, pvalue=3.829698105449934e-05)
+
+
+OLS Regression Results
+Dep. Variable:	all_news_num	R-squared:	0.647
+Model:	OLS	Adj. R-squared:	0.618
+Method:	Least Squares	F-statistic:	22.00
+Date:	Wed, 20 Oct 2021	Prob (F-statistic):	0.000523
+Time:	06:56:29	Log-Likelihood:	27.314
+No. Observations:	14	AIC:	-50.63
+Df Residuals:	12	BIC:	-49.35
+Df Model:	1		
+Covariance Type:	nonrobust		
+coef	std err	t	P>|t|	[0.025	0.975]
+const	0.0065	0.014	0.459	0.654	-0.024	0.038
+trading_volume	2.049e-10	4.37e-11	4.690	0.001	1.1e-10	3e-10
+Omnibus:	10.250	Durbin-Watson:	1.773
+Prob(Omnibus):	0.006	Jarque-Bera (JB):	6.099
+Skew:	1.376	Prob(JB):	0.0474
+Kurtosis:	4.697	Cond. No.	4.67e+08

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.orh/extra/spring-security">
+
+<head>
+    <div th:replace="/fragments/head :: headFragment"></div>
+
+</head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/fragments/nav :: navFragment"></div>
+
+    <!-- Main -->
+    <div id="main" class="alt">
+
+        <!-- One -->
+        <section id="one">
+            <div class="inner">
+                <div class="primary">
+                    <H1>UserPage</H1>
+                    <hr/>
+                    <div id="user-info">
+                        <h3><span th:text="${pageMember.email}? ${#strings.abbreviate(pageMember.email,8)}:${#strings.abbreviate(pageMember.kakaoEmail,8)}"></span><span>님의 페이지입니다</span></h3>
+
+
+                    </div>
+                    <h4><span th:text="${pageMember.email}? ${#strings.abbreviate(pageMember.email,8)}:${#strings.abbreviate(pageMember.kakaoEmail,8)}"></span><span>님이 작성하신 댓글</span></h4>
+
+                            <div class="comment">
+                                <div class="table-wrapper">
+                                    <table>
+                                        <thead>
+                                        <tr>
+
+                                            <th class="th-2">댓글</th>
+                                            <th>주식</th>
+                                            <th>작성일</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="co:${pageMemberCommentList}">
+                                            <td th:text="${co.comment}"></td>
+                                            <td><a th:text="${co.stock.name}" th:href="@{/candidate/stock/{code}(code=${co.stock.code})}"></a> </td>
+                                            <td th:text="${#temporals.format(co.commentedAt,'MM/dd')}"></td>
+                                            <td><form th:action="@{/candidate/stock/{code}/delete/{id}(code=${co.stock.code},id=${co.id})}" method="post"><button type="submit" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form></td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <ul class="pagination">
+                                        <li><a class="button small" th:href="@{|?page=${pageMemberCommentList.getNumber()-1}|}"
+                                               th:classappend="${!pageMemberCommentList.hasPrevious()}?disabled">Prev</a></li>
+
+                                        <li th:each="i: ${#numbers.sequence(0,pageMemberCommentList.getTotalPages()-1)}" ><a th:href="@{|?page=${i}|}" class="page" th:text="${i+1}" th:classappend="${i==pageMemberCommentList.getNumber()}? active">1</a></li>
+
+                                        <li><a href="#" class="button small" th:href="@{|?page=${pageMemberCommentList.getNumber()+1}|}"
+                                               th:classappend="${!pageMemberCommentList.hasNext()}?disabled">Next</a></li></ul>
+                                </div>
+                            </div>
+                    </div>
+
+            </div>
+
+
+
+    </section>
+
+        <section id="two" th:if="${visitMember.id.equals(pageMember.id) and pageMember.loginId!=null} " >
+            <div class="inner block">
+                <div class="primary">
+                        <div class="col-6">
+                            <form action="" th:object="${changePasswordForm}" method="post">
+                                <h3>비밀번호 수정</h3>
+                                <input type="password" id="password" th:field="${changePasswordForm.password}" name="password">
+                                <input type="submit" value="확인">
+                            </form>
+                        </div>
+
+                        <div class="col-6">
+
+                        </div>
+                    </div>
+                </div>
+
+
+</section>
+
+</div>
+
+        </section>
+
+        <!-- Footer -->
+        <div th:replace="/fragments/footer :: footerFragment"></div>
+
+    </div>
+
+    <div th:replace="/fragments/script :: scriptFragment"></div>
+</div>
+
+</body>
+
+</html>

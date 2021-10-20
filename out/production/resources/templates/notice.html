@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.orh/extra/spring-security">
+
+<head>
+    <div th:replace="/fragments/head :: headFragment"></div>
+
+</head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/fragments/nav :: navFragment"></div>
+
+    <!-- Main -->
+    <div id="main" class="alt">
+
+        <!-- One -->
+        <section id="one">
+            <div class="inner">
+                <H1>공지</H1>
+                <hr />
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+
+                            <th class="th-2">내용</th>
+                            <th >등록일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="notice:${noticeList}">
+                            <td><a th:href="@{/notice/{id}(id=${notice.id})}" th:text="${notice.title}">item.</a></td>
+                            <td th:text="${#temporals.format(notice.noticedAt,'MM-dd')}"></td>
+                           <td><form th:action="@{/notice/{id}(id=${notice.id})}" method="post"><button type="submit small" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form>
+                           </td>
+                        </tr>
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+                    <ul class="pagination">
+                        <li><a class="button small" th:href="@{'/notice'+'?page='+${noticeList.getNumber()-1}}"
+                               th:classappend="${!noticeList.hasPrevious()}?disabled">Prev</a></li>
+
+                        <li th:each="i: ${#numbers.sequence(0,noticeList.getTotalPages()-1)}" ><a th:href="@{'/notice'+'?page='+${i}}" class="page" th:text="${i+1}" th:classappend="${i==noticeList.getNumber()}? active">1</a></li>
+
+                        <li><a href="#" class="button small" th:href="@{'/notice'+'?page='+${noticeList.getNumber()+1}}"
+                               th:classappend="${!noticeList.hasNext()}?disabled">Next</a></li>
+                    </ul>
+
+                </div>
+
+
+
+
+
+
+
+
+                </div>
+        </section>
+
+        <!-- Footer -->
+        <div th:replace="/fragments/footer :: footerFragment"></div>
+
+    </div>
+
+    <div th:replace="/fragments/script :: scriptFragment"></div>
+</div>
+
+</body>
+
+</html>

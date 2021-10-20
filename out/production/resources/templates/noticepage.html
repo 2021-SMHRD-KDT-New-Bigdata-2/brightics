@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.orh/extra/spring-security">
+
+<head>
+    <div th:replace="/fragments/head :: headFragment"></div>
+
+</head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/fragments/nav :: navFragment"></div>
+
+    <!-- Main -->
+    <div id="main" class="alt">
+
+        <!-- One -->
+        <section id="one">
+            <div class="inner">
+                <H1>Notice</H1>
+                <hr />
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+
+                            <th class="th-2" th:text="${notice.title}">title</th>
+                            <th th:text="${#temporals.format(notice.noticedAt,'MM-dd')}">noticed at..</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+
+                            <td th:text="${notice.content}" colspan="2"></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <button type="button"><a href="/notice">목록</a></button>
+
+                </div>
+
+
+
+
+
+
+
+
+                </div>
+        </section>
+
+        <!-- Footer -->
+        <div th:replace="/fragments/footer :: footerFragment"></div>
+
+    </div>
+
+    <div th:replace="/fragments/script :: scriptFragment"></div>
+</div>
+
+</body>
+
+</html>

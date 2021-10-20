@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <div th:replace="/fragments/head :: headFragment"></div>
+</head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/fragments/nav :: navFragment"></div>
+
+    <!-- Main -->
+    <div id="main" class="alt">
+
+        <!-- One -->
+        <section id="one">
+            <div class="inner">
+                <!-- Content -->
+                <div class="col-6 col-12-small">
+                    <H3> 이메일 인증</H3>
+
+                        <hr/>
+                    <div th:if="${error}">
+                    <H4>인증 실패!</H4>
+                    </div>
+                    <div th:if="${error==null}">
+                        <H3 th:text="|${memberEmail}님, 환영합니다!|"></H3>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div th:replace="/fragments/footer :: footerFragment"></div>
+
+    </div>
+
+    <div th:replace="/fragments/script :: scriptFragment"></div>
+</div>
+
+</body>
+
+</html>

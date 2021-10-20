@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.orh/extra/spring-security">
+
+<head>
+    <div th:replace="/fragments/head :: headFragment"></div>
+
+</head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/fragments/nav :: navFragment"></div>
+
+    <!-- Main -->
+    <div id="main" class="alt">
+
+        <!-- One -->
+        <section id="one">
+            <div class="inner">
+                <H1>Admin</H1>
+                <hr/>
+                <div class="row">
+
+
+                    <div id="stock" class="col-6">
+                        <h3>새로운 주식 등록</h3>
+                        <form action="" th:object="${stockForm}" method="post">
+                            <input type="text" th:field="${stockForm.name}" placeholder="주식명">
+                            <input type="text" th:field="${stockForm.stock_code}" placeholder="코드">
+                            <input type="text" th:field="${stockForm.description}" placeholder="설명">
+                            <input type="text" th:field="${stockForm.category}" placeholder="카테고리">
+                            <select th:field="${stockForm.candidate}">
+                                <option th:each="candidate:${candidateList}" th:value="${candidate.id}"
+                                        th:text="${candidate.name}"></option>
+
+                            </select>
+
+                            <input type="submit" value="등록">
+                        </form>
+                    </div>
+
+                    <div id="comment" class="col-6">
+                        <h3>공지 등록</h3>
+                        <form action="/notice" method="post" th:object="${noticeForm}">
+                            <input type="text" placeholder="제목" th:field="${noticeForm.title}">
+                            <textarea cols="5" placeholder="내용" th:field="${noticeForm.content}"></textarea> <input
+                                type=submit value="등록">
+
+                        </form>
+
+                        </tr>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="comment inner">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th class="th-2">comment</th>
+                            <th>commented</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="co:${commentList}">
+                            <td th:text="${co.member.email}? ${#strings.abbreviate(co.member.email,8)}:${#strings.abbreviate(co.member.kakaoEmail,8)}"></td>
+                            <td th:text="${co.comment}"></td>
+                            <td th:text="${#temporals.format(co.commentedAt,'MM/dd')}"></td>
+                            <td>
+                                <form th:action="@{candidate/stock/{code}/delete/{id}(code=${co.stock.code},id=${co.id})}"
+                                      method="post">
+                                    <button type="submit" sec:authorize="hasRole('ADMIN')"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </td>
+
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <ul class="pagination">
+                        <li><a class="button small" th:href="@{'/admin'+'?page='+${commentList.getNumber()-1}}"
+                               th:classappend="${!commentList.hasPrevious()}?disabled">Prev</a></li>
+
+                        <li th:each="i: ${#numbers.sequence(0,commentList.getTotalPages()-1)}" ><a th:href="@{'/admin'+'?page='+${i}}" class="page" th:text="${i+1}" th:classappend="${i==commentList.getNumber()}? active">1</a></li>
+
+                        <li><a href="#" class="button small" th:href="@{'/admin'+'?page='+${commentList.getNumber()+1}}"
+                               th:classappend="${!commentList.hasNext()}?disabled">Next</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <div th:replace="/fragments/footer :: footerFragment"></div>
+
+    </div>
+
+    <div th:replace="/fragments/script :: scriptFragment"></div>
+</div>
+
+</body>
+
+</html>

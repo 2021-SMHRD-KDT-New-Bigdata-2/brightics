@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <div th:replace="/fragments/head :: headFragment"></div>
+</head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/fragments/nav :: navFragment"></div>
+
+    <!-- Main -->
+    <div id="main" class="alt">
+
+        <!-- One -->
+        <section id="one">
+            <div class="inner">
+                <header class="major">
+                    <h1>Log-in</h1>
+                </header>
+                <!-- Content -->
+                <div class="col-6 col-12-small">
+                    <div class="login">
+                        <form th:action="@{/login}" th:object="${loginForm}" method="post">
+
+                            <div class="login_id">
+                                <h4>loginId</h4>
+                                <input type="text" placeholder="loginId" th:field="*{loginId}">
+
+
+                            </div>
+                            <div class="login_pw">
+                                <h4>Password</h4>
+                                <input type="password"placeholder="Password" th:field="*{password}">
+                            </div>
+                            <error th:if="${param.error}">
+                                <p th:text="${exception}"></p>
+                            </error>
+
+                            <div class="login_etc">
+                                <div class="col-6 col-12-small">
+                                    <input type="checkbox" id="remember-me" name="remember-me">
+                                    <label for="remember-me">Remember Me?</label>
+                                </div>
+
+                                <div class="forgot_pw">
+                                    <a href="/forgot-password">Forgot Password?</a>
+                                </div>
+                            </div>
+
+                            <hr/>
+                            <div class="row">
+                            <div class="submit col-6">
+                                <input type="submit" value="Log-in">
+                            </div>
+                                <div class="col-6">
+                                    <button type="button" onclick="location.href='/signup'">sign up</button>
+                                </div>
+                            </div>
+                            <hr/>
+
+                            <h3>login with .. .</h3>
+
+                            <div class="kakao">
+                                <a href="oauth2/authorization/kakao"><img style="width: 120px" th:src="@{/images/kakao_login_medium.png}"></a>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div th:replace="/fragments/footer :: footerFragment"></div>
+
+    </div>
+
+    <div th:replace="/fragments/script :: scriptFragment"></div>
+</div>
+
+</body>
+
+</html>
