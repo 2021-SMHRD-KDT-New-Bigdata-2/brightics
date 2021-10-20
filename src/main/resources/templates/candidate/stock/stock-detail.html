@@ -10,165 +10,41 @@
         input[type="date"]::-webkit-clear-button, input[type="date"]::-webkit-inner-spin-button {
             display: inline-block;
         }
+
         input[type="date"] {
             background: transparent;
             color: white;
         }
+
         .dateSend {
-            text-align : center;
+            text-align: center;
         }
 
-
+        image {
+            height: 40%;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <div th:replace="/fragments/head :: headFragment"></div>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script>
-        function nullCheck(data){
-            if (!data){
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        var newsChartData
-        var newsStart;
-        var newsEnd;
+    <script th:src="@{/assets/js/graph.js}"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let dir = /*[[ ${stock.name} ]]*/;
+        /*]]*/
+
+
         $(document).ready(function () {
-            newsChart()
-            $("#newsCheck").click(function () {
-                newsStart= document.getElementById("newsStart").value;
-                newsEnd= document.getElementById("newsEnd").value;
 
-                $("#news_error").text("")
-                if(nullCheck(newsStart)||nullCheck(newsEnd) || Date.parse(newsStart)>Date.parse(newsEnd)){
-                    $("#news_error").html("<h4><i class=\"fas fa-exclamation-triangle\"></i>Please check the date</h4>")
-                    return;
-                }
-
-                $("#news_title").text(newsStart+"부터 "+newsEnd+ "까지의 뉴스 수");
-
-                newsChart();
-            })
-
-            function newsChart() {
-                $.ajax({
-                    url: location.pathname+"/getnewsgraph" ,
-                    data: {
-                        "start": newsStart,
-                        "end": newsEnd
-                    },
-                    type: 'get',
-                    success: function (data) {
-                        data.unshift(['기간', '빈도'])
-                        newsChartData = data
-                        google.charts.load('current', {'packages': ['corechart']});
-                        google.charts.setOnLoadCallback(drawNewsChart);
-                    },
-                    error: function (err) {
-                    }
-                })
-            }})
-        var stockChartData
-        var stockStart;
-        var stockEnd;
-        $(document).ready(function () {
-            stockChart()
-            $("#stockCheck").click(function () {
-                stockStart= document.getElementById("stockStart").value;
-                stockEnd= document.getElementById("stockEnd").value;
-                $("#stock_error").text("")
-                if(nullCheck(stockStart)||nullCheck(stockEnd) || Date.parse(stockStart)>Date.parse(stockEnd)){
-                    $("#stock_error").html("<h4><i class=\"fas fa-exclamation-triangle\"></i>Please check the date</h4>")
-                    return;
-                }
-                $("#stock_title").text(stockStart+"부터 "+stockEnd+ "까지의 주식 차트");
-                stockChart()
-            })
-            function stockChart() {
-                $.ajax({
-                    url: location.pathname+"/getstockgraph" ,
-                    data: {
-                        "start": stockStart,
-                        "end": stockEnd
-                    },
-                    type: 'get',
-                    success: function (data) {
-                        stockChartData = data
-                        google.charts.load('current', {'packages':['corechart']});
-                        google.charts.setOnLoadCallback(drawStockChart);
-                    },
-                    error: function (err) {
-                    }
-                })
-            }})
-        function drawNewsChart() {
-            var data = google.visualization.arrayToDataTable(newsChartData);
-            var options = {
-                title: "",
-                hAxis: {title: '기간', titleTextStyle: {color: '#333'}},
-                vAxis: {minValue: 0},
-                backgroundColor: "transparent",
-
-                hAxis: {
-                    textStyle: {
-                        color: 'white'
-                    },
-                    titleTextStyle: {
-                        color: 'white'
-                    }
-                },
-                vAxis: {
-                    textStyle: {
-                        color: 'white'
-                    },
-                    titleTextStyle: {
-                        color: 'white'
-                    }
-                },
-                legend:'none',
+            $('#txt').load('/analysis/'+dir+'/상관관계.txt');
+            $('#a1').load('/analysis/'+dir+'/1.txt');
+            $('#a2').load('/analysis/'+dir+'/2.txt');
+            $('#a3').load('/analysis/'+dir+'/3.txt');
+            $('#a4').load('/analysis/'+dir+'/4.txt');
 
 
-            };
-            var chart = new google.visualization.AreaChart(document.getElementById('chart_div_news'));
-            chart.draw(data, options);
-
-        }
-        function drawStockChart() {
-            var data = google.visualization.arrayToDataTable(stockChartData, true);
-            var options = {
-                legend:'none',
-                backgroundColor: "transparent",
-                candlestick: {
-                    fallingColor: { fill: 'blue' },
-                    risingColor: {fill: 'red'}
-
-                },
-
-
-
-                hAxis: {
-                    textStyle: {
-                        color: 'white'
-                    },
-                    titleTextStyle: {
-                        color: 'white'
-                    }
-                },
-                vAxis: {
-                    textStyle: {
-                        color: 'white'
-                    },
-                    titleTextStyle: {
-                        color: 'white'
-                    },
-
-                },
-            };
-            var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div_stock'));
-            chart.draw(data, options);
-        }
+        });
     </script>
 </head>
 <body class="is-preload">
@@ -192,7 +68,7 @@
                         <p th:text="${stock.description}">회사설명.</p>
                     </div>
                 </div>
-              <hr/>
+                <hr/>
             </section>
 
             <h3 id="news_title">지난 일주일간 관련 후보 뉴스 개수</h3>
@@ -200,8 +76,9 @@
             <!--news graph-->
             <div id="chart_div_news" style="width: 100%; height: 500px;"></div>
             <div class="dateSend">
-            <input type="date" id="newsStart" ><input type="date" id="newsEnd" style="margin-left:0.8em;"><button class="button primary small" id="newsCheck" style="margin-left:1em;" >확인</button>
-            <div id="news_error"></div>
+                <input type="date" id="newsStart"><input type="date" id="newsEnd" style="margin-left:0.8em;">
+                <button class="button primary small" id="newsCheck" style="margin-left:1em;">확인</button>
+                <div id="news_error"></div>
             </div>
             <hr/>
 
@@ -213,75 +90,115 @@
             <h3 id="stock_title">지난 일주일간 주식 차트</h3>
             <div id="chart_div_stock" style="width: 100%; height: 500px;"></div>
             <div class="dateSend">
-            <input type="date" id="stockStart" ><input type="date" id="stockEnd" style="margin-left:0.8em;"><button class="button primary small" id="stockCheck" style="margin-left:1em;">확인</button>
-            <div id="stock_error"></div>
+                <input type="date" id="stockStart"><input type="date" id="stockEnd" style="margin-left:0.8em;">
+                <button class="button primary small" id="stockCheck" style="margin-left:1em;">확인</button>
+                <div id="stock_error"></div>
             </div>
             <hr/>
         </div>
     </section>
-    <section th:if="${stock.code=='065500'}">
+    <section>
         <div class="inner">
             <span class="image fit">
                 <h3>미디어 노출에 따른 주식 변화 분석</h3>
-                <img th:src="@{/images/analysis/이재명_오리엔트정공.png}">
-            </span>
 
-        </div>
+
+
+                <span class="image fit">#주식 가격, 뉴스 빈도, 변동성 분석 그래프
+                <img th:src="@{|/analysis/${stock.name}/${stock.name}.png|}"></span>
+                <h4>#한줄 분석</h4>
+                <p id="a1"></p>
+                <hr/>
+
+                <span class="image fit">#가격과 거래량 비교 그래프
+                <img th:src="@{|/analysis/${stock.name}/${stock.name}_거래량.png|}"></span>
+            <h4>#한줄 분석</h4>
+                <p id="a2"></p>
+                <hr/>
+
+                <span class="image fit">#상관관계 분석
+                <img th:src="@{|/analysis/${stock.name}/${stock.name}_상관관계.png|}"></span>
+            </span><h4>#한줄 분석</h4>
+            <p id="a3"></p>
+            <hr/>
+
+            <div><h4>#회귀 분석</h4></div>
+            <div id="txt">
+            </div><br/>
+            <h4>#한줄 분석</h4>
+            <p id="a4"></p>
+            <hr/>
+
+
+
+            </div>
+
+
     </section>
+
 
     <section id="three">
         <div class="inner">
             <div class="card mb-2">
-            <div class="card-header bg-light">
+                <div class="card-header bg-light">
 
-            </div>
+                </div>
                 <div class="comment">
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th class="th-2">comment</th>
-                            <th>commented</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="co:${commentList}">
-                            <td><a th:text="${co.member.email}? ${#strings.abbreviate(co.member.email,8)}:${#strings.abbreviate(co.member.kakaoEmail,8)}" th:href="@{/mypage/{id}(id=${co.member.id})}"></a></td>
-                            <td th:text="${co.comment}"></td>
-                            <td th:text="${#temporals.format(co.commentedAt,'MM/dd')}"></td>
-                            <td><form th:action="@{{code}/delete/{id}(code=${stock.code},id=${co.id})}" method="post"><button type="submit" sec:authorize="hasRole('ADMIN')"><i class="fas fa-trash-alt"></i></button></form></td>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="th-2">comment</th>
+                                <th>commented</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="co:${commentList}">
+                                <td>
+                                    <a th:text="${co.member.email}? ${#strings.abbreviate(co.member.email,8)}:${#strings.abbreviate(co.member.kakaoEmail,8)}"
+                                       th:href="@{/mypage/{id}(id=${co.member.id})}"></a></td>
+                                <td th:text="${co.comment}"></td>
+                                <td th:text="${#temporals.format(co.commentedAt,'MM/dd')}"></td>
+                                <td>
+                                    <form th:action="@{{code}/delete/{id}(code=${stock.code},id=${co.id})}"
+                                          method="post">
+                                        <button type="submit" sec:authorize="hasRole('ADMIN')"><i
+                                                class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </td>
 
 
-                        </tr>
+                            </tr>
 
-                        </tbody>
-                    </table>
-                    <ul class="pagination">
-                        <li><a class="button small" th:href="@{|?page=${commentList.getNumber()-1}|}"
-                               th:classappend="${!commentList.hasPrevious()}?disabled">Prev</a></li>
+                            </tbody>
+                        </table>
+                        <ul class="pagination">
+                            <li><a class="button small" th:href="@{|?page=${commentList.getNumber()-1}|}"
+                                   th:classappend="${!commentList.hasPrevious()}?disabled">Prev</a></li>
 
-                        <li th:each="i: ${#numbers.sequence(0,commentList.getTotalPages()-1)}" ><a th:href="@{|?page=${i}|}" class="page" th:text="${i+1}" th:classappend="${i==commentList.getNumber()}? active">1</a></li>
+                            <li th:each="i: ${#numbers.sequence(0,commentList.getTotalPages()-1)}"><a
+                                    th:href="@{|?page=${i}|}" class="page" th:text="${i+1}"
+                                    th:classappend="${i==commentList.getNumber()}? active">1</a></li>
 
-                        <li><a href="#" class="button small" th:href="@{|?page=${commentList.getNumber()+1}|}"
-                               th:classappend="${!commentList.hasNext()}?disabled">Next</a></li></ul>
+                            <li><a href="#" class="button small" th:href="@{|?page=${commentList.getNumber()+1}|}"
+                                   th:classappend="${!commentList.hasNext()}?disabled">Next</a></li>
+                        </ul>
 
-                </div>
+                    </div>
 
 
+                    <div class="input-comment" sec:authorize="hasRole('USER')">
+                        <i class="fa fa-comment fa"></i> comment
+                        <form action="" method="post" th:object="${commentForm}">
+                            <textarea class="form-control" th:field="${commentForm.comment}" rows="3"></textarea>
+                            <button type="submit">등록</button>
 
-                <div class="input-comment" sec:authorize="hasRole('USER')">
-                    <i class="fa fa-comment fa"></i> comment
-                    <form action="" method="post" th:object="${commentForm}">
-                        <textarea class="form-control" th:field="${commentForm.comment}" rows="3"></textarea>
-                        <button type="submit">등록</button>
-
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-
 
 
         </div>
