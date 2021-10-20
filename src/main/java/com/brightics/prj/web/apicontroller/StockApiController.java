@@ -41,6 +41,7 @@ public class StockApiController {
             startDate=start;
             endDate=end;
         }
+
         return stockService.makeStockGraph(code,startDate,endDate);
     }
 }

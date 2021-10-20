@@ -2,6 +2,7 @@ package com.brightics.prj.web.repository;
 
 
 import com.brightics.prj.web.entity.DailyStock;
+import com.brightics.prj.web.entity.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -31,6 +32,10 @@ public interface DailyStockRepository extends JpaRepository<DailyStock, String> 
 
 
 
-    @Query(value= "select date(date), count(*) from news where date between :start and :end group by date(date)" ,nativeQuery = true)
-    public List<Object[]> findStockInfoPerDayNoWeekend(@Param("start") LocalDate start, @Param("end") LocalDate end);
+    @Query(value= "select date(date), IFNULL(sum(low),0) ,IFNULL(sum(open),0) ,IFNULL(sum(close),0) ,IFNULL(sum(high),0)\n" +
+            "from daily_stock\n" +
+            "where stock_code = :stock_code \n" +
+            "and date between :start and :end \n" +
+            "group by date(date)" ,nativeQuery = true)
+    public List<Object[]> findStockInfoPerDayNoWeekend(@Param("stock_code")String stock_code, @Param("start") LocalDate start, @Param("end") LocalDate end);
 }

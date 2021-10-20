@@ -42,11 +42,12 @@ public class StockService {
         if(stock==null){
             return null;
         }
-        LocalDate target= parsing(end);
-        Long interval= DateBetween(parsing(start),parsing(end));
+        LocalDate startDate= parsing(start);
+        LocalDate endDate= parsing(end);
+//        Long interval= DateBetween(parsing(start),parsing(end));
 
 
-        return dailyStockRepository.findStockInfoPerDay(target,interval,code);
+        return dailyStockRepository.findStockInfoPerDayNoWeekend(stock.getCode(), startDate, endDate);
     }
 
 
